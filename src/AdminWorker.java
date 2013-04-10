@@ -8,6 +8,9 @@ public class AdminWorker extends Employee {
 	private double bonus;
 
 	/**
+	 * Constructor for objects of class AdminWorker
+	 * Is a sub-class of Employee.
+	 * 
 	 * @param firstName
 	 * @param lastName
 	 * @param hourlyRate
