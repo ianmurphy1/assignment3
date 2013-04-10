@@ -77,4 +77,9 @@ public class DriverTest
 		
 		assertEquals("Booker", curHighest.getFirstName());
 	}
+	
+	@Test
+	public void testSortAlpha() {
+		
+	}
 }
