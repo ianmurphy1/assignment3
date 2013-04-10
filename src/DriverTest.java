@@ -82,4 +82,9 @@ public class DriverTest
 	public void testSortAlpha() {
 		
 	}
+	
+	@Test
+	public void testSortWage() {
+		
+	}
 }
