@@ -85,15 +85,16 @@ public class DriverTest
 		
 		assertEquals("Peregrin", employees.get(0).getFirstName());
 		
-		for (int j = 0; j < employees.size(); j++) {
+		for (int i = 0; i < employees.size(); i += 1) {
 
-			for (int i = j + 1; i < employees.size(); i++) {
+			for (int j = (i + 1); j < employees.size(); j += 1) {
 
-				if ((employees.get(i).getFirstName())
-						.compareToIgnoreCase(employees.get(j).getFirstName()) < 0) {
-					Employee emp = employees.get(j);
-					employees.set(j, employees.get(i));	
-					employees.set(i, emp);
+				if ((employees.get(j).getFirstName()).compareToIgnoreCase(
+						             employees.get(i).getFirstName()) < 0) {
+					
+					Employee emp = employees.get(i);
+					employees.set(i, employees.get(j));	
+					employees.set(j, emp);
 				}
 			}
 		}
