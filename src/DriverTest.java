@@ -94,13 +94,13 @@ public class DriverTest
 					Employee emp = employees.get(j);
 					employees.set(j, employees.get(i));	
 					employees.set(i, emp);
-
 				}
 			}
 		}
 		
 		assertEquals("Booker", employees.get(0).getFirstName());
 		assertEquals("Elizabeth", employees.get(1).getFirstName());
+		assertEquals("Paul", employees.get(4).getFirstName());
 		assertEquals("Samwell", employees.get(6).getFirstName());
 
 	}
