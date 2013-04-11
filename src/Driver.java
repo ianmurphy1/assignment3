@@ -73,13 +73,13 @@ public class Driver
 				int accountOption = accountMenu();
 				switch (accountOption) {
 				case 1:
-					calcSalary(accountOption);
+					printSalary();
 					break;
 				case 2:
-					calcSalary(accountOption);
+					printSalaries();
 					break;
 				case 3:
-					calcAverage();
+					printAverage();
 					break;
 				}
 				break;
@@ -105,6 +105,77 @@ public class Driver
 	}
 	
 	
+	/**
+	 * 
+	 */
+	private void printAverage() {
+		StdOut.println("Average Salary for " + employees.size() + " people: ");
+		StdOut.print(calcAverage());
+	}
+
+	/**
+	 * 
+	 */
+	private void printSalaries() {
+		StdOut.println("Total Salary for all employees: ");
+		StdOut.print(calcSalaries());
+	}
+
+	/**
+	 * 
+	 */
+	private void printSalary() {
+		listEmployees();
+		
+		StdOut.println("Enter Index of Employee whose salary " 
+		             + " is to be calculated: ");
+		int index = StdIn.readInt();
+		StdIn.readLine();
+		
+		if ((index >= 0) && (index < employees.size())) {
+			
+			Employee tempEmployee = employees.get(index);
+			
+			StdOut.println("Enter the amount of hours the employee has worked: ");
+			int hours = StdIn.readInt();
+			StdIn.readLine();
+			
+			tempEmployee.calculateSalary(hours);
+			
+			StdOut.println(tempEmployee.getFirstName() + "'s Salary is: ");			
+			StdOut.println(tempEmployee.getSalary());
+			
+		} else {
+			StdOut.println("Invalid Index!");
+			printSalary();
+		}
+		
+	}
+
+	/**
+	 * 
+	 */
+	private void listEmployees() {
+		if (employees.size() > 0) {
+			StdOut.println("--------------");
+			StdOut.println("EMPLOYEE LIST");
+			StdOut.println("--------------");
+			for (int index = 0; index < employees.size(); index += 1) {
+				StdOut.println("Index: " + index + "\n" + employees.get(index)
+						+ "\n");
+			}
+			StdOut.println("-----------");
+		} else {
+			StdOut.println("No Employees in System!");
+			StdOut.println("Add Employees now (y/n)?");
+			String response = StdIn.readString();
+			StdIn.readLine();
+			if (response.equals("y")) {
+				addEmployee();
+			}
+		}
+	}
+
 	private void printBy(int printOption) {
 		
 		ArrayList<Employee> temp = null;
@@ -125,6 +196,10 @@ public class Driver
 		}
 	}
 
+	/**
+	 * @param option
+	 * @return
+	 */
 	private ArrayList<Employee> sort(int option) {
 
 		ArrayList<Employee> temp = employees;
@@ -158,12 +233,13 @@ public class Driver
 			break;
 		case 3:
 			for (int i = 0; i < temp.size(); i += 1) {
-				
+
 				for (int j = (i + 1); j < temp.size(); j += 1) {
-					if (temp.get(j).getHourlyRate() < temp.get(i).getHourlyRate()) {
-						
+					if (temp.get(j).getHourlyRate() < temp.get(i)
+							.getHourlyRate()) {
+
 						Employee emp = temp.get(i);
-						temp.set(i, temp.get(j));	
+						temp.set(i, temp.get(j));
 						temp.set(j, emp);
 					}
 				}
@@ -174,13 +250,24 @@ public class Driver
 		return temp;
 	}
 
-	private void calcAverage() {
-		// TODO Auto-generated method stub
+	private double calcAverage() {
+		double averageSalary = 0.0;
 		
+		averageSalary = calcSalaries() / employees.size();
+		
+		return toTwoDecimalPlaces(averageSalary);
 	}
 
-	private void calcSalary(int accountOption) {
-		// TODO Auto-generated method stub
+	private double calcSalaries() {
+		double totalSalary = 0;
+	
+		for (Employee emp : employees) {
+			totalSalary += emp.getSalary();
+		}
+		
+		return toTwoDecimalPlaces(totalSalary);
+		
+		
 		
 	}
 
@@ -203,11 +290,6 @@ public class Driver
 	private int accountMenu() {
 		// TODO Auto-generated method stub
 		return 0;
-	}
-
-	private void printByRate() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	private int printMenu() {
@@ -281,8 +363,7 @@ public class Driver
      * @return the double number truncated to two decimal
      *         places (does not round up and down)
      */
-    private double toTwoDecimalPlaces(double num)
-    {
+    private double toTwoDecimalPlaces(double num) {
         return (int) (num * 100) / 100.0;
     }
 	
