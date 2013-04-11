@@ -137,7 +137,7 @@ public abstract class Employee
      * @return the double number truncated to two decimal
      *         places (does not round up and down)
      */
-    public double toTwoDecimalPlaces(double num)
+    private double toTwoDecimalPlaces(double num)
     {
         return (int) (num * 100) / 100.0;
     }
