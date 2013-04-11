@@ -29,7 +29,7 @@ public class DriverTest
 
 		s1 = new SalesWorker("Johnny", "Bravo", 11.75, 6);
 		s2 = new SalesWorker("Peregrin", "Took", 9.50, 12);
-		s3 = new SalesWorker("Samwell", "Tarly", 9.50, 12);
+		s3 = new SalesWorker("Samwell", "Tarly", 10.50, 12);
 
 		// Adding Managers to the list last so a sort isn't
 		// required (for now) when calculating wages.
@@ -63,8 +63,11 @@ public class DriverTest
 		for (Employee emp : employees) {
 			totalSalary += emp.getSalary();
 		}
+		
+		double averageSalary = (totalSalary / employees.size());
 
 		assertEquals(2170.11, totalSalary, DELTA);
+		assertEquals(310.01, averageSalary, DELTA);
 	}
 
 	@Test
@@ -104,6 +107,24 @@ public class DriverTest
 		assertEquals("Paul", employees.get(4).getFirstName());
 		assertEquals("Samwell", employees.get(6).getFirstName());
 
+	}
+	
+	@Test
+	public void testSortWage() {
+		for (int i = 0; i < employees.size(); i += 1) {
+			
+			for (int j = (i + 1); j < employees.size(); j += 1) {
+				if (employees.get(j).getHourlyRate() < employees.get(i).getHourlyRate()) {
+					
+					Employee emp = employees.get(i);
+					employees.set(i, employees.get(j));	
+					employees.set(j, emp);
+				}
+			}
+		}
+		
+		assertEquals("Peregrin", employees.get(0).getFirstName());
+		assertEquals("Paul", employees.get(6).getFirstName());
 	}
 	
 }
