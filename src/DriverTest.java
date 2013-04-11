@@ -86,44 +86,49 @@ public class DriverTest
 	@Test
 	public void testSortFirstName() {
 		
-		assertEquals("Johnny", employees.get(0).getFirstName());
+		ArrayList<Employee> temp = employees;
 		
-		for (int i = 0; i < employees.size(); i += 1) {
+		assertEquals("Johnny", temp.get(0).getFirstName());
+		
+		for (int i = 0; i < temp.size(); i += 1) {
 
-			for (int j = (i + 1); j < employees.size(); j += 1) {
+			for (int j = (i + 1); j < temp.size(); j += 1) {
 
-				if ((employees.get(j).getFirstName()).compareToIgnoreCase(
-						             employees.get(i).getFirstName()) < 0) {
+				if ((temp.get(j).getFirstName()).compareToIgnoreCase(
+						             temp.get(i).getFirstName()) < 0) {
 					
-					Employee emp = employees.get(i);
-					employees.set(i, employees.get(j));	
-					employees.set(j, emp);
+					Employee emp = temp.get(i);
+					temp.set(i, temp.get(j));	
+					temp.set(j, emp);
 				}
 			}
 		}
 		
-		assertEquals("Booker", employees.get(0).getFirstName());
-		assertEquals("Elizabeth", employees.get(1).getFirstName());
-		assertEquals("Paul", employees.get(4).getFirstName());
-		assertEquals("Samwell", employees.get(6).getFirstName());
+		assertEquals("Booker", temp.get(0).getFirstName());
+		assertEquals("Elizabeth", temp.get(1).getFirstName());
+		assertEquals("Paul", temp.get(4).getFirstName());
+		assertEquals("Samwell", temp.get(6).getFirstName());
 	}
 	
 	@Test
 	public void testSortHourlyRate() {
-		for (int i = 0; i < employees.size(); i += 1) {
+		
+		ArrayList<Employee> temp = employees;
+		
+		for (int i = 0; i < temp.size(); i += 1) {
 			
-			for (int j = (i + 1); j < employees.size(); j += 1) {
-				if (employees.get(j).getHourlyRate() < employees.get(i).getHourlyRate()) {
+			for (int j = (i + 1); j < temp.size(); j += 1) {
+				if (temp.get(j).getHourlyRate() < temp.get(i).getHourlyRate()) {
 					
-					Employee emp = employees.get(i);
-					employees.set(i, employees.get(j));	
-					employees.set(j, emp);
+					Employee emp = temp.get(i);
+					temp.set(i, temp.get(j));	
+					temp.set(j, emp);
 				}
 			}
 		}
 		
-		assertEquals("Samwell", employees.get(1).getFirstName());
-		assertEquals("Booker", employees.get(5).getFirstName());
+		assertEquals("Samwell", temp.get(1).getFirstName());
+		assertEquals("Booker", temp.get(5).getFirstName());
 	}
 	
 	

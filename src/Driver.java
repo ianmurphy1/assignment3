@@ -57,13 +57,13 @@ public class Driver
 				int printOption = printMenu();
 				switch (printOption) {
 				case 1:
-					printByFirst();
+					printBy(printOption);
 					break;
 				case 2:
-					printByLast;
+					printBy(printOption);
 					break;
 				case 3:
-					printByRate();
+					printBy(printOption);
 					break;				
 				}
 				break;
@@ -73,13 +73,13 @@ public class Driver
 				int accountOption = accountMenu();
 				switch (accountOption) {
 				case 1:
-					calcIndSalary();
+					calcSalary(accountOption);
 					break;
 				case 2:
-					calcAllSalary();
+					calcSalary(accountOption);
 					break;
 				case 3:
-					calcAllAverage();
+					calcAverage();
 					break;
 				}
 				break;
@@ -105,6 +105,136 @@ public class Driver
 	}
 	
 	
+	private void printBy(int printOption) {
+		
+		ArrayList<Employee> temp = null;
+		
+		switch(printOption){
+		case 1:
+			temp = sort(printOption);
+			break;
+		case 2:
+			temp = sort(printOption);
+			break;
+		case 3:
+			temp = sort(printOption);
+		}
+		
+		for (Employee emp: temp) {
+			StdOut.println(emp.getFirstName());
+		}
+	}
+
+	private ArrayList<Employee> sort(int option) {
+
+		ArrayList<Employee> temp = employees;
+
+		switch (option) {
+		case 1:
+			for (int i = 0; i < temp.size(); i += 1) {
+				for (int j = (i + 1); j < temp.size(); j += 1) {
+					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
+							.get(i).getFirstName()) < 0) {
+
+						Employee emp = temp.get(i);
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
+					}
+				}
+			}
+			break;
+		case 2:
+			for (int i = 0; i < temp.size(); i += 1) {
+				for (int j = (i + 1); j < temp.size(); j += 1) {
+					if ((temp.get(j).getLastName()).compareToIgnoreCase(temp
+							.get(i).getLastName()) < 0) {
+
+						Employee emp = temp.get(i);
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
+					}
+				}
+			}
+			break;
+		case 3:
+			for (int i = 0; i < temp.size(); i += 1) {
+				
+				for (int j = (i + 1); j < temp.size(); j += 1) {
+					if (temp.get(j).getHourlyRate() < temp.get(i).getHourlyRate()) {
+						
+						Employee emp = temp.get(i);
+						temp.set(i, temp.get(j));	
+						temp.set(j, emp);
+					}
+				}
+			}
+			break;
+		}
+
+		return temp;
+	}
+
+	private void calcAverage() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void calcSalary(int accountOption) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void load() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void save() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int saveLoadMenu() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+	private int accountMenu() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private void printByRate() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int printMenu() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	private void deleteEmployee() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void editEmployee() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addEmployee() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int adminMenu() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	/**
 	 * Method to display the main menu for the application and reads the menu
 	 * option that the user has entered and returns it.
