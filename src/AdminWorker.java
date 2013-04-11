@@ -37,7 +37,7 @@ public class AdminWorker extends Employee {
 	 */
 	public void setBonus(double bonus) {
 		if (bonus >= 0) {
-			this.setBonus(bonus);
+			this.bonus = bonus;
 		}
 	}
 	

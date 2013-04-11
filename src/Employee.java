@@ -73,7 +73,7 @@ public abstract class Employee
 	 */
 	public void setHourlyRate(double hourlyRate) {
 		if (hourlyRate >= 0) {
-			this.hourlyRate = hourlyRate;
+			this.hourlyRate = toTwoDecimalPlaces(hourlyRate);
 		}
 	}
 
@@ -89,7 +89,7 @@ public abstract class Employee
 	 */
 	public void setSalary(double salary) {
 		if (salary >= 0) {
-			this.salary = salary;
+			this.salary = toTwoDecimalPlaces(salary);
 		}
 	}
 
@@ -137,7 +137,7 @@ public abstract class Employee
      * @return the double number truncated to two decimal
      *         places (does not round up and down)
      */
-    private double toTwoDecimalPlaces(double num)
+    public double toTwoDecimalPlaces(double num)
     {
         return (int) (num * 100) / 100.0;
     }

@@ -43,12 +43,12 @@ public class Manager extends Employee {
 
 		double managerBonus = 0.0;	
 		
-		double tempSal = 0;		
+		double tempSal = 0.0;		
 		
 		if (numHours > 0) {
 			
-			for (Employee emp : minions) {
-				managerBonus += (emp.getSalary() * 0.01);			
+			for (Employee minion : minions) {
+				managerBonus += (minion.getSalary() * 0.01);			
 			}
 			
 			tempSal = (super.calculateSalary(numHours) + managerBonus);			
