@@ -33,8 +33,8 @@ public class DriverTest
 
 		// Adding Managers to the list last so a sort isn't
 		// required (for now) when calculating wages.
-		employees.add(s2);
 		employees.add(s1);
+		employees.add(s2);
 		employees.add(s3);
 		employees.add(a1);
 		employees.add(a2);
@@ -84,9 +84,9 @@ public class DriverTest
 	}
 
 	@Test
-	public void testSortAlpha() {
+	public void testSortFirstName() {
 		
-		assertEquals("Peregrin", employees.get(0).getFirstName());
+		assertEquals("Johnny", employees.get(0).getFirstName());
 		
 		for (int i = 0; i < employees.size(); i += 1) {
 
@@ -106,11 +106,10 @@ public class DriverTest
 		assertEquals("Elizabeth", employees.get(1).getFirstName());
 		assertEquals("Paul", employees.get(4).getFirstName());
 		assertEquals("Samwell", employees.get(6).getFirstName());
-
 	}
 	
 	@Test
-	public void testSortWage() {
+	public void testSortHourlyRate() {
 		for (int i = 0; i < employees.size(); i += 1) {
 			
 			for (int j = (i + 1); j < employees.size(); j += 1) {
@@ -123,8 +122,10 @@ public class DriverTest
 			}
 		}
 		
-		assertEquals("Peregrin", employees.get(0).getFirstName());
-		assertEquals("Paul", employees.get(6).getFirstName());
+		assertEquals("Samwell", employees.get(1).getFirstName());
+		assertEquals("Booker", employees.get(5).getFirstName());
 	}
+	
+	
 	
 }
