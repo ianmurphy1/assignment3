@@ -39,26 +39,26 @@ public class Driver
 		while (option != 0) {
 
 			switch (option) {
-			//Admin Menu
+			// Admin Menu
 			case 1:
 				int adminOption = adminMenu();
 				switch (adminOption) {
-				//Creation Menu
-				case 1:					
+				// Creation Menu
+				case 1:
 					int addOption = addEmployeeMenu();
 					switch (addOption) {
 					case 1:
-						addAdminWorker();
+						addEmployee(addOption);
 						break;
 					case 2:
-						addSalesWorker();
+						addEmployee(addOption);
 						break;
 					case 3:
-						addManger();
+						addEmployee(addOption);
 						break;
 					}
 					break;
-				//Update Menu
+				// Update Menu
 				case 2:
 					int editOption = editEmployeeMenu();
 					switch (editOption) {
@@ -73,7 +73,7 @@ public class Driver
 						break;
 					}
 					break;
-				//Delete Menu	
+				// Delete Menu
 				case 3:
 					int delOption = deleteEmployeeMenu();
 					switch (delOption) {
@@ -103,11 +103,11 @@ public class Driver
 					break;
 				case 3:
 					printBy(printOption);
-					break;				
+					break;
 				}
 				break;
-			
-			//Search Menu	
+
+			// Search Menu
 			case 3:
 				int searchOption = searchMenu();
 				switch (searchOption) {
@@ -159,6 +159,61 @@ public class Driver
 		StdOut.println("Exiting...bye.");
 	}
 	
+	/**
+	 * addEmployee() - Method that asks the user to enter the first and last
+	 * name, the hourly rate and depending on what type of employee
+	 * is to be created will take in a value for a fixed bonus or a 
+	 * percentage for a performance bonus.
+	 * 
+	 * @param choice The type of employee to be created.
+	 */
+	public void addEmployee(int choice) {
+		StdOut.println("Enter Employee's First Name: ");
+		String firstName = StdIn.readLine();
+		StdOut.println("Enter Employee's Surname: ");
+		String lastName = StdIn.readLine();
+		
+		// Checks if title is duplicated if there are modules in the arraylist
+		if (employees.size() > 0) {
+			for (Employee emp : employees) {
+				if (((emp.getFirstName().equals(firstName)) && (emp.getLastName().equals(lastName)))) {
+					StdOut.println("Dublicated Employee Names!");
+					addEmployee(choice);
+				}
+			}
+		}
+		StdOut.println("Enter Hourly Rate: ");
+		double hourlyRate = StdIn.readDouble();
+		StdIn.readLine();
+		
+		switch (choice) {
+		case 1:
+			StdOut.println("Enter fixed bonus amount: ");
+			double fixedBonus = StdIn.readDouble();
+			StdIn.readLine();			
+			AdminWorker admin = new AdminWorker(firstName, lastName, hourlyRate, fixedBonus);
+			employees.add(admin);
+			break;
+		case 2:
+			StdOut.println("Enter bonus Percentage: ");
+			StdOut.println("Must be between 0 and 20 inclusive.");	
+			double perfBonus = StdIn.readDouble();
+			StdIn.readLine();
+			if (!(perfBonus > 0 && perfBonus <= 20)) {
+				StdOut.println("Not a Valid Range.");
+				StdOut.println("Must be between 0 and 20.");
+				StdOut.println("Enter new bonus percentage: ");	
+				perfBonus = StdIn.readDouble();
+				StdIn.readLine();
+			}
+			SalesWorker sales = new SalesWorker(firstName, lastName, hourlyRate, perfBonus);
+			employees.add(sales);			
+			break;
+		case 3:
+			Manager manager = new Manager(firstName, lastName, hourlyRate);
+			employees.add(manager);
+		}			
+	}
 	
 	private void deleteManager() {
 		// TODO Auto-generated method stub
@@ -188,22 +243,7 @@ public class Driver
 	private void editAdminWorker() {
 		// TODO Auto-generated method stub
 		
-	}
-
-	private void addManger() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void addSalesWorker() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void addAdminWorker() {
-		// TODO Auto-generated method stub
-		
-	}
+	}	
 
 	private int deleteEmployeeMenu() {
 		return 0;
@@ -300,7 +340,9 @@ public class Driver
 			String response = StdIn.readString();
 			StdIn.readLine();
 			if (response.equals("y")) {
-				addEmployee();
+				StdOut.println("Choose Type of Employee to add.");
+				int choice = addEmployeeMenu();
+				addEmployee(choice);
 			}
 		}
 	}
@@ -330,7 +372,7 @@ public class Driver
 				String response = StdIn.readString();
 				StdIn.readLine();
 				if (response.equals("y")) {
-					addManager();
+					addEmployee(3);
 				}
 			}
 		} else {
@@ -339,14 +381,11 @@ public class Driver
 			String response = StdIn.readString();
 			StdIn.readLine();
 			if (response.equals("y")) {
-				addEmployee();
+				StdOut.println("Choose Type of Employee to add.");
+				int choice = addEmployeeMenu();
+				addEmployee(choice);
 			}
 		}
-	}
-
-	private void addManager() {
-		// TODO Auto-generated method stub
-		
 	}
 
 	/**
@@ -421,6 +460,7 @@ public class Driver
 				}
 			}
 			break;
+		//For returning a list that only has managers.	
 		case 4:
 			for (int index = 0; index < temp.size(); index += 1) {				
 				Employee potentMan = temp.get(index);				
@@ -433,7 +473,8 @@ public class Driver
 				if (potentMan instanceof Manager) {
 					temp.add(potentMan);
 				}
-			}			
+			}
+			break;	    			
 		}
 
 		return temp;
@@ -516,14 +557,7 @@ public class Driver
 		// TODO Auto-generated method stub
 		
 	}
-
-	/**
-	 * 
-	 */
-	private void addEmployee() {
-		// TODO Auto-generated method stub		
-	}
-
+	
 	/**
 	 * @return
 	 */
