@@ -39,7 +39,7 @@ public class Driver
 		while (option != 0) {
 
 			switch (option) {
-			// Module Menu
+			//Admin Menu
 			case 1:
 				int moduleOption = adminMenu();
 				switch (moduleOption) {
@@ -70,9 +70,23 @@ public class Driver
 					break;				
 				}
 				break;
+			
+			//Search Menu	
+			case 3:
+				int searchOption = searchMenu();
+				switch (searchOption) {
+				case 1:
+					searchBy(searchOption);
+					break;
+				case 2:
+					searchBy(searchOption);
+					break;
+				case 3:
+					searchBy(searchOption);
+				}
 
 			// Account Menu
-			case 3:
+			case 4:
 				int accountOption = accountMenu();
 				switch (accountOption) {
 				case 1:
@@ -88,7 +102,7 @@ public class Driver
 				break;
 
 			// Save/Load Menu
-			case 4:
+			case 5:
 				int saveLoadOption = saveLoadMenu();
 				switch (saveLoadOption) {
 				case 1:
@@ -108,6 +122,16 @@ public class Driver
 	}
 	
 	
+	private void searchBy(int searchOption) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int searchMenu() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 	/**
 	 * 
 	 */
@@ -177,6 +201,51 @@ public class Driver
 				addEmployee();
 			}
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	private void listManagers() {
+		if (employees.size() > 0) {
+			
+			ArrayList<Employee> tempEmps = sort(4);
+			int index = 0;
+			
+			if (tempEmps.size() > 0) {			
+			StdOut.println("--------------");
+			StdOut.println("MANAGER LIST");
+			StdOut.println("--------------");
+			
+			for (Employee emp: tempEmps){
+				StdOut.println("Index: " + index + "\n" + emp
+						+ "\n");
+				index += 1;
+			}			
+			StdOut.println("-----------");
+			} else {
+				StdOut.println("There are no Managers.");
+				StdOut.println("Add Manager now (y/n)?");				
+				String response = StdIn.readString();
+				StdIn.readLine();
+				if (response.equals("y")) {
+					addManager();
+				}
+			}
+		} else {
+			StdOut.println("No Employees in System!");
+			StdOut.println("Add Employees now (y/n)?");
+			String response = StdIn.readString();
+			StdIn.readLine();
+			if (response.equals("y")) {
+				addEmployee();
+			}
+		}
+	}
+
+	private void addManager() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	/**
@@ -251,6 +320,19 @@ public class Driver
 				}
 			}
 			break;
+		case 4:
+			for (int index = 0; index < employees.size(); index += 1) {				
+				Employee potentMan = employees.get(index);				
+				
+				//TODO Find out if instanceof or .getClass() is better 
+				/*if (potentMan.getClass() == Manager.class) {
+					tempEmps.add(employees.get(index));
+				}*/			
+				
+				if (potentMan instanceof Manager) {
+					temp.add(potentMan);
+				}
+			}			
 		}
 
 		return temp;

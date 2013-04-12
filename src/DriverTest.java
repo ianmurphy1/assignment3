@@ -131,6 +131,28 @@ public class DriverTest
 		assertEquals("Booker", temp.get(5).getFirstName());
 	}
 	
-	
+	@Test
+	public void testManagerSort() {
+		
+		ArrayList<Employee> tempEmps = new ArrayList<Employee>();
+		
+		for (int index = 0; index < employees.size(); index += 1) {
+			
+			Employee potentMan = employees.get(index);
+			
+			/*if (potentMan.getClass() == Manager.class) {
+				tempEmps.add(employees.get(index));
+			}*/
+			
+			if (potentMan instanceof Manager) {
+				tempEmps.add(potentMan);
+			}
+		}
+		
+		
+		//Booker because he was added first.
+		assertEquals("Booker", tempEmps.get(0).getFirstName());
+		assertEquals(2, tempEmps.size());
+	}
 	
 }
