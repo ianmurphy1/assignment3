@@ -116,10 +116,7 @@ public class Driver
 					break;
 				case 2:
 					searchBy(searchOption);
-					break;
-				case 3:
-					searchBy(searchOption);
-					break;
+					break;				
 				}
 				break;
 
@@ -152,7 +149,6 @@ public class Driver
 				}
 				break;
 			}
-
 			option = mainMenu();
 		}
 
@@ -160,7 +156,7 @@ public class Driver
 	}
 	
 	/**
-	 * addEmployee() - Method that asks the user to enter the first and last
+	 * Method that asks the user to enter the first and last
 	 * name, the hourly rate and depending on what type of employee
 	 * is to be created will take in a value for a fixed bonus or a 
 	 * percentage for a performance bonus.
@@ -424,6 +420,7 @@ public class Driver
 		ArrayList<Employee> temp = employees;
 
 		switch (option) {
+		//List sorted by First Name
 		case 1:
 			for (int i = 0; i < temp.size(); i += 1) {
 				for (int j = (i + 1); j < temp.size(); j += 1) {
@@ -437,6 +434,7 @@ public class Driver
 				}
 			}
 			break;
+		//List sorted by Surname	
 		case 2:
 			for (int i = 0; i < temp.size(); i += 1) {
 				for (int j = (i + 1); j < temp.size(); j += 1) {
@@ -450,6 +448,7 @@ public class Driver
 				}
 			}
 			break;
+		//List Sorted by hourly rate	
 		case 3:
 			for (int i = 0; i < temp.size(); i += 1) {
 
