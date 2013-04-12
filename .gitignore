@@ -20,15 +20,14 @@ Thumbs.db
 # Java
 *.class
 # packages 
-*.jar
+
 *.war
 *.ear
  
 # Eclipse
 .settings/
 .buildpath
-.classpath
-.project
+
  
 # Logging
 *.log
