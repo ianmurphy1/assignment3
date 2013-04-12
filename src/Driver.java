@@ -29,6 +29,9 @@ public class Driver
 	}
 
 
+	/**
+	 * 
+	 */
 	public void run() {
 		StdOut.println("Employee Management System");
 		int option = mainMenu();
@@ -143,13 +146,13 @@ public class Driver
 			tempEmployee.calculateSalary(hours);
 			
 			StdOut.println(tempEmployee.getFirstName() + "'s Salary is: ");			
-			StdOut.println(tempEmployee.getSalary());
+			StdOut.print(tempEmployee.getSalary());
+			StdOut.println("After " + hours + " work.");
 			
 		} else {
 			StdOut.println("Invalid Index!");
 			printSalary();
-		}
-		
+		}		
 	}
 
 	/**
@@ -176,6 +179,9 @@ public class Driver
 		}
 	}
 
+	/**
+	 * @param printOption
+	 */
 	private void printBy(int printOption) {
 		
 		ArrayList<Employee> temp = null;
@@ -192,7 +198,7 @@ public class Driver
 		}
 		
 		for (Employee emp: temp) {
-			StdOut.println(emp.getFirstName());
+			StdOut.println(emp);
 		}
 	}
 
@@ -250,6 +256,9 @@ public class Driver
 		return temp;
 	}
 
+	/**
+	 * @return
+	 */
 	private double calcAverage() {
 		double averageSalary = 0.0;
 		
@@ -258,6 +267,9 @@ public class Driver
 		return toTwoDecimalPlaces(averageSalary);
 	}
 
+	/**
+	 * @return
+	 */
 	private double calcSalaries() {
 		double totalSalary = 0;
 	
@@ -265,53 +277,76 @@ public class Driver
 			totalSalary += emp.getSalary();
 		}
 		
-		return toTwoDecimalPlaces(totalSalary);
-		
-		
-		
+		return toTwoDecimalPlaces(totalSalary);		
 	}
 
+	/**
+	 * 
+	 */
 	private void load() {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
+	/**
+	 * 
+	 */
 	private void save() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * @return
+	 */
 	private int saveLoadMenu() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	
+	/**
+	 * @return
+	 */
 	private int accountMenu() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * @return
+	 */
 	private int printMenu() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
+	/**
+	 * 
+	 */
 	private void deleteEmployee() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * 
+	 */
 	private void editEmployee() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * 
+	 */
 	private void addEmployee() {
 		// TODO Auto-generated method stub
 		
 	}
 
+	/**
+	 * @return
+	 */
 	private int adminMenu() {
 		// TODO Auto-generated method stub
 		return 0;
