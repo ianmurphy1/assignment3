@@ -212,6 +212,10 @@ public class Driver
 		case 3:
 			Manager manager = new Manager(firstName, lastName, hourlyRate);
 			employees.add(manager);
+			break;
+		default:
+			StdOut.println("Invalid choice.");
+			break;
 		}			
 	}
 	
