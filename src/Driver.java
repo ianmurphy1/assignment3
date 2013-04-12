@@ -41,16 +41,52 @@ public class Driver
 			switch (option) {
 			//Admin Menu
 			case 1:
-				int moduleOption = adminMenu();
-				switch (moduleOption) {
-				case 1:
-					addEmployee();
-					break;				
-				case 2:
-					editEmployee();
+				int adminOption = adminMenu();
+				switch (adminOption) {
+				//Creation Menu
+				case 1:					
+					int addOption = addEmployeeMenu();
+					switch (addOption) {
+					case 1:
+						addAdminWorker();
+						break;
+					case 2:
+						addSalesWorker();
+						break;
+					case 3:
+						addManger();
+						break;
+					}
 					break;
+				//Update Menu
+				case 2:
+					int editOption = editEmployeeMenu();
+					switch (editOption) {
+					case 1:
+						editAdminWorker();
+						break;
+					case 2:
+						editSalesWorker();
+						break;
+					case 3:
+						editManager();
+						break;
+					}
+					break;
+				//Delete Menu	
 				case 3:
-					deleteEmployee();
+					int delOption = deleteEmployeeMenu();
+					switch (delOption) {
+					case 1:
+						deleteAdminWorker();
+						break;
+					case 2:
+						deleteSalesWorker();
+						break;
+					case 3:
+						deleteManager();
+						break;
+					}
 					break;
 				}
 				break;
@@ -83,7 +119,9 @@ public class Driver
 					break;
 				case 3:
 					searchBy(searchOption);
+					break;
 				}
+				break;
 
 			// Account Menu
 			case 4:
@@ -122,6 +160,69 @@ public class Driver
 	}
 	
 	
+	private void deleteManager() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void deleteSalesWorker() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void deleteAdminWorker() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void editManager() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void editSalesWorker() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void editAdminWorker() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addManger() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addSalesWorker() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private void addAdminWorker() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int deleteEmployeeMenu() {
+		return 0;
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int editEmployeeMenu() {
+		return 0;
+		// TODO Auto-generated method stub
+		
+	}
+
+	private int addEmployeeMenu() {
+		return 0;
+		// TODO Auto-generated method stub
+		
+	}
+
 	private void searchBy(int searchOption) {
 		// TODO Auto-generated method stub
 		
@@ -136,6 +237,8 @@ public class Driver
 	 * 
 	 */
 	private void printAverage() {
+		StdOut.println("This will only take into account the salaries that" +
+				      " have already been individually calculated.");
 		StdOut.println("Average Salary for " + employees.size() + " people: ");
 		StdOut.print(calcAverage());
 	}
@@ -144,8 +247,9 @@ public class Driver
 	 * 
 	 */
 	private void printSalaries() {
-		StdOut.println("Total Salary for all employees: ");
-		StdOut.print(calcSalaries());
+		StdOut.println("This will only take into account the salaries that" +
+				" have already been individually calculated.");
+		StdOut.println("Total Salary: €" + calcSalaries());		
 	}
 
 	/**
@@ -161,16 +265,14 @@ public class Driver
 		
 		if ((index >= 0) && (index < employees.size())) {
 			
-			Employee tempEmployee = employees.get(index);
+			Employee tempEmp = employees.get(index);
 			
 			StdOut.println("Enter the amount of hours the employee has worked: ");
 			int hours = StdIn.readInt();
-			StdIn.readLine();
+			StdIn.readLine();			
 			
-			tempEmployee.calculateSalary(hours);
-			
-			StdOut.println(tempEmployee.getFirstName() + "'s Salary is: ");			
-			StdOut.print(tempEmployee.getSalary());
+			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");			
+			StdOut.print(tempEmp.calculateSalary(hours));
 			StdOut.println("After " + hours + " work.");
 			
 		} else {
@@ -208,24 +310,23 @@ public class Driver
 	 */
 	private void listManagers() {
 		if (employees.size() > 0) {
-			
+
 			ArrayList<Employee> tempEmps = sort(4);
 			int index = 0;
-			
-			if (tempEmps.size() > 0) {			
-			StdOut.println("--------------");
-			StdOut.println("MANAGER LIST");
-			StdOut.println("--------------");
-			
-			for (Employee emp: tempEmps){
-				StdOut.println("Index: " + index + "\n" + emp
-						+ "\n");
-				index += 1;
-			}			
-			StdOut.println("-----------");
+
+			if (tempEmps.size() > 0) {
+				StdOut.println("--------------");
+				StdOut.println("MANAGER LIST");
+				StdOut.println("--------------");
+
+				for (Employee emp : tempEmps) {
+					StdOut.println("Index: " + index + "\n" + emp + "\n");
+					index += 1;
+				}
+				StdOut.println("-----------");
 			} else {
 				StdOut.println("There are no Managers.");
-				StdOut.println("Add Manager now (y/n)?");				
+				StdOut.println("Add Manager now (y/n)?");
 				String response = StdIn.readString();
 				StdIn.readLine();
 				if (response.equals("y")) {
@@ -321,12 +422,12 @@ public class Driver
 			}
 			break;
 		case 4:
-			for (int index = 0; index < employees.size(); index += 1) {				
-				Employee potentMan = employees.get(index);				
+			for (int index = 0; index < temp.size(); index += 1) {				
+				Employee potentMan = temp.get(index);				
 				
 				//TODO Find out if instanceof or .getClass() is better 
 				/*if (potentMan.getClass() == Manager.class) {
-					tempEmps.add(employees.get(index));
+					temp.add(potentMan);
 				}*/			
 				
 				if (potentMan instanceof Manager) {
