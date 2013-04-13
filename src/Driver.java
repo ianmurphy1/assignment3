@@ -592,22 +592,20 @@ public class Driver
 					if (employees.get(delChoice).hasManager()) {
 						ArrayList<Manager> managers = managerArray();
 
-						String name = (toDel.getFirstName()
-								+ toDel.getLastName());
-
-						int i = 0;
+						String name = (toDel.getFirstName() + toDel
+								.getLastName());
 
 						for (Manager man : managers) {
+							for (int i = 0; i < managers.size(); i += 1) {
 
-							String compare = (man.getMinions().get(i)
-									.getFirstName()
-									+ man.getMinions().get(i).getLastName());
+								String compare = (man.getMinions().get(i)
+										.getFirstName() + man.getMinions()
+										.get(i).getLastName());
 
-							if (name.equalsIgnoreCase(compare)) {
-								man.getMinions().remove(toDel);
+								if (name.equalsIgnoreCase(compare)) {
+									man.getMinions().remove(toDel);
+								}
 							}
-
-							i += 1;
 						}
 					}
 
