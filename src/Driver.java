@@ -306,9 +306,22 @@ public class Driver
 	}
 
 	private int addEmployeeMenu() {
-		return 0;
-		// TODO Auto-generated method stub
 		
+		StdOut.println("-------------");
+		StdOut.println("ADD EMPLOYEE MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Add Admin Worker");
+		StdOut.println("2 - Add Sales Worker");
+		StdOut.println("3 - Add Manager");		
+		StdOut.println("4 - Add Employee To Manager");
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int addMenuOption = StdIn.readInt();
+		StdIn.readLine();
+		
+		return addMenuOption;
+				
 	}
 
 	private void searchBy(int searchOption) {
@@ -407,20 +420,27 @@ public class Driver
 	 * 
 	 */
 	private void listManagers() {
-		if (employees.size() > 0) {
+		if (employees.size() > 0) {			
+			
+			//Tries to create an arrayList of Managers
+			//To see if they can be listed or not
+			ArrayList<Employee> managers = managerArray();			
 
-			ArrayList<Employee> tempEmps = managerArray();
-			int index = 0;
-
-			if (tempEmps.size() > 0) {
+			if (managers.size() > 0) {
 				StdOut.println("--------------");
 				StdOut.println("MANAGER LIST");
 				StdOut.println("--------------");
 
-				for (Employee emp : tempEmps) {
-					StdOut.println("Index: " + index + "\n" + emp + "\n");
-					index += 1;
-				}
+				for (int index = 0; index < employees.size(); index += 1) {
+					Employee potentMan = employees.get(index);
+
+					//Go through employees and grabs its index in
+					//employees list
+				    if (potentMan.getClass() == Manager.class) {
+				    	StdOut.println("Index: " + index + "\n"
+								+ potentMan + "\n");				    	
+				    }
+				}				
 				StdOut.println("-----------");
 			} else {
 				StdOut.println("There are no Managers.");
@@ -437,31 +457,26 @@ public class Driver
 			String response = StdIn.readString();
 			StdIn.readLine();
 			if (response.equals("y")) {
-				addEmployee(1);
-			}
+				adminMenu();
 			}
 		}
+	}
 
 	/**
 	 * @return
 	 */
 	private ArrayList<Employee> managerArray() {
-		ArrayList<Employee> temp = employees;
+		ArrayList<Employee> temp = new ArrayList<Employee>();
 		
-		for (int index = 0; index < temp.size(); index += 1) {
-			Employee potentMan = temp.get(index);
+		for (int index = 0; index < employees.size(); index += 1) {
+			Employee potentMan = employees.get(index);
 
 			// TODO Find out if instanceof or .getClass() is better
 			
 		    if (potentMan.getClass() == Manager.class) {
 		    	temp.add(potentMan);
-		    }			 
-
-			/*if (potentMan instanceof Manager) {
-				temp.add(potentMan);
-			}*/
-		}
-		
+		    }
+		}		
 		return temp;
 	}
 
@@ -620,10 +635,9 @@ public class Driver
 		StdOut.println("-------------");
 		StdOut.println("ADMIN MENU");
 		StdOut.println("-------------");
-		StdOut.println("1 - Add Admin Worker");
-		StdOut.println("2 - Add Sales Worker");
-		StdOut.println("3 - Add Manager");
-		StdOut.println("4 - Add Employee To Manager");
+		StdOut.println("1 - Add Employee Menu");
+		StdOut.println("2 - Edit Employee Menu");
+		StdOut.println("3 - Delete Employee Menu");		
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 		
