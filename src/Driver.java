@@ -396,12 +396,12 @@ public class Driver
 		ArrayList<Manager> temp = new ArrayList<Manager>();
 		
 		for (int index = 0; index < employees.size(); index += 1) {
-			Manager potentMan = (Manager) employees.get(index);
+			Employee potentMan = employees.get(index);
 
 			// TODO Find out if instanceof or .getClass() is better
 			
 		    if (potentMan.getClass() == Manager.class) {
-		    	temp.add(potentMan);
+		    	temp.add((Manager) potentMan);
 		    }
 		}		
 		return temp;
@@ -587,6 +587,7 @@ public class Driver
 
 				// TODO Come back to this!
 				// Checking to see if employee is in a managers list
+				// If he is, removed from that too
 				if (response.equalsIgnoreCase("y")) {
 
 					if (employees.get(delChoice).hasManager()) {
