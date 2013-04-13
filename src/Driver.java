@@ -63,37 +63,13 @@ public class Driver
 					break;
 				// Update Menu
 				case 2:
-					int editOption = editEmployeeMenu();
-					switch (editOption) {
-					case 1:
-						editAdminWorker();
-						break;
-					case 2:
-						editSalesWorker();
-						break;
-					case 3:
-						editManager();
-						break;
-					}
+					editEmployee();					
 					break;
 				// Delete Menu
 				case 3:
-					int delOption = deleteEmployeeMenu();
-					switch (delOption) {
-					case 1:
-						deleteAdminWorker();
-						break;
-					case 2:
-						deleteSalesWorker();
-						break;
-					case 3:
-						deleteManager();
-						break;
-					}
-					break;
-				}
-				break;
-
+					deleteEmployee();
+				    break;
+			    }
 			// Sort Menu
 			case 2:
 				int printOption = printMenu();
@@ -161,14 +137,16 @@ public class Driver
 	/**
 	 * 
 	 */
-	private void addEmployeeToManager() {
+	public void addEmployeeToManager() {
+		
+		if (employees.size() > 0) {
 		Manager manager = null;
 
 		listManagers();
 		StdOut.println("Choose Manager to add employees to: ");
 		int managerIndex = StdIn.readInt();
 		StdIn.readLine();
-		if (employees.size() > 0) {
+		
 			if (employees.get(managerIndex).getClass() == Manager.class) {
 				manager = (Manager) employees.get(managerIndex);
 
@@ -192,15 +170,8 @@ public class Driver
 				addEmployeeToManager();
 			}
 		} else {
-			StdOut.println("No Employees in System!");
-			StdOut.println("Add Employees now (y/n)?");
-			String response = StdIn.readString();
-			StdIn.readLine();
-			if (response.equals("y")) {
-				addEmployee(1);
-			}
+			noEmployeesResponse();
 		}
-
 	}
 
 	/**
@@ -217,7 +188,8 @@ public class Driver
 		StdOut.println("Enter Employee's Surname: ");
 		String lastName = StdIn.readLine();
 		
-		// Checks if title is duplicated if there are modules in the arraylist
+		// Checks if both names are equal, if they are employee can't be 
+		// created
 		if (employees.size() > 0) {
 			for (Employee emp : employees) {
 				if (((emp.getFirstName().equals(firstName)) && (emp.getLastName().equals(lastName)))) {
@@ -263,48 +235,9 @@ public class Driver
 		}			
 	}
 	
-	private void deleteManager() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void deleteSalesWorker() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void deleteAdminWorker() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void editManager() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void editSalesWorker() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	private void editAdminWorker() {
-		// TODO Auto-generated method stub
-		
-	}	
-
-	private int deleteEmployeeMenu() {
-		return 0;
-		// TODO Auto-generated method stub
-		
-	}
-
-	private int editEmployeeMenu() {
-		return 0;
-		// TODO Auto-generated method stub
-		
-	}
-
+	/**
+	 * @return
+	 */
 	private int addEmployeeMenu() {
 		
 		StdOut.println("-------------");
@@ -356,7 +289,7 @@ public class Driver
 	/**
 	 * 
 	 */
-	private void printSalary() {
+	public void printSalary() {
 		listEmployees(1);
 		
 		StdOut.println("Enter Index of Employee whose salary " 
@@ -385,7 +318,7 @@ public class Driver
 	/**
 	 * @param type Type of Employees to List, 1 = All, 2 removes Managers
 	 */
-	private void listEmployees(int type) {
+	public void listEmployees(int type) {
 		if (employees.size() > 0) {
 			StdOut.println("--------------");
 			StdOut.println("EMPLOYEE LIST");
@@ -406,20 +339,14 @@ public class Driver
 			}
 			StdOut.println("-----------");
 		} else {
-			StdOut.println("No Employees in System!");
-			StdOut.println("Add Employees now (y/n)?");
-			String response = StdIn.readString();
-			StdIn.readLine();
-			if (response.equals("y")) {
-				addEmployee(1);
-			}
+			noEmployeesResponse();
 		}
 	}
 	
 	/**
 	 * 
 	 */
-	private void listManagers() {
+	public void listManagers() {
 		if (employees.size() > 0) {			
 			
 			//Tries to create an arrayList of Managers
@@ -452,20 +379,14 @@ public class Driver
 				}
 			}
 		} else {
-			StdOut.println("No Employees in System!");
-			StdOut.println("Add Employees now (y/n)?");
-			String response = StdIn.readString();
-			StdIn.readLine();
-			if (response.equals("y")) {
-				adminMenu();
-			}
+			noEmployeesResponse();			
 		}
 	}
 
 	/**
 	 * @return
 	 */
-	private ArrayList<Employee> managerArray() {
+	public ArrayList<Employee> managerArray() {
 		ArrayList<Employee> temp = new ArrayList<Employee>();
 		
 		for (int index = 0; index < employees.size(); index += 1) {
@@ -483,7 +404,7 @@ public class Driver
 	/**
 	 * @param printOption
 	 */
-	private void printBy(int printOption) {
+	public void printBy(int printOption) {
 		
 		ArrayList<Employee> temp = null;
 		
@@ -507,7 +428,7 @@ public class Driver
 	 * @param option
 	 * @return
 	 */
-	private ArrayList<Employee> sort(int option) {
+	public ArrayList<Employee> sort(int option) {
 
 		ArrayList<Employee> temp = employees;
 
@@ -553,7 +474,7 @@ public class Driver
 	/**
 	 * @return
 	 */
-	private double calcAverage() {
+	public double calcAverage() {
 		double averageSalary = 0.0;
 		
 		averageSalary = calcSalaries() / employees.size();
@@ -564,7 +485,7 @@ public class Driver
 	/**
 	 * @return
 	 */
-	private double calcSalaries() {
+	public double calcSalaries() {
 		double totalSalary = 0;
 	
 		for (Employee emp : employees) {
@@ -577,14 +498,14 @@ public class Driver
 	/**
 	 * 
 	 */
-	private void load() {
+	public void load() {
 		// TODO Auto-generated method stub		
 	}
 
 	/**
 	 * 
 	 */
-	private void save() {
+	public void save() {
 		// TODO Auto-generated method stub		
 	}
 
@@ -615,17 +536,43 @@ public class Driver
 	/**
 	 * 
 	 */
-	private void deleteEmployee() {
-		// TODO Auto-generated method stub
-		
+	public void deleteEmployee() {
+
+		if (employees.size() > 0) {
+
+			listEmployees(1);
+			StdOut.println("Choose Index of Employee to delete: ");
+			int delChoice = StdIn.readInt();
+			StdIn.readInt();
+
+			if (delChoice >= 0 && delChoice >= employees.size()) {
+				StdOut.println("Are you sure you want to delete? (y/n)");
+				String response = StdIn.readString();
+				StdIn.readLine();
+				if (response.equalsIgnoreCase("y")) {
+					employees.remove(delChoice);
+					StdOut.println("New List: ");
+					listEmployees(1);
+				}
+			} else {
+				StdOut.println("Invalid Index!");
+				StdOut.println("Choose another from this list!");
+				deleteEmployee();
+			}
+		} else {
+			noEmployeesResponse();
+		}
 	}
 
 	/**
 	 * 
 	 */
-	private void editEmployee() {
-		// TODO Auto-generated method stub
-		
+	public void editEmployee() {
+		if (employees.size() > 0) {
+			listEmployees(1);
+		} else {
+			noEmployeesResponse();
+		}
 	}
 	
 	/**
@@ -636,8 +583,8 @@ public class Driver
 		StdOut.println("ADMIN MENU");
 		StdOut.println("-------------");
 		StdOut.println("1 - Add Employee Menu");
-		StdOut.println("2 - Edit Employee Menu");
-		StdOut.println("3 - Delete Employee Menu");		
+		StdOut.println("2 - Edit an Employee");
+		StdOut.println("3 - Delete an Employee");		
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 		
@@ -686,6 +633,22 @@ public class Driver
 	
 	
 	
+	/**
+	 * Method to print an automated response when the employees list is
+	 * empty. If the response is "y" then the user can add an employee.
+	 *  
+	 */
+	private void noEmployeesResponse() {
+		StdOut.println("No Employees in System!");
+		StdOut.println("Add Employees now (y/n)?");
+		String response = StdIn.readString();
+		StdIn.readLine();
+		if (response.equals("y")) {
+			int option = addEmployeeMenu();
+			addEmployee(option);
+		}		
+	}
+
 	/**
      * Internal method to truncate a double to two decimal places
      * 
