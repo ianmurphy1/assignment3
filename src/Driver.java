@@ -56,6 +56,9 @@ public class Driver
 					case 3:
 						addEmployee(addOption);
 						break;
+					case 4:
+						addEmployeeToManager();
+						break;
 					}
 					break;
 				// Update Menu
@@ -155,6 +158,51 @@ public class Driver
 		StdOut.println("Exiting...bye.");
 	}
 	
+	/**
+	 * 
+	 */
+	private void addEmployeeToManager() {
+		Manager manager = null;
+
+		listManagers();
+		StdOut.println("Choose Manager to add employees to: ");
+		int managerIndex = StdIn.readInt();
+		StdIn.readLine();
+		if (employees.size() > 0) {
+			if (employees.get(managerIndex).getClass() == Manager.class) {
+				manager = (Manager) employees.get(managerIndex);
+
+				StdOut.println("Choose Employee To add:");
+				listEmployees(2);
+				int empIndex = StdIn.readInt();
+				StdIn.readLine();
+
+				Employee toAdd = employees.get(empIndex);
+
+				if (manager.getMinions().size() > 0) {
+					manager.getMinions().add(toAdd);
+				}
+				
+				StdOut.println("Employee: " + toAdd.getFirstName() 
+						     + " added to " + manager.getFirstName());
+				
+			} else {
+				StdOut.println("Not A Manager!");
+				StdOut.println("Choose the index of a valid one!");
+				addEmployeeToManager();
+			}
+		} else {
+			StdOut.println("No Employees in System!");
+			StdOut.println("Add Employees now (y/n)?");
+			String response = StdIn.readString();
+			StdIn.readLine();
+			if (response.equals("y")) {
+				addEmployee(1);
+			}
+		}
+
+	}
+
 	/**
 	 * Method that asks the user to enter the first and last
 	 * name, the hourly rate and depending on what type of employee
@@ -296,7 +344,7 @@ public class Driver
 	 * 
 	 */
 	private void printSalary() {
-		listEmployees();
+		listEmployees(1);
 		
 		StdOut.println("Enter Index of Employee whose salary " 
 		             + " is to be calculated: ");
@@ -322,16 +370,26 @@ public class Driver
 	}
 
 	/**
-	 * 
+	 * @param type Type of Employees to List, 1 = All, 2 removes Managers
 	 */
-	private void listEmployees() {
+	private void listEmployees(int type) {
 		if (employees.size() > 0) {
 			StdOut.println("--------------");
 			StdOut.println("EMPLOYEE LIST");
 			StdOut.println("--------------");
 			for (int index = 0; index < employees.size(); index += 1) {
-				StdOut.println("Index: " + index + "\n" + employees.get(index)
-						+ "\n");
+
+				if (type == 1) {
+					StdOut.println("Index: " + index + "\n"
+							+ employees.get(index) + "\n");
+				}
+
+				else if (type == 2
+						&& !(employees.get(index).getClass() == Manager.class)) {
+					StdOut.println("Index: " + index + "\n"
+							+ employees.get(index) + "\n");
+				}
+
 			}
 			StdOut.println("-----------");
 		} else {
@@ -340,9 +398,7 @@ public class Driver
 			String response = StdIn.readString();
 			StdIn.readLine();
 			if (response.equals("y")) {
-				StdOut.println("Choose Type of Employee to add.");
-				int choice = addEmployeeMenu();
-				addEmployee(choice);
+				addEmployee(1);
 			}
 		}
 	}
@@ -353,7 +409,7 @@ public class Driver
 	private void listManagers() {
 		if (employees.size() > 0) {
 
-			ArrayList<Employee> tempEmps = sort(4);
+			ArrayList<Employee> tempEmps = managerArray();
 			int index = 0;
 
 			if (tempEmps.size() > 0) {
@@ -381,11 +437,32 @@ public class Driver
 			String response = StdIn.readString();
 			StdIn.readLine();
 			if (response.equals("y")) {
-				StdOut.println("Choose Type of Employee to add.");
-				int choice = addEmployeeMenu();
-				addEmployee(choice);
+				addEmployee(1);
+			}
 			}
 		}
+
+	/**
+	 * @return
+	 */
+	private ArrayList<Employee> managerArray() {
+		ArrayList<Employee> temp = employees;
+		
+		for (int index = 0; index < temp.size(); index += 1) {
+			Employee potentMan = temp.get(index);
+
+			// TODO Find out if instanceof or .getClass() is better
+			
+		    if (potentMan.getClass() == Manager.class) {
+		    	temp.add(potentMan);
+		    }			 
+
+			/*if (potentMan instanceof Manager) {
+				temp.add(potentMan);
+			}*/
+		}
+		
+		return temp;
 	}
 
 	/**
@@ -419,11 +496,11 @@ public class Driver
 
 		ArrayList<Employee> temp = employees;
 
-		switch (option) {
-		//List sorted by First Name
-		case 1:
-			for (int i = 0; i < temp.size(); i += 1) {
-				for (int j = (i + 1); j < temp.size(); j += 1) {
+		for (int i = 0; i < temp.size(); i += 1) {
+			for (int j = (i + 1); j < temp.size(); j += 1) {
+				switch (option) {
+				// Sorting by First Name
+				case 1:
 					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
 							.get(i).getFirstName()) < 0) {
 
@@ -431,13 +508,9 @@ public class Driver
 						temp.set(i, temp.get(j));
 						temp.set(j, emp);
 					}
-				}
-			}
-			break;
-		//List sorted by Surname	
-		case 2:
-			for (int i = 0; i < temp.size(); i += 1) {
-				for (int j = (i + 1); j < temp.size(); j += 1) {
+					break;
+				//Sorting By Surname	
+				case 2:
 					if ((temp.get(j).getLastName()).compareToIgnoreCase(temp
 							.get(i).getLastName()) < 0) {
 
@@ -445,14 +518,9 @@ public class Driver
 						temp.set(i, temp.get(j));
 						temp.set(j, emp);
 					}
-				}
-			}
-			break;
-		//List Sorted by hourly rate	
-		case 3:
-			for (int i = 0; i < temp.size(); i += 1) {
-
-				for (int j = (i + 1); j < temp.size(); j += 1) {
+					break;
+			    //Sorting by Hourly Rate
+				case 3:
 					if (temp.get(j).getHourlyRate() < temp.get(i)
 							.getHourlyRate()) {
 
@@ -460,26 +528,10 @@ public class Driver
 						temp.set(i, temp.get(j));
 						temp.set(j, emp);
 					}
+					break;
 				}
 			}
-			break;
-		//For returning a list that only has managers.	
-		case 4:
-			for (int index = 0; index < temp.size(); index += 1) {				
-				Employee potentMan = temp.get(index);				
-				
-				//TODO Find out if instanceof or .getClass() is better 
-				/*if (potentMan.getClass() == Manager.class) {
-					temp.add(potentMan);
-				}*/			
-				
-				if (potentMan instanceof Manager) {
-					temp.add(potentMan);
-				}
-			}
-			break;	    			
 		}
-
 		return temp;
 	}
 
@@ -565,8 +617,20 @@ public class Driver
 	 * @return
 	 */
 	private int adminMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+		StdOut.println("-------------");
+		StdOut.println("ADMIN MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Add Admin Worker");
+		StdOut.println("2 - Add Sales Worker");
+		StdOut.println("3 - Add Manager");
+		StdOut.println("4 - Add Employee To Manager");
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int adminOption = StdIn.readInt();
+		StdIn.readLine();
+
+		return adminOption;
 	}
 
 	/**

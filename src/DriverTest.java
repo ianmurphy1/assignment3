@@ -155,4 +155,59 @@ public class DriverTest
 		assertEquals(2, tempEmps.size());
 	}
 	
+	@Test
+	public void testSortingLoops() {
+		
+		int option = 1;
+		
+		ArrayList<Employee> temp = employees;
+
+		for (int i = 0; i < temp.size(); i += 1) {
+			for (int j = (i + 1); j < temp.size(); j += 1) {
+				switch(option) {
+				//Sorting by First Name
+				case 1:
+					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
+								.get(i).getFirstName()) < 0) {
+
+							Employee emp = temp.get(i);
+							temp.set(i, temp.get(j));
+							temp.set(j, emp);
+						}
+					break;
+				case 2:
+					if ((temp.get(j).getLastName()).compareToIgnoreCase(temp
+							.get(i).getLastName()) < 0) {
+
+						Employee emp = temp.get(i);
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
+					}
+					break;
+				case 3:
+					if (temp.get(j).getHourlyRate() < temp.get(i)
+							.getHourlyRate()) {
+
+						Employee emp = temp.get(i);
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
+					}
+					break;
+					}
+											
+				}
+			}
+		
+		if (option == 1) {
+			assertEquals("Booker", temp.get(0).getFirstName());
+			assertEquals("Elizabeth", temp.get(1).getFirstName());
+			assertEquals("Paul", temp.get(4).getFirstName());
+			assertEquals("Samwell", temp.get(6).getFirstName());
+		} else if (option == 3) {
+			assertEquals("Samwell", temp.get(1).getFirstName());
+			assertEquals("Booker", temp.get(5).getFirstName());
+		}
+		
+	}
+	
 }
