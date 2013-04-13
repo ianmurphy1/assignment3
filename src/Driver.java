@@ -138,15 +138,15 @@ public class Driver
 	 * 
 	 */
 	public void addEmployeeToManager() {
-		
-		if (employees.size() > 0) {
-		Manager manager = null;
 
-		listManagers();
-		StdOut.println("Choose Manager to add employees to: ");
-		int managerIndex = StdIn.readInt();
-		StdIn.readLine();
-		
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to add employees to: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+
 			if (employees.get(managerIndex).getClass() == Manager.class) {
 				manager = (Manager) employees.get(managerIndex);
 
@@ -157,13 +157,12 @@ public class Driver
 
 				Employee toAdd = employees.get(empIndex);
 
-				if (manager.getMinions().size() > 0) {
-					manager.getMinions().add(toAdd);
-				}
-				
-				StdOut.println("Employee: " + toAdd.getFirstName() 
-						     + " added to " + manager.getFirstName());
-				
+				manager.getMinions().add(toAdd);
+				toAdd.setHasManager(true);
+
+				StdOut.println("Employee: " + toAdd.getFirstName()
+						+ " added to " + manager.getFirstName());
+
 			} else {
 				StdOut.println("Not A Manager!");
 				StdOut.println("Choose the index of a valid one!");
@@ -521,16 +520,43 @@ public class Driver
 	 * @return
 	 */
 	private int accountMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+		StdOut.println("-------------------");
+		StdOut.println("ACCOUNTS MENU");
+		StdOut.println("-------------------");
+		StdOut.println("1 - Calculate An Employee's Salary");
+		StdOut.println("2 - Calculate All Employee's Salaries");
+		StdOut.println("3 - Calculate Average Salary");		
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int printOption = StdIn.readInt();
+		StdIn.readLine();
+
+		return printOption;
 	}
 
 	/**
 	 * @return
 	 */
 	private int printMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+		StdOut.println("------------------------");
+		StdOut.println("SORT AND PRINT MENU");
+		StdOut.println("------------------------");
+		StdOut.println();
+		StdOut.println("---- Sort and Print ----");
+		StdOut.println("----  Employees In  ----");
+		StdOut.println("-- Ascending Order By --");
+		StdOut.println();
+		StdOut.println("1 - First Name");
+		StdOut.println("2 - Surname");
+		StdOut.println("3 - Hourly Rate");		
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int printOption = StdIn.readInt();
+		StdIn.readLine();
+
+		return printOption;
 	}
 
 	/**
@@ -549,7 +575,18 @@ public class Driver
 				StdOut.println("Are you sure you want to delete? (y/n)");
 				String response = StdIn.readString();
 				StdIn.readLine();
+
+				// TODO Come back to this!
+				// Checking to see if employee is in a managers list
 				if (response.equalsIgnoreCase("y")) {
+					/*
+					 * if (!((employees.get(delChoice).getClass()) ==
+					 * Manager.class)) { if
+					 * (employees.get(delChoice).hasManager()) {
+					 * 
+					 * } }
+					 */
+
 					employees.remove(delChoice);
 					StdOut.println("New List: ");
 					listEmployees(1);

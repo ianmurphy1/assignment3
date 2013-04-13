@@ -6,6 +6,7 @@
 public class SalesWorker extends Employee {
 
 	private double perfBonus;
+	private boolean hasManager;
 	
 	/**
 	 * @param firstName
@@ -20,6 +21,7 @@ public class SalesWorker extends Employee {
 		} else {
 			this.perfBonus = 0;
 		}
+		this.hasManager = false;
 	}
 
 	/**
@@ -38,6 +40,20 @@ public class SalesWorker extends Employee {
 		}
 	}
 	
+	/**
+	 * @return the hasManager
+	 */
+	public boolean hasManager() {
+		return hasManager;
+	}
+
+	/**
+	 * @param hasManager the hasManager to set
+	 */
+	public void setHasManager(boolean hasManager) {
+		this.hasManager = hasManager;
+	}
+
 	/**
 	 * (non-Javadoc)
 	 * 

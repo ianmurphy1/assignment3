@@ -7,8 +7,7 @@ import java.util.ArrayList;
  */
 public class Manager extends Employee {
 	
-	private ArrayList<Employee> minions;
-	
+	private ArrayList<Employee> minions;	
 
 	/**
 	 * @param firstName
@@ -17,7 +16,7 @@ public class Manager extends Employee {
 	 */
 	public Manager(String firstName, String lastName, double hourlyRate) {
 		super(firstName, lastName, hourlyRate);
-		this.minions = new ArrayList<Employee>();
+		this.minions = new ArrayList<Employee>();		
 	}
 
 	/**
@@ -68,5 +67,4 @@ public class Manager extends Employee {
 		return "Employee Type: Manager" + "/n" + super.toString() 
 			 + "Over " + (minions.size() - 1) + " Employees";
 	}
-
 }

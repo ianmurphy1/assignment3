@@ -11,7 +11,7 @@ public abstract class Employee
 	private String lastName;
 	private double hourlyRate;
 	private double salary;
-
+	private boolean hasManager;
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -28,6 +28,8 @@ public abstract class Employee
 		}
 		
 		this.salary = 0;
+		
+		this.hasManager = false;
 	}
 
 	/**
@@ -141,4 +143,19 @@ public abstract class Employee
     {
         return (int) (num * 100) / 100.0;
     }
+
+	/**
+	 * @return the hasManager
+	 */
+	public boolean hasManager() {
+		return hasManager;
+	}
+
+	/**
+	 * @param hasManager the hasManager to set
+	 */
+	public void setHasManager(boolean hasManager) {
+		this.hasManager = hasManager;
+	}
+	
 }
