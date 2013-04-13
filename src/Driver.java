@@ -147,24 +147,31 @@ public class Driver
 			int managerIndex = StdIn.readInt();
 			StdIn.readLine();
 
-			if (employees.get(managerIndex).getClass() == Manager.class) {
-				manager = (Manager) employees.get(managerIndex);
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
 
-				StdOut.println("Choose Employee To add:");
-				listEmployees(2);
-				int empIndex = StdIn.readInt();
-				StdIn.readLine();
+				if (employees.get(managerIndex).getClass() == Manager.class) {
+					manager = (Manager) employees.get(managerIndex);
 
-				Employee toAdd = employees.get(empIndex);
+					StdOut.println("Choose Employee To add:");
+					listEmployees(2);
+					int empIndex = StdIn.readInt();
+					StdIn.readLine();
 
-				manager.getMinions().add(toAdd);
-				toAdd.setHasManager(true);
+					Employee toAdd = employees.get(empIndex);
 
-				StdOut.println("Employee: " + toAdd.getFirstName()
-						+ " added to " + manager.getFirstName());
+					manager.getMinions().add(toAdd);
+					toAdd.setHasManager(true);
+
+					StdOut.println("Employee: " + toAdd.getFirstName()
+							+ " added to " + manager.getFirstName());
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addEmployeeToManager();
+				}
 
 			} else {
-				StdOut.println("Not A Manager!");
+				StdOut.println("Not A Valid Index!");
 				StdOut.println("Choose the index of a valid one!");
 				addEmployeeToManager();
 			}
@@ -350,7 +357,7 @@ public class Driver
 			
 			//Tries to create an arrayList of Managers
 			//To see if they can be listed or not
-			ArrayList<Employee> managers = managerArray();			
+			ArrayList<Manager> managers = managerArray();			
 
 			if (managers.size() > 0) {
 				StdOut.println("--------------");
@@ -385,11 +392,11 @@ public class Driver
 	/**
 	 * @return
 	 */
-	public ArrayList<Employee> managerArray() {
-		ArrayList<Employee> temp = new ArrayList<Employee>();
+	public ArrayList<Manager> managerArray() {
+		ArrayList<Manager> temp = new ArrayList<Manager>();
 		
 		for (int index = 0; index < employees.size(); index += 1) {
-			Employee potentMan = employees.get(index);
+			Manager potentMan = (Manager) employees.get(index);
 
 			// TODO Find out if instanceof or .getClass() is better
 			
@@ -576,18 +583,35 @@ public class Driver
 				String response = StdIn.readString();
 				StdIn.readLine();
 
+				Employee toDel = employees.get(delChoice);
+
 				// TODO Come back to this!
 				// Checking to see if employee is in a managers list
 				if (response.equalsIgnoreCase("y")) {
-					/*
-					 * if (!((employees.get(delChoice).getClass()) ==
-					 * Manager.class)) { if
-					 * (employees.get(delChoice).hasManager()) {
-					 * 
-					 * } }
-					 */
 
-					employees.remove(delChoice);
+					if (employees.get(delChoice).hasManager()) {
+						ArrayList<Manager> managers = managerArray();
+
+						String name = (toDel.getFirstName()
+								+ toDel.getLastName());
+
+						int i = 0;
+
+						for (Manager man : managers) {
+
+							String compare = (man.getMinions().get(i)
+									.getFirstName()
+									+ man.getMinions().get(i).getLastName());
+
+							if (name.equalsIgnoreCase(compare)) {
+								man.getMinions().remove(toDel);
+							}
+
+							i += 1;
+						}
+					}
+
+					employees.remove(toDel);
 					StdOut.println("New List: ");
 					listEmployees(1);
 				}
