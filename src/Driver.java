@@ -446,7 +446,7 @@ public class Driver
 		StdOut.println("SEARCH MENU");
 		StdOut.println("-------------");
 		StdOut.println("1 - Search Company");
-		StdOut.println("2 - Search a Department");			
+		StdOut.println("2 - Search a Manager");			
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 		
@@ -572,17 +572,19 @@ public class Driver
 	}
 
 	/**
-	 * @return
+	 * @return Array Of Managers
 	 */
 	public ArrayList<Manager> managerArray() {
 		ArrayList<Manager> temp = new ArrayList<Manager>();
 		
 		for (int index = 0; index < employees.size(); index += 1) {
 			Employee potentMan = employees.get(index);
+			
+			int type = getType(potentMan);
 
 			// TODO Find out if instanceof or .getClass() is better
 			
-		    if (potentMan.getClass() == Manager.class) {
+		    if (type == 1) {
 		    	temp.add((Manager) potentMan);
 		    }
 		}		
