@@ -700,8 +700,7 @@ public class Driver
 				StdIn.readLine();
 
 				Employee delThis = employees.get(delChoice);
-
-				// TODO Come back to this!
+				
 				// Checking to see if employee is in a managers list
 				// If he is, removed from that too
 				if (response.equalsIgnoreCase("y")) {
@@ -752,48 +751,114 @@ public class Driver
 			StdIn.readInt();
 			if ((index >= 0) && (index >= employees.size())) {
 				Employee emp = employees.get(index);
-				String firstName = null; 
+				String firstName = null;
 				String lastName = null;
-				
+				int type = getType(emp);
+
 				StdOut.println("Do you want to edit 1st name (Y/N)?");
 				String firstResponse = StdIn.readString();
 				StdIn.readLine();
-				if (firstResponse.equalsIgnoreCase("Y")) {					
+				if (firstResponse.equalsIgnoreCase("Y")) {
 					StdOut.println("Enter new First Name: ");
-					firstName = StdIn.readLine();					
+					firstName = StdIn.readLine();
 				}
-				
+
 				StdOut.println("Do you want to edit last name (Y/N)?");
 				String secondResponse = StdIn.readString();
 				StdIn.readLine();
-				if (secondResponse.equalsIgnoreCase("Y")) {					
+				if (secondResponse.equalsIgnoreCase("Y")) {
 					StdOut.println("Enter new Last Name: ");
-					lastName = StdIn.readLine();					
+					lastName = StdIn.readLine();
 				}
-				
+
 				String testNew = (firstName + lastName);
 				String testOld = (emp.getFirstName() + emp.getLastName());
-				
+
 				if (testNew.equalsIgnoreCase(testOld)) {
 					StdOut.println("Duplicate Employee!");
 					StdOut.println("Restarting...");
-					editEmployee();				
+					editEmployee();
 				} else {
 					if ((firstResponse.equalsIgnoreCase("Y"))) {
 						emp.setFirstName(firstName);
-					}					
+					}
 					if (secondResponse.equalsIgnoreCase("Y")) {
 						emp.setLastName(lastName);
 					}
 				}
-				StdOut.println("Current Rate: " + emp.getHourlyRate());
-				
+
 				StdOut.println("Do you want to edit hourly rate (Y/N)?");
-				
+				String rateResponse = StdIn.readString();
+				StdIn.readLine();
+				if (rateResponse.equalsIgnoreCase("Y")) {
+					StdOut.println("Enter New Hourly Rate: ");
+					double hourlyRate = StdIn.readDouble();
+					StdIn.readLine();
+					if (hourlyRate >= 0) {
+						emp.setHourlyRate(hourlyRate);
+					} else {
+						StdOut.println("Number needs to greater than 0!");
+						StdOut.println("Enter New Value: ");
+						hourlyRate = StdIn.readDouble();
+						StdIn.readLine();
+						emp.setHourlyRate(hourlyRate);
+					}
+				}
+
+				switch (type) {
+				case 1:
+					StdOut.println("Nothing Left to Edit.");
+					StdOut.println("If you want to add/delete employees from");
+					StdOut.println("a manager, do so through the manager menu.");
+					StdOut.println("---Employee's New Info---");
+					StdOut.println(emp);
+					break;
+				case 2:
+					SalesWorker salesEmp = (SalesWorker) emp;
+					StdOut.println("Do you want to edit performance bonus (Y/N)?");
+					String salesResponse = StdIn.readString();
+					StdIn.readLine();
+					if (salesResponse.equalsIgnoreCase("Y")) {
+						double perfBonus = StdIn.readDouble();
+						if ((perfBonus >= 0) && (perfBonus <= 20)) {
+							salesEmp.setPerfBonus(perfBonus);
+						} else {
+							StdOut.println("Number needs to greater than 0 ");
+							StdOut.print("and less than or equal to 20!");
+							StdOut.println("Enter New Value: ");
+							perfBonus = StdIn.readDouble();
+							StdIn.readLine();
+							salesEmp.setHourlyRate(perfBonus);
+						}
+					}
+					StdOut.println("---Employee's New Info---");
+					StdOut.println(salesEmp);
+					break;
+				case 3:
+					AdminWorker adminEmp = (AdminWorker) emp;
+					StdOut.println("Do you want to edit fixed bonus (Y/N)?");
+					String adminResponse = StdIn.readString();
+					StdIn.readLine();
+					if (adminResponse.equalsIgnoreCase("Y")) {
+						double bonus = StdIn.readDouble();
+						if (bonus >= 0) {
+							adminEmp.setBonus(bonus);
+						} else {
+							StdOut.println("Number needs to greater than 0!");
+							StdOut.println("Enter New Value: ");
+							bonus = StdIn.readDouble();
+							StdIn.readLine();
+							adminEmp.setHourlyRate(bonus);
+						}
+						StdOut.println("---Employee's New Info---");
+						StdOut.println(adminEmp);
+					}
+					break;
+				}
 			} else {
 				StdOut.println("Invalid Index!");
 				StdOut.println("Choose another from this list!");
-				editEmployee();				
+				editEmployee();
 			}
 		} else {
 			noEmployeesResponse();
@@ -876,10 +941,9 @@ public class Driver
 	}
 
 	/**
-	 * Method that checks what type of employee an employee is.
-	 * Might not be needed!.
+	 * Method that checks what type of employee an employee is.	 * 
 	 * 
-	 * @return
+	 * @return The type an employee is
 	 */
 	private int getType(Employee emp) {
 		int type = 0;
