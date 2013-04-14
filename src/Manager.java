@@ -56,7 +56,6 @@ public class Manager extends Employee {
         this.setSalary(tempSal);
 		
 		return this.getSalary();
-
 	}
 
 	/** (non-Javadoc)

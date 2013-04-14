@@ -269,8 +269,18 @@ public class Driver
 	}
 
 	private int searchMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+		StdOut.println("-------------");
+		StdOut.println("SEARCH MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Search Company");
+		StdOut.println("2 - Search a Department");			
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int searchOption = StdIn.readInt();
+		StdIn.readLine();
+
+		return searchOption;
 	}
 
 	/**
@@ -582,7 +592,7 @@ public class Driver
 				String response = StdIn.readString();
 				StdIn.readLine();
 
-				Employee toDel = employees.get(delChoice);
+				Employee delThis = employees.get(delChoice);
 
 				// TODO Come back to this!
 				// Checking to see if employee is in a managers list
@@ -592,7 +602,7 @@ public class Driver
 					if (employees.get(delChoice).hasManager()) {
 						ArrayList<Manager> managers = managerArray();
 
-						String name = (toDel.getFirstName() + toDel
+						String name = (delThis.getFirstName() + delThis
 								.getLastName());
 
 						for (Manager man : managers) {
@@ -603,13 +613,13 @@ public class Driver
 										.get(i).getLastName());
 
 								if (name.equalsIgnoreCase(compare)) {
-									man.getMinions().remove(toDel);
+									man.getMinions().remove(delThis);
 								}
 							}
 						}
 					}
 
-					employees.remove(toDel);
+					employees.remove(delThis);
 					StdOut.println("New List: ");
 					listEmployees(1);
 				}
@@ -665,9 +675,10 @@ public class Driver
 		StdOut.println("MAIN MENU");
 		StdOut.println("-------------");
 		StdOut.println("1 - Admin Menu");
-		StdOut.println("2 - Printing Menu");
-		StdOut.println("3 - Accounts Menu");
-		StdOut.println("4 - Save and Load Menu");
+		StdOut.println("2 - Sort and Print Menu");
+		StdOut.println("3 - Search Menu");
+		StdOut.println("4 - Accounting Menu");
+		StdOut.println("5 - Save and Load Menu");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 

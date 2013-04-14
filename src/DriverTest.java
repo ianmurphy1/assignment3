@@ -210,4 +210,45 @@ public class DriverTest
 		
 	}
 	
+	@Test
+	public void testDeleteEmployee() {
+
+		ArrayList<Manager> temp = new ArrayList<Manager>();
+
+		for (int index = 0; index < employees.size(); index += 1) {
+			Employee potentMan = employees.get(index);			
+
+			if (potentMan.getClass() == Manager.class) {
+				temp.add((Manager) potentMan);
+			}
+		}
+		
+		assertEquals(7, employees.size());
+
+		Manager delFromThis = (Manager) employees.get(6);
+		assertEquals(2, delFromThis.getMinions().size());
+
+		Employee delThis = employees.get(4);
+
+		if (delThis.hasManager()) {
+
+			String name = (delThis.getFirstName() + delThis.getLastName());
+
+			for (Manager man : temp) {
+				for (int i = 0; i < temp.size(); i += 1) {
+
+					String compare = (man.getMinions().get(i).getFirstName() + man
+							.getMinions().get(i).getLastName());
+
+					if (name.equalsIgnoreCase(compare)) {
+						man.getMinions().remove(delThis);
+					}
+				}
+			}
+
+			employees.remove(delThis);
+			assertEquals(6, employees.size());
+			assertEquals(1, delFromThis.getMinions().size());
+		}
+	}
 }

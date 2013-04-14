@@ -10,8 +10,11 @@ public abstract class Employee
 	private String firstName;
 	private String lastName;
 	private double hourlyRate;
+	private double numHours;
 	private double salary;
 	private boolean hasManager;
+	
+	
 	/**
 	 * @param firstName
 	 * @param lastName
@@ -26,6 +29,8 @@ public abstract class Employee
 		} else {
 			this.hourlyRate = 0;
 		}
+		
+		this.numHours = 0;
 		
 		this.salary = 0;
 		
@@ -96,6 +101,36 @@ public abstract class Employee
 	}
 
 	/**
+	 * @return the numHours
+	 */
+	public double getNumHours() {
+		return numHours;
+	}
+
+	/**
+	 * @param numHours the numHours to set
+	 */
+	public void setNumHours(double numHours) {
+		if (numHours >= 0) {
+			this.numHours = toTwoDecimalPlaces(numHours);
+		}
+	}
+
+	/**
+	 * @return the hasManager
+	 */
+	public boolean hasManager() {
+		return hasManager;
+	}
+
+	/**
+	 * @param hasManager the hasManager to set
+	 */
+	public void setHasManager(boolean hasManager) {
+		this.hasManager = hasManager;
+	}
+
+	/**
 	 * @param numHours
 	 * @return
 	 */
@@ -108,6 +143,13 @@ public abstract class Employee
 				salary = (NORMAL_WORKWEEK * hourlyRate)
 						+ calculateOvertime(numHours);
 			}
+			
+			//If changing every time calSal() is called
+			this.setNumHours(numHours);
+			
+			//If a running total of all hours worked is to be done
+			//double newTotal = (this.getNumHours() + numHours);
+			//this.setNumHours(newTotal);						
 		}
 		return toTwoDecimalPlaces(salary);
 	}
@@ -143,19 +185,5 @@ public abstract class Employee
     {
         return (int) (num * 100) / 100.0;
     }
-
-	/**
-	 * @return the hasManager
-	 */
-	public boolean hasManager() {
-		return hasManager;
-	}
-
-	/**
-	 * @param hasManager the hasManager to set
-	 */
-	public void setHasManager(boolean hasManager) {
-		this.hasManager = hasManager;
-	}
 	
 }
