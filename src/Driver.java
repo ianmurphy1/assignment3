@@ -55,10 +55,7 @@ public class Driver
 						break;
 					case 3:
 						addEmployee(addOption);
-						break;
-					case 4:
-						addEmployeeToManager();
-						break;
+						break;					
 					}
 					break;
 				// Update Menu
@@ -114,9 +111,25 @@ public class Driver
 					break;
 				}
 				break;
+			
+		    //Manager Menu
+			case 5:
+				int manOption = managerMenu();
+				switch (manOption) {
+				case 1:
+					addToManager();
+					break;
+				case 2:
+					delFromManger();
+					break;
+				case 3:
+					printFromManager();
+					break;
+				}
+				break;
 
 			// Save/Load Menu
-			case 5:
+			case 6:
 				int saveLoadOption = saveLoadMenu();
 				switch (saveLoadOption) {
 				case 1:
@@ -137,7 +150,103 @@ public class Driver
 	/**
 	 * 
 	 */
-	public void addEmployeeToManager() {
+	public void printFromManager() {
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to Print Employees: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
+
+				if (employees.get(managerIndex).getClass() == Manager.class) {
+					manager = (Manager) employees.get(managerIndex);
+					
+					for(Employee emp: manager.getMinions()) {
+						StdOut.println(emp);
+					}
+					
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	private int managerMenu() {
+		StdOut.println("-------------");
+		StdOut.println("MANAGER MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Add Employee to a Manager");
+		StdOut.println("2 - Delete Employee from Manager");
+		StdOut.println("3 - List Employees in a Manager");				
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int addMenuOption = StdIn.readInt();
+		StdIn.readLine();
+		
+		return addMenuOption;
+	}
+
+	/**
+	 * 
+	 */
+	public void delFromManger() {
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to delete employee from: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
+
+				if (employees.get(managerIndex).getClass() == Manager.class) {
+					manager = (Manager) employees.get(managerIndex);
+
+					StdOut.println("Choose Index of Employee To Remove:");
+					listEmployees(2);
+					int empIndex = StdIn.readInt();
+					StdIn.readLine();
+
+					Employee delThis = employees.get(empIndex);
+
+					manager.getMinions().remove(delThis);
+					delThis.setHasManager(false);
+
+					StdOut.println("Employee: " + delThis.getFirstName()
+							+ " deleted from " + manager.getFirstName());
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void addToManager() {
 
 		if (employees.size() > 0) {
 			Manager manager = null;
@@ -167,13 +276,12 @@ public class Driver
 				} else {
 					StdOut.println("Not A Manager!");
 					StdOut.println("Choose the index of a valid one!");
-					addEmployeeToManager();
+					addToManager();
 				}
-
 			} else {
 				StdOut.println("Not A Valid Index!");
 				StdOut.println("Choose the index of a valid one!");
-				addEmployeeToManager();
+				addToManager();
 			}
 		} else {
 			noEmployeesResponse();
@@ -251,8 +359,7 @@ public class Driver
 		StdOut.println("-------------");
 		StdOut.println("1 - Add Admin Worker");
 		StdOut.println("2 - Add Sales Worker");
-		StdOut.println("3 - Add Manager");		
-		StdOut.println("4 - Add Employee To Manager");
+		StdOut.println("3 - Add Manager");				
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 		
@@ -263,7 +370,7 @@ public class Driver
 				
 	}
 
-	private void searchBy(int searchOption) {
+	public void searchBy(int searchOption) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -637,9 +744,57 @@ public class Driver
 	 * 
 	 */
 	public void editEmployee() {
-		//TODO
+
 		if (employees.size() > 0) {
 			listEmployees(1);
+			StdOut.println("Choose Index of Employee to Edit: ");
+			int index = StdIn.readInt();
+			StdIn.readInt();
+			if ((index >= 0) && (index >= employees.size())) {
+				Employee emp = employees.get(index);
+				String firstName = null; 
+				String lastName = null;
+				
+				StdOut.println("Do you want to edit 1st name (Y/N)?");
+				String firstResponse = StdIn.readString();
+				StdIn.readLine();
+				if (firstResponse.equalsIgnoreCase("Y")) {					
+					StdOut.println("Enter new First Name: ");
+					firstName = StdIn.readLine();					
+				}
+				
+				StdOut.println("Do you want to edit last name (Y/N)?");
+				String secondResponse = StdIn.readString();
+				StdIn.readLine();
+				if (secondResponse.equalsIgnoreCase("Y")) {					
+					StdOut.println("Enter new Last Name: ");
+					lastName = StdIn.readLine();					
+				}
+				
+				String testNew = (firstName + lastName);
+				String testOld = (emp.getFirstName() + emp.getLastName());
+				
+				if (testNew.equalsIgnoreCase(testOld)) {
+					StdOut.println("Duplicate Employee!");
+					StdOut.println("Restarting...");
+					editEmployee();				
+				} else {
+					if ((firstResponse.equalsIgnoreCase("Y"))) {
+						emp.setFirstName(firstName);
+					}					
+					if (secondResponse.equalsIgnoreCase("Y")) {
+						emp.setLastName(lastName);
+					}
+				}
+				StdOut.println("Current Rate: " + emp.getHourlyRate());
+				
+				StdOut.println("Do you want to edit hourly rate (Y/N)?");
+				
+			} else {
+				StdOut.println("Invalid Index!");
+				StdOut.println("Choose another from this list!");
+				editEmployee();				
+			}
 		} else {
 			noEmployeesResponse();
 		}
@@ -718,6 +873,26 @@ public class Driver
 			int option = addEmployeeMenu();
 			addEmployee(option);
 		}		
+	}
+
+	/**
+	 * Method that checks what type of employee an employee is.
+	 * Might not be needed!.
+	 * 
+	 * @return
+	 */
+	private int getType(Employee emp) {
+		int type = 0;
+	
+		if (emp.getClass() == Manager.class) {
+			type = 1;
+		} else if (emp.getClass() == SalesWorker.class) {
+			type = 2;
+		} else if (emp.getClass() == AdminWorker.class) {
+			type = 3;
+		}
+	
+		return type;
 	}
 
 	/**
