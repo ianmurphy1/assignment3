@@ -149,159 +149,68 @@ public class Driver
 	}
 	
 	/**
-	 * Method that prints the employees contained in a chosen managers
-	 * department.
+	 * Method to display the main menu for the application and reads the menu
+	 * option that the user has entered and returns it.
 	 * 
+	 * @return user's choice
 	 */
-	public void printFromManager() {
-		if (employees.size() > 0) {
-			Manager manager = null;
-
-			listManagers();
-			StdOut.println("Choose Manager to Print Employees: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
-
-			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
-
-				if (employees.get(managerIndex).getClass() == Manager.class) {
-					manager = (Manager) employees.get(managerIndex);
-					
-					printMinions(manager);
-					
-				} else {
-					StdOut.println("Not A Manager!");
-					StdOut.println("Choose the index of a valid one!");
-					addToManager();
-				}
-			} else {
-				StdOut.println("Not A Valid Index!");
-				StdOut.println("Choose the index of a valid one!");
-				addToManager();
-			}
-		} else {
-			noEmployeesResponse();
-		}
+	private int mainMenu() {
+		StdOut.println("-------------");
+		StdOut.println("MAIN MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Admin Menu");
+		StdOut.println("2 - Sort and Print Menu");
+		StdOut.println("3 - Search Menu");
+		StdOut.println("4 - Accounting Menu");
+		StdOut.println("5 - Manager Admin Menu");
+		StdOut.println("6 - Save and Load Menu");
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+	
+		int option = StdIn.readInt();
+		StdIn.readLine();
+	
+		return option;
 	}
 
 	/**
 	 * @return
 	 */
-	private int managerMenu() {
+	private int adminMenu() {
 		StdOut.println("-------------");
-		StdOut.println("MANAGER MENU");
+		StdOut.println("ADMIN MENU");
 		StdOut.println("-------------");
-		StdOut.println("1 - Add Employee to a Manager");
-		StdOut.println("2 - Delete Employee from Manager");
-		StdOut.println("3 - List Employees in a Manager");				
+		StdOut.println("1 - Add Employee Menu");
+		StdOut.println("2 - Edit an Employee");
+		StdOut.println("3 - Delete an Employee");		
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 		
-		int manMenuOption = StdIn.readInt();
+		int adminOption = StdIn.readInt();
+		StdIn.readLine();
+	
+		return adminOption;
+	}
+
+	/**
+	 * @return
+	 */
+	private int addEmployeeMenu() {
+		
+		StdOut.println("-------------");
+		StdOut.println("ADD EMPLOYEE MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Add Admin Worker");
+		StdOut.println("2 - Add Sales Worker");
+		StdOut.println("3 - Add Manager");				
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int addMenuOption = StdIn.readInt();
 		StdIn.readLine();
 		
-		return manMenuOption;
-	}
-
-	/**
-	 * 
-	 */
-	public void delFromManger() {
-		if (employees.size() > 0) {
-			Manager manager = null;
-
-			listManagers();
-			StdOut.println("Choose Manager to delete employee from: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
-
-			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
-
-				if (employees.get(managerIndex).getClass() == Manager.class) {
-					manager = (Manager) employees.get(managerIndex);
-
-					StdOut.println("Choose Index of Employee To Remove:");
-					printMinions(manager);
-					int empIndex = StdIn.readInt();
-					StdIn.readLine();
-
-					Employee delThis = manager.getMinions().get(empIndex);
-
-					delThis.setHasManager(false);
-					manager.getMinions().remove(empIndex);					
-
-					StdOut.println("Employee: " + delThis.getFirstName()
-							+ " deleted from " + manager.getFirstName());
-				} else {
-					StdOut.println("Not A Manager!");
-					StdOut.println("Choose the index of a valid one!");
-					addToManager();
-				}
-			} else {
-				StdOut.println("Not A Valid Index!");
-				StdOut.println("Choose the index of a valid one!");
-				addToManager();
-			}
-		} else {
-			noEmployeesResponse();
-		}
-	}
-
-	/**
-	 * @param manager
-	 */
-	private void printMinions(Manager manager) {
-		int index = 0;
-		
-		for(Employee emp: manager.getMinions()) {						
-			StdOut.println(emp.getFirstName() + " located at: " + index);
-			index += 1;
-		}
-	}
-
-	/**
-	 * 
-	 */
-	public void addToManager() {
-
-		if (employees.size() > 0) {
-			Manager manager = null;
-
-			listManagers();
-			StdOut.println("Choose Manager to add employees to: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
-
-			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
-
-				if (employees.get(managerIndex).getClass() == Manager.class) {
-					manager = (Manager) employees.get(managerIndex);
-
-					StdOut.println("Choose Employee To Add:");
-					listEmployees(2);
-					int empIndex = StdIn.readInt();
-					StdIn.readLine();
-
-					Employee toAdd = employees.get(empIndex);
-
-					manager.getMinions().add(toAdd);
-					toAdd.setHasManager(true);
-
-					StdOut.println("Employee: " + toAdd.getFirstName()
-							+ " added to " + manager.getFirstName());
-				} else {
-					StdOut.println("Not A Manager!");
-					StdOut.println("Choose the index of a valid one!");
-					addToManager();
-				}
-			} else {
-				StdOut.println("Not A Valid Index!");
-				StdOut.println("Choose the index of a valid one!");
-				addToManager();
-			}
-		} else {
-			noEmployeesResponse();
-		}
+		return addMenuOption;
+				
 	}
 
 	/**
@@ -361,26 +270,393 @@ public class Driver
 			break;		
 		}			
 	}
+
+	/**
+	 * 
+	 */
+	public void editEmployee() {
 	
+		if (employees.size() > 0) {
+			listEmployees(1);
+			StdOut.println("Choose Index of Employee to Edit: ");
+			int index = StdIn.readInt();
+			StdIn.readInt();
+			if ((index >= 0) && (index >= employees.size())) {
+				Employee emp = employees.get(index);
+				String firstName = null;
+				String lastName = null;
+				int type = getType(emp);
+	
+				StdOut.println("Do you want to edit 1st name (Y/N)?");
+				String firstResponse = StdIn.readString();
+				StdIn.readLine();
+				if (firstResponse.equalsIgnoreCase("Y")) {
+					StdOut.println("Enter new First Name: ");
+					firstName = StdIn.readLine();
+				}
+	
+				StdOut.println("Do you want to edit last name (Y/N)?");
+				String secondResponse = StdIn.readString();
+				StdIn.readLine();
+				if (secondResponse.equalsIgnoreCase("Y")) {
+					StdOut.println("Enter new Last Name: ");
+					lastName = StdIn.readLine();
+				}
+	
+				String testNew = (firstName + lastName);
+				String testOld = (emp.getFirstName() + emp.getLastName());
+	
+				if (testNew.equalsIgnoreCase(testOld)) {
+					StdOut.println("Duplicate Employee!");
+					StdOut.println("Restarting...");
+					editEmployee();
+				} else {
+					if ((firstResponse.equalsIgnoreCase("Y"))) {
+						emp.setFirstName(firstName);
+					}
+					if (secondResponse.equalsIgnoreCase("Y")) {
+						emp.setLastName(lastName);
+					}
+				}
+	
+				StdOut.println("Do you want to edit hourly rate (Y/N)?");
+				String rateResponse = StdIn.readString();
+				StdIn.readLine();
+				if (rateResponse.equalsIgnoreCase("Y")) {
+					StdOut.println("Enter New Hourly Rate: ");
+					double hourlyRate = StdIn.readDouble();
+					StdIn.readLine();
+					if (hourlyRate >= 0) {
+						emp.setHourlyRate(hourlyRate);
+					} else {
+						StdOut.println("Number needs to greater than 0!");
+						StdOut.println("Enter New Value: ");
+						hourlyRate = StdIn.readDouble();
+						StdIn.readLine();
+						emp.setHourlyRate(hourlyRate);
+					}
+				}
+	
+				switch (type) {
+				case 1:
+					StdOut.println("Nothing Left to Edit.");
+					StdOut.println("If you want to add/delete employees from");
+					StdOut.println("a manager, do so through the manager menu.");
+					StdOut.println("---Employee's New Info---");
+					StdOut.println(emp);
+					break;
+				case 2:
+					SalesWorker salesEmp = (SalesWorker) emp;
+					StdOut.println("Do you want to edit performance bonus (Y/N)?");
+					String salesResponse = StdIn.readString();
+					StdIn.readLine();
+					if (salesResponse.equalsIgnoreCase("Y")) {
+						double perfBonus = StdIn.readDouble();
+						if ((perfBonus >= 0) && (perfBonus <= 20)) {
+							salesEmp.setPerfBonus(perfBonus);
+						} else {
+							StdOut.println("Number needs to greater than 0 ");
+							StdOut.print("and less than or equal to 20!");
+							StdOut.println("Enter New Value: ");
+							perfBonus = StdIn.readDouble();
+							StdIn.readLine();
+							salesEmp.setHourlyRate(perfBonus);
+						}
+					}
+					StdOut.println("---Employee's New Info---");
+					StdOut.println(salesEmp);
+					break;
+				case 3:
+					AdminWorker adminEmp = (AdminWorker) emp;
+					StdOut.println("Do you want to edit fixed bonus (Y/N)?");
+					String adminResponse = StdIn.readString();
+					StdIn.readLine();
+					if (adminResponse.equalsIgnoreCase("Y")) {
+						double bonus = StdIn.readDouble();
+						if (bonus >= 0) {
+							adminEmp.setBonus(bonus);
+						} else {
+							StdOut.println("Number needs to greater than 0!");
+							StdOut.println("Enter New Value: ");
+							bonus = StdIn.readDouble();
+							StdIn.readLine();
+							adminEmp.setHourlyRate(bonus);
+						}
+						StdOut.println("---Employee's New Info---");
+						StdOut.println(adminEmp);
+					}
+					break;
+				}
+			} else {
+				StdOut.println("Invalid Index!");
+				StdOut.println("Choose another from this list!");
+				editEmployee();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void deleteEmployee() {
+	
+		if (employees.size() > 0) {
+	
+			listEmployees(1);
+			StdOut.println("Choose Index of Employee to delete: ");
+			int delChoice = StdIn.readInt();
+			StdIn.readInt();
+	
+			if (delChoice >= 0 && delChoice >= employees.size()) {
+				StdOut.println("Are you sure you want to delete? (y/n)");
+				String response = StdIn.readString();
+				StdIn.readLine();
+	
+				Employee delThis = employees.get(delChoice);
+				
+				// Checking to see if employee is in a managers list
+				// If he is, removed from that too
+				if (response.equalsIgnoreCase("y")) {
+	
+					if (employees.get(delChoice).hasManager()) {
+						ArrayList<Manager> managers = managerArray();
+	
+						String name = (delThis.getFirstName() + delThis
+								.getLastName());
+	
+						for (Manager man : managers) {
+							for (int i = 0; i < managers.size(); i += 1) {
+	
+								String compare = (man.getMinions().get(i)
+										.getFirstName() + man.getMinions()
+										.get(i).getLastName());
+	
+								if (name.equalsIgnoreCase(compare)) {
+									man.getMinions().remove(delThis);
+								}
+							}
+						}
+					}
+	
+					employees.remove(delThis);
+					StdOut.println("New List: ");
+					listEmployees(1);
+				}
+			} else {
+				StdOut.println("Invalid Index!");
+				StdOut.println("Choose another from this list!");
+				deleteEmployee();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
 	/**
 	 * @return
 	 */
-	private int addEmployeeMenu() {
-		
-		StdOut.println("-------------");
-		StdOut.println("ADD EMPLOYEE MENU");
-		StdOut.println("-------------");
-		StdOut.println("1 - Add Admin Worker");
-		StdOut.println("2 - Add Sales Worker");
-		StdOut.println("3 - Add Manager");				
+	private int printMenu() {
+		StdOut.println("------------------------");
+		StdOut.println("SORT AND PRINT MENU");
+		StdOut.println("------------------------");
+		StdOut.println();
+		StdOut.println("---- Sort and Print ----");
+		StdOut.println("----  Employees In  ----");
+		StdOut.println("-- Ascending Order By --");
+		StdOut.println();
+		StdOut.println("1 - First Name");
+		StdOut.println("2 - Surname");
+		StdOut.println("3 - Hourly Rate");		
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 		
-		int addMenuOption = StdIn.readInt();
+		int printOption = StdIn.readInt();
+		StdIn.readLine();
+	
+		return printOption;
+	}
+
+	/**
+	 * @param printOption
+	 */
+	public void printBy(int printOption) {
+		
+		ArrayList<Employee> temp = null;
+		
+		switch(printOption){
+		case 1:
+			temp = sort(printOption);
+			break;
+		case 2:
+			temp = sort(printOption);
+			break;
+		case 3:
+			temp = sort(printOption);
+		}
+		
+		for (Employee emp: temp) {
+			StdOut.println(emp);
+			StdOut.println();
+		}
+	}
+
+	/**
+	 * @return
+	 */
+	private int managerMenu() {
+		StdOut.println("-------------");
+		StdOut.println("MANAGER MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Add Employee to a Manager");
+		StdOut.println("2 - Delete Employee from Manager");
+		StdOut.println("3 - List Employees in a Manager");				
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+		
+		int manMenuOption = StdIn.readInt();
 		StdIn.readLine();
 		
-		return addMenuOption;
+		return manMenuOption;
+	}
+
+	/**
+	 * 
+	 */
+	public void addToManager() {
+	
+		if (employees.size() > 0) {
+			Manager manager = null;
+	
+			listManagers();
+			StdOut.println("Choose Manager to add employees to: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+	
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
+	
+				if (employees.get(managerIndex).getClass() == Manager.class) {
+					manager = (Manager) employees.get(managerIndex);
+	
+					StdOut.println("Choose Employee To Add:");
+					listEmployees(2);
+					int empIndex = StdIn.readInt();
+					StdIn.readLine();
+	
+					Employee toAdd = employees.get(empIndex);
+	
+					manager.getMinions().add(toAdd);
+					toAdd.setHasManager(true);
+	
+					StdOut.println("Employee: " + toAdd.getFirstName()
+							+ " added to " + manager.getFirstName());
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * Method that prints the employees contained in a chosen managers
+	 * department.
+	 * 
+	 */
+	public void printFromManager() {
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to Print Employees: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
 				
+				int type = getType(employees.get(managerIndex));
+				if (type == 1) {
+					manager = (Manager) employees.get(managerIndex);					
+					printMinions(manager);					
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void delFromManger() {
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to delete employee from: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();		
+						
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
+				
+				int type = getType(employees.get(managerIndex));
+
+				if (type == 1) {
+					manager = (Manager) employees.get(managerIndex);
+
+					StdOut.println("Choose Index of Employee To Remove:");
+					printMinions(manager);
+					int empIndex = StdIn.readInt();
+					StdIn.readLine();
+
+					Employee delThis = manager.getMinions().get(empIndex);
+
+					delThis.setHasManager(false);
+					manager.getMinions().remove(empIndex);					
+
+					StdOut.println("Employee: " + delThis.getFirstName()
+							+ " deleted from " + manager.getFirstName());
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * @param manager
+	 */
+	public void printMinions(Manager manager) {
+		int index = 0;
+		
+		for(Employee emp: manager.getMinions()) {						
+			StdOut.println(emp + "\nIndex at: " + index);
+			index += 1;
+		}
 	}
 
 	public void searchBy(int searchOption) {
@@ -561,10 +837,12 @@ public class Driver
 
 				for (int index = 0; index < employees.size(); index += 1) {
 					Employee potentMan = employees.get(index);
+					
+					int type = getType(potentMan);
 
 					//Go through employees and grabs its index in
 					//employees list
-				    if (potentMan.getClass() == Manager.class) {
+				    if (type == 1) {
 				    	StdOut.println("Index: " + index + "\n"
 								+ potentMan + "\n");				    	
 				    }
@@ -605,36 +883,13 @@ public class Driver
 	}
 
 	/**
-	 * @param printOption
-	 */
-	public void printBy(int printOption) {
-		
-		ArrayList<Employee> temp = null;
-		
-		switch(printOption){
-		case 1:
-			temp = sort(printOption);
-			break;
-		case 2:
-			temp = sort(printOption);
-			break;
-		case 3:
-			temp = sort(printOption);
-		}
-		
-		for (Employee emp: temp) {
-			StdOut.println(emp);
-			StdOut.println();
-		}
-	}
-
-	/**
 	 * @param option
 	 * @return
 	 */
 	public ArrayList<Employee> sort(int option) {
 
 		ArrayList<Employee> temp = employees;
+		Employee emp = null;
 
 		for (int i = 0; i < temp.size(); i += 1) {
 			for (int j = (i + 1); j < temp.size(); j += 1) {
@@ -643,38 +898,43 @@ public class Driver
 				case 1:
 					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
 							.get(i).getFirstName()) < 0) {
-
-						Employee emp = temp.get(i);
-						temp.set(i, temp.get(j));
-						temp.set(j, emp);
+						
+						emp = temp.get(i);						
+						swap(temp, emp, i, j);						
 					}
 					break;
 				//Sorting By Surname	
 				case 2:
 					if ((temp.get(j).getLastName()).compareToIgnoreCase(temp
 							.get(i).getLastName()) < 0) {
-
-						Employee emp = temp.get(i);
-						temp.set(i, temp.get(j));
-						temp.set(j, emp);
+					
+						emp = temp.get(i);						
+						swap(temp, emp, i, j);
 					}
 					break;
 			    //Sorting by Hourly Rate
 				case 3:
 					if (temp.get(j).getHourlyRate() < temp.get(i)
 							.getHourlyRate()) {
-
-						Employee emp = temp.get(i);
-						temp.set(i, temp.get(j));
-						temp.set(j, emp);
+						
+						emp = temp.get(i);
+						swap(temp, emp, i, j);						
 					}
 					break;
-				}
+				}						
 			}
 		}
 		return temp;
 	}
+	public ArrayList<Employee> swap(ArrayList<Employee> temp, Employee emp, int i, int j) {
+		emp = temp.get(i);
+		temp.set(i, temp.get(j));
+		temp.set(j, emp);
+		
+		return temp;		
+	}
 
+	
 	/**
 	 * @return
 	 */
@@ -749,257 +1009,6 @@ public class Driver
 		StdIn.readLine();
 
 		return printOption;
-	}
-
-	/**
-	 * @return
-	 */
-	private int printMenu() {
-		StdOut.println("------------------------");
-		StdOut.println("SORT AND PRINT MENU");
-		StdOut.println("------------------------");
-		StdOut.println();
-		StdOut.println("---- Sort and Print ----");
-		StdOut.println("----  Employees In  ----");
-		StdOut.println("-- Ascending Order By --");
-		StdOut.println();
-		StdOut.println("1 - First Name");
-		StdOut.println("2 - Surname");
-		StdOut.println("3 - Hourly Rate");		
-		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
-		
-		int printOption = StdIn.readInt();
-		StdIn.readLine();
-
-		return printOption;
-	}
-
-	/**
-	 * 
-	 */
-	public void deleteEmployee() {
-
-		if (employees.size() > 0) {
-
-			listEmployees(1);
-			StdOut.println("Choose Index of Employee to delete: ");
-			int delChoice = StdIn.readInt();
-			StdIn.readInt();
-
-			if (delChoice >= 0 && delChoice >= employees.size()) {
-				StdOut.println("Are you sure you want to delete? (y/n)");
-				String response = StdIn.readString();
-				StdIn.readLine();
-
-				Employee delThis = employees.get(delChoice);
-				
-				// Checking to see if employee is in a managers list
-				// If he is, removed from that too
-				if (response.equalsIgnoreCase("y")) {
-
-					if (employees.get(delChoice).hasManager()) {
-						ArrayList<Manager> managers = managerArray();
-
-						String name = (delThis.getFirstName() + delThis
-								.getLastName());
-
-						for (Manager man : managers) {
-							for (int i = 0; i < managers.size(); i += 1) {
-
-								String compare = (man.getMinions().get(i)
-										.getFirstName() + man.getMinions()
-										.get(i).getLastName());
-
-								if (name.equalsIgnoreCase(compare)) {
-									man.getMinions().remove(delThis);
-								}
-							}
-						}
-					}
-
-					employees.remove(delThis);
-					StdOut.println("New List: ");
-					listEmployees(1);
-				}
-			} else {
-				StdOut.println("Invalid Index!");
-				StdOut.println("Choose another from this list!");
-				deleteEmployee();
-			}
-		} else {
-			noEmployeesResponse();
-		}
-	}
-
-	/**
-	 * 
-	 */
-	public void editEmployee() {
-
-		if (employees.size() > 0) {
-			listEmployees(1);
-			StdOut.println("Choose Index of Employee to Edit: ");
-			int index = StdIn.readInt();
-			StdIn.readInt();
-			if ((index >= 0) && (index >= employees.size())) {
-				Employee emp = employees.get(index);
-				String firstName = null;
-				String lastName = null;
-				int type = getType(emp);
-
-				StdOut.println("Do you want to edit 1st name (Y/N)?");
-				String firstResponse = StdIn.readString();
-				StdIn.readLine();
-				if (firstResponse.equalsIgnoreCase("Y")) {
-					StdOut.println("Enter new First Name: ");
-					firstName = StdIn.readLine();
-				}
-
-				StdOut.println("Do you want to edit last name (Y/N)?");
-				String secondResponse = StdIn.readString();
-				StdIn.readLine();
-				if (secondResponse.equalsIgnoreCase("Y")) {
-					StdOut.println("Enter new Last Name: ");
-					lastName = StdIn.readLine();
-				}
-
-				String testNew = (firstName + lastName);
-				String testOld = (emp.getFirstName() + emp.getLastName());
-
-				if (testNew.equalsIgnoreCase(testOld)) {
-					StdOut.println("Duplicate Employee!");
-					StdOut.println("Restarting...");
-					editEmployee();
-				} else {
-					if ((firstResponse.equalsIgnoreCase("Y"))) {
-						emp.setFirstName(firstName);
-					}
-					if (secondResponse.equalsIgnoreCase("Y")) {
-						emp.setLastName(lastName);
-					}
-				}
-
-				StdOut.println("Do you want to edit hourly rate (Y/N)?");
-				String rateResponse = StdIn.readString();
-				StdIn.readLine();
-				if (rateResponse.equalsIgnoreCase("Y")) {
-					StdOut.println("Enter New Hourly Rate: ");
-					double hourlyRate = StdIn.readDouble();
-					StdIn.readLine();
-					if (hourlyRate >= 0) {
-						emp.setHourlyRate(hourlyRate);
-					} else {
-						StdOut.println("Number needs to greater than 0!");
-						StdOut.println("Enter New Value: ");
-						hourlyRate = StdIn.readDouble();
-						StdIn.readLine();
-						emp.setHourlyRate(hourlyRate);
-					}
-				}
-
-				switch (type) {
-				case 1:
-					StdOut.println("Nothing Left to Edit.");
-					StdOut.println("If you want to add/delete employees from");
-					StdOut.println("a manager, do so through the manager menu.");
-					StdOut.println("---Employee's New Info---");
-					StdOut.println(emp);
-					break;
-				case 2:
-					SalesWorker salesEmp = (SalesWorker) emp;
-					StdOut.println("Do you want to edit performance bonus (Y/N)?");
-					String salesResponse = StdIn.readString();
-					StdIn.readLine();
-					if (salesResponse.equalsIgnoreCase("Y")) {
-						double perfBonus = StdIn.readDouble();
-						if ((perfBonus >= 0) && (perfBonus <= 20)) {
-							salesEmp.setPerfBonus(perfBonus);
-						} else {
-							StdOut.println("Number needs to greater than 0 ");
-							StdOut.print("and less than or equal to 20!");
-							StdOut.println("Enter New Value: ");
-							perfBonus = StdIn.readDouble();
-							StdIn.readLine();
-							salesEmp.setHourlyRate(perfBonus);
-						}
-					}
-					StdOut.println("---Employee's New Info---");
-					StdOut.println(salesEmp);
-					break;
-				case 3:
-					AdminWorker adminEmp = (AdminWorker) emp;
-					StdOut.println("Do you want to edit fixed bonus (Y/N)?");
-					String adminResponse = StdIn.readString();
-					StdIn.readLine();
-					if (adminResponse.equalsIgnoreCase("Y")) {
-						double bonus = StdIn.readDouble();
-						if (bonus >= 0) {
-							adminEmp.setBonus(bonus);
-						} else {
-							StdOut.println("Number needs to greater than 0!");
-							StdOut.println("Enter New Value: ");
-							bonus = StdIn.readDouble();
-							StdIn.readLine();
-							adminEmp.setHourlyRate(bonus);
-						}
-						StdOut.println("---Employee's New Info---");
-						StdOut.println(adminEmp);
-					}
-					break;
-				}
-			} else {
-				StdOut.println("Invalid Index!");
-				StdOut.println("Choose another from this list!");
-				editEmployee();
-			}
-		} else {
-			noEmployeesResponse();
-		}
-	}
-	
-	/**
-	 * @return
-	 */
-	private int adminMenu() {
-		StdOut.println("-------------");
-		StdOut.println("ADMIN MENU");
-		StdOut.println("-------------");
-		StdOut.println("1 - Add Employee Menu");
-		StdOut.println("2 - Edit an Employee");
-		StdOut.println("3 - Delete an Employee");		
-		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
-		
-		int adminOption = StdIn.readInt();
-		StdIn.readLine();
-
-		return adminOption;
-	}
-
-	/**
-	 * Method to display the main menu for the application and reads the menu
-	 * option that the user has entered and returns it.
-	 * 
-	 * @return user's choice
-	 */
-	private int mainMenu() {
-		StdOut.println("-------------");
-		StdOut.println("MAIN MENU");
-		StdOut.println("-------------");
-		StdOut.println("1 - Admin Menu");
-		StdOut.println("2 - Sort and Print Menu");
-		StdOut.println("3 - Search Menu");
-		StdOut.println("4 - Accounting Menu");
-		StdOut.println("5 - Manager Admin Menu");
-		StdOut.println("6 - Save and Load Menu");
-		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
-
-		int option = StdIn.readInt();
-		StdIn.readLine();
-
-		return option;
 	}
 
 	/**

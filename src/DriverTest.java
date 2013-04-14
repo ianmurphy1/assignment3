@@ -161,6 +161,7 @@ public class DriverTest
 		int option = 1;
 		
 		ArrayList<Employee> temp = employees;
+		Employee emp = null;
 
 		for (int i = 0; i < temp.size(); i += 1) {
 			for (int j = (i + 1); j < temp.size(); j += 1) {
@@ -170,7 +171,7 @@ public class DriverTest
 					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
 								.get(i).getFirstName()) < 0) {
 
-							Employee emp = temp.get(i);
+							emp = temp.get(i);
 							temp.set(i, temp.get(j));
 							temp.set(j, emp);
 						}
@@ -179,7 +180,7 @@ public class DriverTest
 					if ((temp.get(j).getLastName()).compareToIgnoreCase(temp
 							.get(i).getLastName()) < 0) {
 
-						Employee emp = temp.get(i);
+						emp = temp.get(i);
 						temp.set(i, temp.get(j));
 						temp.set(j, emp);
 					}
@@ -187,10 +188,14 @@ public class DriverTest
 				case 3:
 					if (temp.get(j).getHourlyRate() < temp.get(i)
 							.getHourlyRate()) {
+						
+						Driver driver = new Driver();
+						emp = temp.get(i);
+						driver.swap(temp, emp, i, j);
 
-						Employee emp = temp.get(i);
-						temp.set(i, temp.get(j));
-						temp.set(j, emp);
+						//Employee emp = temp.get(i);
+						//temp.set(i, temp.get(j));
+						//temp.set(j, emp);
 					}
 					break;
 					}
