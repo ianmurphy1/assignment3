@@ -62,7 +62,7 @@ public class AdminWorker extends Employee {
 	 */
 	@Override
 	public String toString() {
-		return "Employee Type: AdminWorker" + super.toString() + "/n"
-			 + "Bonus: " + bonus;
+		return "Employee Type: AdminWorker" + "\n" + super.toString()  
+			 + "Bonus: E" + bonus;
 	}
 }

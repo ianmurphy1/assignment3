@@ -78,8 +78,8 @@ public class SalesWorker extends Employee {
 	 */
 	@Override
 	public String toString() {
-		return "Employee Type: SalesWorker" + "/n" + super.toString() + "/n" 
-	         + "Performance Bonus: " + perfBonus;
+		return "Employee Type: SalesWorker" + "\n" + super.toString() 
+	         + "Performance Bonus: " + perfBonus + "%";
 	}
 
 }

@@ -169,9 +169,9 @@ public abstract class Employee
 	 */
 	@Override
 	public String toString() {
-		return "First Name: " + firstName + "/n" 
-	         + "Last Name: " + lastName + "/n"
-			 + "Hourly Rate: " + hourlyRate;
+		return "First Name: " + firstName + "\n" 
+	         + "Last Name: " + lastName + "\n"
+			 + "Hourly Rate: E" + hourlyRate + "\n";
 	}
 	
 	/**

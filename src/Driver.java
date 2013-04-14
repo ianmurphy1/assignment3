@@ -25,6 +25,7 @@ public class Driver
 	public static void main(String[] args) {
 
 		Driver app = new Driver();
+		app.constructObjects();
 		app.run();
 	}
 
@@ -67,6 +68,7 @@ public class Driver
 					deleteEmployee();
 				    break;
 			    }
+				break;
 			// Sort Menu
 			case 2:
 				int printOption = printMenu();
@@ -472,7 +474,7 @@ public class Driver
 	private void printSalaries() {
 		StdOut.println("This will only take into account the salaries that" +
 				" have already been individually calculated.");
-		StdOut.println("Total Salary: €" + calcSalaries());		
+		StdOut.println("Total Salary: E" + calcSalaries());		
 	}
 
 	/**
@@ -611,6 +613,7 @@ public class Driver
 		
 		for (Employee emp: temp) {
 			StdOut.println(emp);
+			StdOut.println();
 		}
 	}
 
@@ -688,23 +691,34 @@ public class Driver
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unchecked")
 	public void load() {
-		// TODO Auto-generated method stub		
+		this.employees = (ArrayList<Employee>) StdStream.readFromFile("employees.xml");		
 	}
 
 	/**
 	 * 
 	 */
-	public void save() {
-		// TODO Auto-generated method stub		
+	public void save() {		  
+		StdStream.saveToFile(employees, "employees.xml");   
 	}
 
 	/**
 	 * @return
 	 */
 	private int saveLoadMenu() {
-		// TODO Auto-generated method stub
-		return 0;
+		StdOut.println("-------------------");
+		StdOut.println("SAVE/LOAD MENU");
+		StdOut.println("-------------------");
+		StdOut.println("1 - Save Employees");
+		StdOut.println("2 - Load Previous Save");		
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+
+		int printOption = StdIn.readInt();
+		StdIn.readLine();
+
+		return printOption;
 	}
 	
 	/**
@@ -966,7 +980,8 @@ public class Driver
 		StdOut.println("2 - Sort and Print Menu");
 		StdOut.println("3 - Search Menu");
 		StdOut.println("4 - Accounting Menu");
-		StdOut.println("5 - Save and Load Menu");
+		StdOut.println("5 - Manager Admin Menu");
+		StdOut.println("6 - Save and Load Menu");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
@@ -1006,6 +1021,41 @@ public class Driver
 			int option = addEmployeeMenu();
 			addEmployee(option);
 		}		
+	}
+	
+	public void constructObjects() {
+		
+		Manager m1, m2;
+		AdminWorker a1, a2, a3;
+		SalesWorker s1, s2, s3;		
+		
+		m1 = new Manager("Paul", "Murphy", 24.50);
+		m2 = new Manager("Booker", "DeWitt", 20.00);
+
+		a1 = new AdminWorker("Jesse", "Pinkman", 12.00, 5);
+		a2 = new AdminWorker("Elizabeth", "Comstock", 13.50, 15);
+		a3 = new AdminWorker("Jimmy", "McNulty", 13, 50);
+
+		s1 = new SalesWorker("Johnny", "Bravo", 11.75, 6);
+		s2 = new SalesWorker("Peregrin", "Took", 9.50, 12);
+		s3 = new SalesWorker("Samwell", "Tarly", 10.50, 12);
+
+		// Adding Managers to the list last so a sort isn't
+		// required (for now) when calculating wages.
+		employees.add(s1);
+		employees.add(s2);
+		employees.add(s3);
+		employees.add(a1);
+		employees.add(a2);
+		employees.add(a3);
+		employees.add(m2);
+		employees.add(m1);
+		
+		m1.getMinions().add(a1);
+		m1.getMinions().add(s1);
+
+		m2.getMinions().add(a2);
+		m2.getMinions().add(s2);
 	}
 
 	/**
