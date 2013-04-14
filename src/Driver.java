@@ -371,9 +371,75 @@ public class Driver
 	}
 
 	public void searchBy(int searchOption) {
-		// TODO Auto-generated method stub
-		
+		int position = 0;
+		boolean found = false;
+		StdOut.println("----Searching----");
+		String searchString = null;
+
+		switch (searchOption) {
+		// Searching All Employees
+		case 1:
+			StdOut.println("Enter Employee's Name");
+			searchString = (StdIn.readLine()).toLowerCase();
+
+			for (Employee employee : employees) {
+				String fullName = (employee.getFirstName() + employee
+						.getLastName()).toLowerCase();
+
+				if (fullName.contains(searchString)) {
+					found = true;
+					StdOut.println(employee.getFirstName() + " found.");
+					StdOut.println("Location is: " + position);
+				}
+				position++;
+			}
+			if (!found) {
+				StdOut.println("No Matches Found!");
+			}
+			break;
+		// Searching in a Manager
+		case 2:
+			listManagers();
+			StdOut.println("Choose Index of Manager to Search: ");
+			int index = StdIn.readInt();
+			StdIn.readLine();
+			if ((index >= 0) && (index < employees.size())) {
+
+				int type = getType(employees.get(index));
+
+				if (type == 1) {
+					Manager manager = (Manager) employees.get(index);
+					StdOut.println("Enter Search Term: ");
+					searchString = (StdIn.readLine()).toLowerCase();
+
+					for (Employee emp : manager.getMinions()) {
+						String fullName = (emp.getFirstName() + emp
+								.getLastName()).toLowerCase();
+
+						if (fullName.contains(searchString)) {
+							found = true;
+							StdOut.println(emp.getFirstName() + " found.");
+							StdOut.println("Location is: " + position);
+						}
+						position++;
+					}
+					if (!found) {
+						StdOut.println("No Matches Found!");
+					}
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					searchBy(2);
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				searchBy(2);
+			}
+			break;
+		}
 	}
+	
 
 	private int searchMenu() {
 		StdOut.println("-------------");
