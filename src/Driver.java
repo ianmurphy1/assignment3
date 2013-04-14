@@ -23,7 +23,6 @@ public class Driver
 	 *            unused
 	 */
 	public static void main(String[] args) {
-
 		Driver app = new Driver();
 		app.load();
 		app.run();
@@ -150,6 +149,8 @@ public class Driver
 	}
 	
 	/**
+	 * Method that prints the employees contained in a chosen managers
+	 * department.
 	 * 
 	 */
 	public void printFromManager() {
@@ -166,9 +167,7 @@ public class Driver
 				if (employees.get(managerIndex).getClass() == Manager.class) {
 					manager = (Manager) employees.get(managerIndex);
 					
-					for(Employee emp: manager.getMinions()) {
-						StdOut.println(emp);
-					}
+					printMinions(manager);
 					
 				} else {
 					StdOut.println("Not A Manager!");
@@ -185,6 +184,9 @@ public class Driver
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	private int managerMenu() {
 		StdOut.println("-------------");
 		StdOut.println("MANAGER MENU");
@@ -195,10 +197,10 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 		
-		int addMenuOption = StdIn.readInt();
+		int manMenuOption = StdIn.readInt();
 		StdIn.readLine();
 		
-		return addMenuOption;
+		return manMenuOption;
 	}
 
 	/**
@@ -219,14 +221,14 @@ public class Driver
 					manager = (Manager) employees.get(managerIndex);
 
 					StdOut.println("Choose Index of Employee To Remove:");
-					listEmployees(2);
+					printMinions(manager);
 					int empIndex = StdIn.readInt();
 					StdIn.readLine();
 
-					Employee delThis = employees.get(empIndex);
+					Employee delThis = manager.getMinions().get(empIndex);
 
-					manager.getMinions().remove(delThis);
 					delThis.setHasManager(false);
+					manager.getMinions().remove(empIndex);					
 
 					StdOut.println("Employee: " + delThis.getFirstName()
 							+ " deleted from " + manager.getFirstName());
@@ -242,6 +244,18 @@ public class Driver
 			}
 		} else {
 			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * @param manager
+	 */
+	private void printMinions(Manager manager) {
+		int index = 0;
+		
+		for(Employee emp: manager.getMinions()) {						
+			StdOut.println(emp.getFirstName() + " located at: " + index);
+			index += 1;
 		}
 	}
 
@@ -263,7 +277,7 @@ public class Driver
 				if (employees.get(managerIndex).getClass() == Manager.class) {
 					manager = (Manager) employees.get(managerIndex);
 
-					StdOut.println("Choose Employee To add:");
+					StdOut.println("Choose Employee To Add:");
 					listEmployees(2);
 					int empIndex = StdIn.readInt();
 					StdIn.readLine();
@@ -309,7 +323,7 @@ public class Driver
 		if (employees.size() > 0) {
 			for (Employee emp : employees) {
 				if (((emp.getFirstName().equals(firstName)) && (emp.getLastName().equals(lastName)))) {
-					StdOut.println("Dublicated Employee Names!");
+					StdOut.println("Duplicated Employee Names!");
 					addEmployee(choice);
 				}
 			}
@@ -344,10 +358,7 @@ public class Driver
 		case 3:
 			Manager manager = new Manager(firstName, lastName, hourlyRate);
 			employees.add(manager);
-			break;
-		default:
-			StdOut.println("Invalid choice.");
-			break;
+			break;		
 		}			
 	}
 	
