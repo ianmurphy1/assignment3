@@ -1,21 +1,39 @@
 import java.util.ArrayList;
 
-
 /**
  * @author Ian
- *
+ * 
  */
 public class Driver
 {
 	private ArrayList<Employee> employees;
-	
+
 	/**
 	 * 
 	 */
 	public Driver() {
 		this.employees = new ArrayList<Employee>();
 	}
-	
+
+	/**
+	 * Method to get the ArrayList employees
+	 * 
+	 * @return the employees
+	 */
+	public ArrayList<Employee> getEmployees() {
+		return employees;
+	}
+
+	/**
+	 * Setter to change the ArrayList
+	 * 
+	 * @param employees
+	 *            the employees to set
+	 */
+	public void setEmployees(ArrayList<Employee> employees) {
+		this.employees = employees;
+	}
+
 	/**
 	 * Main method
 	 * 
@@ -27,7 +45,6 @@ public class Driver
 		app.load();
 		app.run();
 	}
-
 
 	/**
 	 * 
@@ -55,18 +72,18 @@ public class Driver
 						break;
 					case 3:
 						addEmployee(addOption);
-						break;					
+						break;
 					}
 					break;
 				// Update Menu
 				case 2:
-					editEmployee();					
+					editEmployee();
 					break;
 				// Delete Menu
 				case 3:
 					deleteEmployee();
-				    break;
-			    }
+					break;
+				}
 				break;
 			// Sort Menu
 			case 2:
@@ -93,7 +110,7 @@ public class Driver
 					break;
 				case 2:
 					searchBy(searchOption);
-					break;				
+					break;
 				}
 				break;
 
@@ -112,8 +129,8 @@ public class Driver
 					break;
 				}
 				break;
-			
-		    //Manager Menu
+
+			// Manager Menu
 			case 5:
 				int manOption = managerMenu();
 				switch (manOption) {
@@ -147,7 +164,7 @@ public class Driver
 
 		StdOut.println("Exiting...bye.");
 	}
-	
+
 	/**
 	 * Method to display the main menu for the application and reads the menu
 	 * option that the user has entered and returns it.
@@ -166,10 +183,10 @@ public class Driver
 		StdOut.println("6 - Save and Load Menu");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
-	
+
 		int option = StdIn.readInt();
 		StdIn.readLine();
-	
+
 		return option;
 	}
 
@@ -182,13 +199,13 @@ public class Driver
 		StdOut.println("-------------");
 		StdOut.println("1 - Add Employee Menu");
 		StdOut.println("2 - Edit an Employee");
-		StdOut.println("3 - Delete an Employee");		
+		StdOut.println("3 - Delete an Employee");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
-		
+
 		int adminOption = StdIn.readInt();
 		StdIn.readLine();
-	
+
 		return adminOption;
 	}
 
@@ -196,42 +213,43 @@ public class Driver
 	 * @return
 	 */
 	private int addEmployeeMenu() {
-		
+
 		StdOut.println("-------------");
 		StdOut.println("ADD EMPLOYEE MENU");
 		StdOut.println("-------------");
 		StdOut.println("1 - Add Admin Worker");
 		StdOut.println("2 - Add Sales Worker");
-		StdOut.println("3 - Add Manager");				
+		StdOut.println("3 - Add Manager");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
-		
+
 		int addMenuOption = StdIn.readInt();
 		StdIn.readLine();
-		
+
 		return addMenuOption;
-				
+
 	}
 
 	/**
-	 * Method that asks the user to enter the first and last
-	 * name, the hourly rate and depending on what type of employee
-	 * is to be created will take in a value for a fixed bonus or a 
-	 * percentage for a performance bonus.
+	 * Method that asks the user to enter the first and last name, the hourly
+	 * rate and depending on what type of employee is to be created will take in
+	 * a value for a fixed bonus or a percentage for a performance bonus.
 	 * 
-	 * @param choice The type of employee to be created.
+	 * @param choice
+	 *            The type of employee to be created.
 	 */
 	public void addEmployee(int choice) {
 		StdOut.println("Enter Employee's First Name: ");
 		String firstName = StdIn.readLine();
 		StdOut.println("Enter Employee's Surname: ");
 		String lastName = StdIn.readLine();
-		
-		// Checks if both names are equal, if they are employee can't be 
+
+		// Checks if both names are equal, if they are employee can't be
 		// created
 		if (employees.size() > 0) {
 			for (Employee emp : employees) {
-				if (((emp.getFirstName().equals(firstName)) && (emp.getLastName().equals(lastName)))) {
+				if (((emp.getFirstName().equals(firstName)) && (emp
+						.getLastName().equals(lastName)))) {
 					StdOut.println("Duplicated Employee Names!");
 					addEmployee(choice);
 				}
@@ -240,42 +258,44 @@ public class Driver
 		StdOut.println("Enter Hourly Rate: ");
 		double hourlyRate = StdIn.readDouble();
 		StdIn.readLine();
-		
+
 		switch (choice) {
 		case 1:
 			StdOut.println("Enter fixed bonus amount: ");
 			double fixedBonus = StdIn.readDouble();
-			StdIn.readLine();			
-			AdminWorker admin = new AdminWorker(firstName, lastName, hourlyRate, fixedBonus);
+			StdIn.readLine();
+			AdminWorker admin = new AdminWorker(firstName, lastName,
+					hourlyRate, fixedBonus);
 			employees.add(admin);
 			break;
 		case 2:
 			StdOut.println("Enter bonus Percentage: ");
-			StdOut.println("Must be between 0 and 20 inclusive.");	
+			StdOut.println("Must be between 0 and 20 inclusive.");
 			double perfBonus = StdIn.readDouble();
 			StdIn.readLine();
 			if (!(perfBonus > 0 && perfBonus <= 20)) {
 				StdOut.println("Not a Valid Range.");
 				StdOut.println("Must be between 0 and 20.");
-				StdOut.println("Enter new bonus percentage: ");	
+				StdOut.println("Enter new bonus percentage: ");
 				perfBonus = StdIn.readDouble();
 				StdIn.readLine();
 			}
-			SalesWorker sales = new SalesWorker(firstName, lastName, hourlyRate, perfBonus);
-			employees.add(sales);			
+			SalesWorker sales = new SalesWorker(firstName, lastName,
+					hourlyRate, perfBonus);
+			employees.add(sales);
 			break;
 		case 3:
 			Manager manager = new Manager(firstName, lastName, hourlyRate);
 			employees.add(manager);
-			break;		
-		}			
+			break;
+		}
 	}
 
 	/**
 	 * 
 	 */
 	public void editEmployee() {
-	
+
 		if (employees.size() > 0) {
 			listEmployees(1);
 			StdOut.println("Choose Index of Employee to Edit: ");
@@ -286,7 +306,7 @@ public class Driver
 				String firstName = null;
 				String lastName = null;
 				int type = getType(emp);
-	
+
 				StdOut.println("Do you want to edit 1st name (Y/N)?");
 				String firstResponse = StdIn.readString();
 				StdIn.readLine();
@@ -294,7 +314,7 @@ public class Driver
 					StdOut.println("Enter new First Name: ");
 					firstName = StdIn.readLine();
 				}
-	
+
 				StdOut.println("Do you want to edit last name (Y/N)?");
 				String secondResponse = StdIn.readString();
 				StdIn.readLine();
@@ -302,10 +322,10 @@ public class Driver
 					StdOut.println("Enter new Last Name: ");
 					lastName = StdIn.readLine();
 				}
-	
+
 				String testNew = (firstName + lastName);
 				String testOld = (emp.getFirstName() + emp.getLastName());
-	
+
 				if (testNew.equalsIgnoreCase(testOld)) {
 					StdOut.println("Duplicate Employee!");
 					StdOut.println("Restarting...");
@@ -318,7 +338,7 @@ public class Driver
 						emp.setLastName(lastName);
 					}
 				}
-	
+
 				StdOut.println("Do you want to edit hourly rate (Y/N)?");
 				String rateResponse = StdIn.readString();
 				StdIn.readLine();
@@ -336,7 +356,7 @@ public class Driver
 						emp.setHourlyRate(hourlyRate);
 					}
 				}
-	
+
 				switch (type) {
 				case 1:
 					StdOut.println("Nothing Left to Edit.");
@@ -401,45 +421,45 @@ public class Driver
 	 * 
 	 */
 	public void deleteEmployee() {
-	
+
 		if (employees.size() > 0) {
-	
+
 			listEmployees(1);
 			StdOut.println("Choose Index of Employee to delete: ");
 			int delChoice = StdIn.readInt();
 			StdIn.readInt();
-	
+
 			if (delChoice >= 0 && delChoice >= employees.size()) {
 				StdOut.println("Are you sure you want to delete? (y/n)");
 				String response = StdIn.readString();
 				StdIn.readLine();
-	
+
 				Employee delThis = employees.get(delChoice);
-				
+
 				// Checking to see if employee is in a managers list
 				// If he is, removed from that too
 				if (response.equalsIgnoreCase("y")) {
-	
+
 					if (employees.get(delChoice).hasManager()) {
 						ArrayList<Manager> managers = managerArray();
-	
+
 						String name = (delThis.getFirstName() + delThis
 								.getLastName());
-	
+
 						for (Manager man : managers) {
 							for (int i = 0; i < managers.size(); i += 1) {
-	
+
 								String compare = (man.getMinions().get(i)
 										.getFirstName() + man.getMinions()
 										.get(i).getLastName());
-	
+
 								if (name.equalsIgnoreCase(compare)) {
 									man.getMinions().remove(delThis);
 								}
 							}
 						}
 					}
-	
+
 					employees.remove(delThis);
 					StdOut.println("New List: ");
 					listEmployees(1);
@@ -468,13 +488,13 @@ public class Driver
 		StdOut.println();
 		StdOut.println("1 - First Name");
 		StdOut.println("2 - Surname");
-		StdOut.println("3 - Hourly Rate");		
+		StdOut.println("3 - Hourly Rate");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
-		
+
 		int printOption = StdIn.readInt();
 		StdIn.readLine();
-	
+
 		return printOption;
 	}
 
@@ -482,10 +502,10 @@ public class Driver
 	 * @param printOption
 	 */
 	public void printBy(int printOption) {
-		
+
 		ArrayList<Employee> temp = null;
-		
-		switch(printOption){
+
+		switch (printOption) {
 		case 1:
 			temp = sort(printOption);
 			break;
@@ -495,8 +515,8 @@ public class Driver
 		case 3:
 			temp = sort(printOption);
 		}
-		
-		for (Employee emp: temp) {
+
+		for (Employee emp : temp) {
 			StdOut.println(emp);
 			StdOut.println();
 		}
@@ -505,160 +525,24 @@ public class Driver
 	/**
 	 * @return
 	 */
-	private int managerMenu() {
+	private int searchMenu() {
 		StdOut.println("-------------");
-		StdOut.println("MANAGER MENU");
+		StdOut.println("SEARCH MENU");
 		StdOut.println("-------------");
-		StdOut.println("1 - Add Employee to a Manager");
-		StdOut.println("2 - Delete Employee from Manager");
-		StdOut.println("3 - List Employees in a Manager");				
+		StdOut.println("1 - Search Company");
+		StdOut.println("2 - Search a Manager");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
-		
-		int manMenuOption = StdIn.readInt();
+
+		int searchOption = StdIn.readInt();
 		StdIn.readLine();
-		
-		return manMenuOption;
+
+		return searchOption;
 	}
 
 	/**
-	 * 
+	 * @param searchOption
 	 */
-	public void addToManager() {
-	
-		if (employees.size() > 0) {
-			Manager manager = null;
-	
-			listManagers();
-			StdOut.println("Choose Manager to add employees to: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
-	
-			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
-	
-				if (employees.get(managerIndex).getClass() == Manager.class) {
-					manager = (Manager) employees.get(managerIndex);
-	
-					StdOut.println("Choose Employee To Add:");
-					listEmployees(2);
-					int empIndex = StdIn.readInt();
-					StdIn.readLine();
-	
-					Employee toAdd = employees.get(empIndex);
-	
-					manager.getMinions().add(toAdd);
-					toAdd.setHasManager(true);
-	
-					StdOut.println("Employee: " + toAdd.getFirstName()
-							+ " added to " + manager.getFirstName());
-				} else {
-					StdOut.println("Not A Manager!");
-					StdOut.println("Choose the index of a valid one!");
-					addToManager();
-				}
-			} else {
-				StdOut.println("Not A Valid Index!");
-				StdOut.println("Choose the index of a valid one!");
-				addToManager();
-			}
-		} else {
-			noEmployeesResponse();
-		}
-	}
-
-	/**
-	 * Method that prints the employees contained in a chosen managers
-	 * department.
-	 * 
-	 */
-	public void printFromManager() {
-		if (employees.size() > 0) {
-			Manager manager = null;
-
-			listManagers();
-			StdOut.println("Choose Manager to Print Employees: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
-
-			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
-				
-				int type = getType(employees.get(managerIndex));
-				if (type == 1) {
-					manager = (Manager) employees.get(managerIndex);					
-					printMinions(manager);					
-				} else {
-					StdOut.println("Not A Manager!");
-					StdOut.println("Choose the index of a valid one!");
-					addToManager();
-				}
-			} else {
-				StdOut.println("Not A Valid Index!");
-				StdOut.println("Choose the index of a valid one!");
-				addToManager();
-			}
-		} else {
-			noEmployeesResponse();
-		}
-	}
-
-	/**
-	 * 
-	 */
-	public void delFromManger() {
-		if (employees.size() > 0) {
-			Manager manager = null;
-
-			listManagers();
-			StdOut.println("Choose Manager to delete employee from: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();		
-						
-			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
-				
-				int type = getType(employees.get(managerIndex));
-
-				if (type == 1) {
-					manager = (Manager) employees.get(managerIndex);
-
-					StdOut.println("Choose Index of Employee To Remove:");
-					printMinions(manager);
-					int empIndex = StdIn.readInt();
-					StdIn.readLine();
-
-					Employee delThis = manager.getMinions().get(empIndex);
-
-					delThis.setHasManager(false);
-					manager.getMinions().remove(empIndex);					
-
-					StdOut.println("Employee: " + delThis.getFirstName()
-							+ " deleted from " + manager.getFirstName());
-				} else {
-					StdOut.println("Not A Manager!");
-					StdOut.println("Choose the index of a valid one!");
-					addToManager();
-				}
-			} else {
-				StdOut.println("Not A Valid Index!");
-				StdOut.println("Choose the index of a valid one!");
-				addToManager();
-			}
-		} else {
-			noEmployeesResponse();
-		}
-	}
-
-	/**
-	 * @param manager
-	 */
-	public void printMinions(Manager manager) {
-		int index = 0;
-		
-		for(Employee emp: manager.getMinions()) {						
-			StdOut.println(emp + "\nIndex at: " + index);
-			index += 1;
-		}
-	}
-
 	public void searchBy(int searchOption) {
 		int position = 0;
 		boolean found = false;
@@ -668,7 +552,7 @@ public class Driver
 		switch (searchOption) {
 		// Searching All Employees
 		case 1:
-			StdOut.println("Enter Employee's Name");
+			StdOut.println("Enter Search Term:");
 			searchString = (StdIn.readLine()).toLowerCase();
 
 			for (Employee employee : employees) {
@@ -728,40 +612,24 @@ public class Driver
 			break;
 		}
 	}
-	
 
-	private int searchMenu() {
-		StdOut.println("-------------");
-		StdOut.println("SEARCH MENU");
-		StdOut.println("-------------");
-		StdOut.println("1 - Search Company");
-		StdOut.println("2 - Search a Manager");			
+	/**
+	 * @return User's choice to carry out
+	 */
+	private int accountMenu() {
+		StdOut.println("-------------------");
+		StdOut.println("ACCOUNTS MENU");
+		StdOut.println("-------------------");
+		StdOut.println("1 - Calculate An Employee's Salary");
+		StdOut.println("2 - Calculate All Employee's Salaries");
+		StdOut.println("3 - Calculate Average Salary");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
-		
-		int searchOption = StdIn.readInt();
+
+		int accountOption = StdIn.readInt();
 		StdIn.readLine();
 
-		return searchOption;
-	}
-
-	/**
-	 * 
-	 */
-	private void printAverage() {
-		StdOut.println("This will only take into account the salaries that" +
-				      " have already been individually calculated.");
-		StdOut.println("Average Salary for " + employees.size() + " people: ");
-		StdOut.print(calcAverage());
-	}
-
-	/**
-	 * 
-	 */
-	private void printSalaries() {
-		StdOut.println("This will only take into account the salaries that" +
-				" have already been individually calculated.");
-		StdOut.println("Total Salary: E" + calcSalaries());		
+		return accountOption;
 	}
 
 	/**
@@ -769,47 +637,262 @@ public class Driver
 	 */
 	public void printSalary() {
 		listEmployees(1);
-		
-		StdOut.println("Enter Index of Employee whose salary " 
-		             + " is to be calculated: ");
+
+		StdOut.println("Enter Index of Employee whose salary "
+				+ " is to be calculated: ");
 		int index = StdIn.readInt();
 		StdIn.readLine();
-		
+
 		if ((index >= 0) && (index < employees.size())) {
-			
+
 			Employee tempEmp = employees.get(index);
-			
+
 			StdOut.println("Enter the amount of hours the employee has worked: ");
 			int hours = StdIn.readInt();
-			StdIn.readLine();			
-			
-			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");			
+			StdIn.readLine();
+
+			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");
 			StdOut.print(tempEmp.calculateSalary(hours));
 			StdOut.println("After " + hours + " work.");
-			
+
 		} else {
 			StdOut.println("Invalid Index!");
 			printSalary();
-		}		
+		}
 	}
 
 	/**
-	 * @param type Type of Employees to List, 1 = All, 2 removes Managers
+	 * 
 	 */
-	public void listEmployees(int type) {
+	public void printSalaries() {
+		StdOut.println("This will only take into account the salaries that"
+				+ " have already been individually calculated.");
+		StdOut.println("Total Salary: E" + calcSalaries());
+	}
+
+	/**
+	 * 
+	 */
+	public void printAverage() {
+		StdOut.println("This will only take into account the salaries that"
+				+ " have already been individually calculated.");
+		StdOut.println("Average Salary for " + employees.size() + " people: ");
+		StdOut.print(calcAverage());
+	}
+
+	/**
+	 * @return
+	 */
+	private int managerMenu() {
+		StdOut.println("-------------");
+		StdOut.println("MANAGER MENU");
+		StdOut.println("-------------");
+		StdOut.println("1 - Add Employee to a Manager");
+		StdOut.println("2 - Delete Employee from Manager");
+		StdOut.println("3 - List Employees in a Manager");
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+
+		int manMenuOption = StdIn.readInt();
+		StdIn.readLine();
+
+		return manMenuOption;
+	}
+
+	/**
+	 * Method that allows a user to add an employee from the employees list into
+	 * a managers collection.
+	 */
+	public void addToManager() {
+
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to add employees to: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
+
+				if (employees.get(managerIndex).getClass() == Manager.class) {
+					manager = (Manager) employees.get(managerIndex);
+
+					StdOut.println("Choose Employee To Add:");
+					listEmployees(2);
+					int empIndex = StdIn.readInt();
+					StdIn.readLine();
+
+					Employee toAdd = employees.get(empIndex);
+
+					manager.getMinions().add(toAdd);
+					toAdd.setHasManager(true);
+
+					StdOut.println("Employee: " + toAdd.getFirstName()
+							+ " added to " + manager.getFirstName());
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * Method that prints the employees contained in a chosen managers
+	 * department.
+	 * 
+	 */
+	public void printFromManager() {
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to Print Employees: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
+
+				int type = getType(employees.get(managerIndex));
+				if (type == 1) {
+					manager = (Manager) employees.get(managerIndex);
+					listMinions(manager);
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * 
+	 */
+	public void delFromManger() {
+		if (employees.size() > 0) {
+			Manager manager = null;
+
+			listManagers();
+			StdOut.println("Choose Manager to delete employee from: ");
+			int managerIndex = StdIn.readInt();
+			StdIn.readLine();
+
+			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
+
+				int type = getType(employees.get(managerIndex));
+
+				if (type == 1) {
+					manager = (Manager) employees.get(managerIndex);
+
+					StdOut.println("Choose Index of Employee To Remove:");
+					listMinions(manager);
+					int empIndex = StdIn.readInt();
+					StdIn.readLine();
+
+					Employee delThis = manager.getMinions().get(empIndex);
+
+					delThis.setHasManager(false);
+					manager.getMinions().remove(empIndex);
+
+					StdOut.println("Employee: " + delThis.getFirstName()
+							+ " deleted from " + manager.getFirstName());
+				} else {
+					StdOut.println("Not A Manager!");
+					StdOut.println("Choose the index of a valid one!");
+					addToManager();
+				}
+			} else {
+				StdOut.println("Not A Valid Index!");
+				StdOut.println("Choose the index of a valid one!");
+				addToManager();
+			}
+		} else {
+			noEmployeesResponse();
+		}
+	}
+
+	/**
+	 * @return Users operation choice
+	 */
+	private int saveLoadMenu() {
+		StdOut.println("-------------------");
+		StdOut.println("SAVE/LOAD MENU");
+		StdOut.println("-------------------");
+		StdOut.println("1 - Save Employees");
+		StdOut.println("2 - Load Previous Save");
+		StdOut.println("-------------------");
+		StdOut.println("0 - Exit");
+
+		int saveLoadOption = StdIn.readInt();
+		StdIn.readLine();
+
+		return saveLoadOption;
+	}
+
+	/**
+	 * 
+	 */
+	public void save() {
+		StdStream.saveToFile(employees, "employees.xml");
+	}
+
+	/**
+	 * 
+	 */
+	@SuppressWarnings("unchecked")
+	public void load() {
+		this.employees = (ArrayList<Employee>) StdStream
+				.readFromFile("employees.xml");
+	}
+
+	/**
+	 * @param manager
+	 */
+	public void listMinions(Manager manager) {
+		int index = 0;
+
+		for (Employee emp : manager.getMinions()) {
+			StdOut.println(emp + "\nIndex at: " + index);
+			index += 1;
+		}
+	}
+
+	/**
+	 * @param type
+	 *            Type of Employees to List, 1 = All, 2 Removes Managers
+	 */
+	public void listEmployees(int option) {
 		if (employees.size() > 0) {
 			StdOut.println("--------------");
 			StdOut.println("EMPLOYEE LIST");
 			StdOut.println("--------------");
 			for (int index = 0; index < employees.size(); index += 1) {
 
-				if (type == 1) {
+				Employee emp = employees.get(index);
+
+				int type = getType(emp);
+
+				if (option == 1) {
 					StdOut.println("Index: " + index + "\n"
 							+ employees.get(index) + "\n");
 				}
 
-				else if (type == 2
-						&& !(employees.get(index).getClass() == Manager.class)) {
+				else if ((option == 2) && !(type == 1)) {
 					StdOut.println("Index: " + index + "\n"
 							+ employees.get(index) + "\n");
 				}
@@ -819,16 +902,16 @@ public class Driver
 			noEmployeesResponse();
 		}
 	}
-	
+
 	/**
 	 * 
 	 */
 	public void listManagers() {
-		if (employees.size() > 0) {			
-			
-			//Tries to create an arrayList of Managers
-			//To see if they can be listed or not
-			ArrayList<Manager> managers = managerArray();			
+		if (employees.size() > 0) {
+
+			// Tries to create an arrayList of Managers
+			// To see if they can be listed or not
+			ArrayList<Manager> managers = managerArray();
 
 			if (managers.size() > 0) {
 				StdOut.println("--------------");
@@ -837,54 +920,56 @@ public class Driver
 
 				for (int index = 0; index < employees.size(); index += 1) {
 					Employee potentMan = employees.get(index);
-					
-					int type = getType(potentMan);
 
-					//Go through employees and grabs its index in
-					//employees list
-				    if (type == 1) {
-				    	StdOut.println("Index: " + index + "\n"
-								+ potentMan + "\n");				    	
-				    }
-				}				
+					int type = getType(potentMan);
+					// Go through employees and grabs its index in
+					// employees list
+					if (type == 1) {
+						StdOut.println("Index: " + index + "\n" + potentMan
+								+ "\n");
+					}
+				}
 				StdOut.println("-----------");
 			} else {
-				StdOut.println("There are no Managers.");
-				StdOut.println("Add Manager now (y/n)?");
-				String response = StdIn.readString();
-				StdIn.readLine();
-				if (response.equals("y")) {
-					addEmployee(3);
-				}
+				noManagersResponse();
 			}
 		} else {
-			noEmployeesResponse();			
+			noEmployeesResponse();
 		}
 	}
 
 	/**
+	 * Method that goes through the employees list and grabs those that are
+	 * Managers and puts them into their own list. Used when trying to figure
+	 * out if there's any Managers or used when needed to print a list of
+	 * employees that belong to a particular manager.
+	 * 
 	 * @return Array Of Managers
 	 */
 	public ArrayList<Manager> managerArray() {
 		ArrayList<Manager> temp = new ArrayList<Manager>();
-		
+
 		for (int index = 0; index < employees.size(); index += 1) {
 			Employee potentMan = employees.get(index);
-			
+
 			int type = getType(potentMan);
 
 			// TODO Find out if instanceof or .getClass() is better
-			
-		    if (type == 1) {
-		    	temp.add((Manager) potentMan);
-		    }
-		}		
+
+			if (type == 1) {
+				temp.add((Manager) potentMan);
+			}
+		}
 		return temp;
 	}
 
 	/**
+	 * Method that sorts through employees and sorts them based on the option
+	 * specified by the user from the menu system.
+	 * 
 	 * @param option
-	 * @return
+	 *            The type of sorting to happen
+	 * @return A sorted ArrayList of the type specified
 	 */
 	public ArrayList<Employee> sort(int option) {
 
@@ -898,139 +983,86 @@ public class Driver
 				case 1:
 					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
 							.get(i).getFirstName()) < 0) {
-						
-						emp = temp.get(i);						
-						swap(temp, emp, i, j);						
+
+						emp = temp.get(i);
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
 					}
 					break;
-				//Sorting By Surname	
+				// Sorting By Surname
 				case 2:
 					if ((temp.get(j).getLastName()).compareToIgnoreCase(temp
 							.get(i).getLastName()) < 0) {
-					
-						emp = temp.get(i);						
-						swap(temp, emp, i, j);
+
+						emp = temp.get(i);
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
 					}
 					break;
-			    //Sorting by Hourly Rate
+				// Sorting by Hourly Rate
 				case 3:
 					if (temp.get(j).getHourlyRate() < temp.get(i)
 							.getHourlyRate()) {
-						
+
 						emp = temp.get(i);
-						swap(temp, emp, i, j);						
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
 					}
 					break;
-				}						
+				}
 			}
 		}
 		return temp;
 	}
-	public ArrayList<Employee> swap(ArrayList<Employee> temp, Employee emp, int i, int j) {
-		emp = temp.get(i);
-		temp.set(i, temp.get(j));
-		temp.set(j, emp);
-		
-		return temp;		
+
+	/**
+	 * Method that goes through all employees in the list and adds their
+	 * salaries up to return the total salaries.
+	 * 
+	 * @return The total of all Employees
+	 */
+	public double calcSalaries() {
+		double totalSalary = 0;
+
+		for (Employee emp : employees) {
+			totalSalary += emp.getSalary();
+		}
+		return toTwoDecimalPlaces(totalSalary);
 	}
 
-	
 	/**
-	 * @return
+	 * Method that calculates the total salary for all employees and divides it
+	 * by the amount of employees in the list.
+	 * 
+	 * @return The Average of All Employees
 	 */
 	public double calcAverage() {
 		double averageSalary = 0.0;
-		
+
 		averageSalary = calcSalaries() / employees.size();
-		
+
 		return toTwoDecimalPlaces(averageSalary);
 	}
 
 	/**
-	 * @return
+	 * Prints a message to indicate that the employees list doesn't contain
+	 * any Managers and asks if the user would like to add one.
+	 * 
 	 */
-	public double calcSalaries() {
-		double totalSalary = 0;
-	
-		for (Employee emp : employees) {
-			totalSalary += emp.getSalary();
+	private void noManagersResponse() {
+		StdOut.println("There are no Managers.");
+		StdOut.println("Add Manager now (Y/N)?");
+		String response = StdIn.readString();
+		StdIn.readLine();
+		if (response.equalsIgnoreCase("Y")) {
+			addEmployee(3);
 		}
-		
-		return toTwoDecimalPlaces(totalSalary);		
 	}
 
 	/**
+	 * Method to print an automated response when the employees list is empty.
+	 * If the response is "y" then the user can add an employee.
 	 * 
-	 */
-	@SuppressWarnings("unchecked")
-	public void load() {
-		this.employees = (ArrayList<Employee>) StdStream.readFromFile("employees.xml");		
-	}
-
-	/**
-	 * 
-	 */
-	public void save() {		  
-		StdStream.saveToFile(employees, "employees.xml");   
-	}
-
-	/**
-	 * @return
-	 */
-	private int saveLoadMenu() {
-		StdOut.println("-------------------");
-		StdOut.println("SAVE/LOAD MENU");
-		StdOut.println("-------------------");
-		StdOut.println("1 - Save Employees");
-		StdOut.println("2 - Load Previous Save");		
-		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
-
-		int printOption = StdIn.readInt();
-		StdIn.readLine();
-
-		return printOption;
-	}
-	
-	/**
-	 * @return
-	 */
-	private int accountMenu() {
-		StdOut.println("-------------------");
-		StdOut.println("ACCOUNTS MENU");
-		StdOut.println("-------------------");
-		StdOut.println("1 - Calculate An Employee's Salary");
-		StdOut.println("2 - Calculate All Employee's Salaries");
-		StdOut.println("3 - Calculate Average Salary");		
-		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
-		
-		int printOption = StdIn.readInt();
-		StdIn.readLine();
-
-		return printOption;
-	}
-
-	/**
-	 * @return the employees
-	 */
-	public ArrayList<Employee> getEmployees() {
-		return employees;
-	}
-
-	/**
-	 * @param employees the employees to set
-	 */
-	public void setEmployees(ArrayList<Employee> employees) {
-		this.employees = employees;
-	}
-	
-	
-	
-	/**
-	 * Method to print an automated response when the employees list is
-	 * empty. If the response is "y" then the user can add an employee.
-	 *  
 	 */
 	private void noEmployeesResponse() {
 		StdOut.println("No Employees in System!");
@@ -1040,18 +1072,17 @@ public class Driver
 		if (response.equals("y")) {
 			int option = addEmployeeMenu();
 			addEmployee(option);
-		}		
-	}	
-	
+		}
+	}
 
 	/**
-	 * Method that checks what type of employee an employee is.	 * 
+	 * Method that checks what type of employee an employee is. *
 	 * 
 	 * @return The type an employee is
 	 */
 	private int getType(Employee emp) {
 		int type = 0;
-	
+
 		if (emp.getClass() == Manager.class) {
 			type = 1;
 		} else if (emp.getClass() == SalesWorker.class) {
@@ -1059,19 +1090,20 @@ public class Driver
 		} else if (emp.getClass() == AdminWorker.class) {
 			type = 3;
 		}
-	
+
 		return type;
 	}
 
 	/**
-     * Internal method to truncate a double to two decimal places
-     * 
-     * @param num the double number to be trucated to two decimal places
-     * @return the double number truncated to two decimal
-     *         places (does not round up and down)
-     */
-    private double toTwoDecimalPlaces(double num) {
-        return (int) (num * 100) / 100.0;
-    }
-	
+	 * Internal method to truncate a double to two decimal places
+	 * 
+	 * @param num
+	 *            the double number to be trucated to two decimal places
+	 * @return the double number truncated to two decimal places (does not round
+	 *         up and down)
+	 */
+	private double toTwoDecimalPlaces(double num) {
+		return (int) (num * 100) / 100.0;
+	}
+
 }

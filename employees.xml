@@ -6,9 +6,9 @@
       <hourlyRate>11.75</hourlyRate>
       <numHours>0.0</numHours>
       <salary>0.0</salary>
-      <hasManager defined-in="Employee">false</hasManager>
+      <hasManager>true</hasManager>
       <perfBonus>6.0</perfBonus>
-      <hasManager>false</hasManager>
+      <hasManager>true</hasManager>
     </SalesWorker>
     <SalesWorker>
       <firstName>Peregrin</firstName>
@@ -16,9 +16,9 @@
       <hourlyRate>9.5</hourlyRate>
       <numHours>0.0</numHours>
       <salary>0.0</salary>
-      <hasManager defined-in="Employee">false</hasManager>
-      <perfBonus>12.0</perfBonus>
       <hasManager>false</hasManager>
+      <perfBonus>12.0</perfBonus>
+      <hasManager>true</hasManager>
     </SalesWorker>
     <SalesWorker>
       <firstName>Samwell</firstName>
@@ -26,9 +26,9 @@
       <hourlyRate>10.5</hourlyRate>
       <numHours>0.0</numHours>
       <salary>0.0</salary>
-      <hasManager defined-in="Employee">false</hasManager>
-      <perfBonus>12.0</perfBonus>
       <hasManager>false</hasManager>
+      <perfBonus>12.0</perfBonus>
+      <hasManager>true</hasManager>
     </SalesWorker>
     <AdminWorker>
       <firstName>Jesse</firstName>
@@ -36,7 +36,7 @@
       <hourlyRate>12.0</hourlyRate>
       <numHours>0.0</numHours>
       <salary>0.0</salary>
-      <hasManager>false</hasManager>
+      <hasManager>true</hasManager>
       <bonus>5.0</bonus>
     </AdminWorker>
     <AdminWorker>
@@ -45,7 +45,7 @@
       <hourlyRate>13.5</hourlyRate>
       <numHours>0.0</numHours>
       <salary>0.0</salary>
-      <hasManager>false</hasManager>
+      <hasManager>true</hasManager>
       <bonus>15.0</bonus>
     </AdminWorker>
     <AdminWorker>

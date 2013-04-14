@@ -189,13 +189,9 @@ public class DriverTest
 					if (temp.get(j).getHourlyRate() < temp.get(i)
 							.getHourlyRate()) {
 						
-						Driver driver = new Driver();
 						emp = temp.get(i);
-						driver.swap(temp, emp, i, j);
-
-						//Employee emp = temp.get(i);
-						//temp.set(i, temp.get(j));
-						//temp.set(j, emp);
+						temp.set(i, temp.get(j));
+						temp.set(j, emp);
 					}
 					break;
 					}
@@ -211,8 +207,7 @@ public class DriverTest
 		} else if (option == 3) {
 			assertEquals("Samwell", temp.get(1).getFirstName());
 			assertEquals("Booker", temp.get(5).getFirstName());
-		}
-		
+		}		
 	}
 	
 	@Test
