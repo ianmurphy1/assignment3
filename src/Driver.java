@@ -25,7 +25,7 @@ public class Driver
 	public static void main(String[] args) {
 
 		Driver app = new Driver();
-		app.constructObjects();
+		app.load();
 		app.run();
 	}
 
@@ -1021,42 +1021,8 @@ public class Driver
 			int option = addEmployeeMenu();
 			addEmployee(option);
 		}		
-	}
+	}	
 	
-	public void constructObjects() {
-		
-		Manager m1, m2;
-		AdminWorker a1, a2, a3;
-		SalesWorker s1, s2, s3;		
-		
-		m1 = new Manager("Paul", "Murphy", 24.50);
-		m2 = new Manager("Booker", "DeWitt", 20.00);
-
-		a1 = new AdminWorker("Jesse", "Pinkman", 12.00, 5);
-		a2 = new AdminWorker("Elizabeth", "Comstock", 13.50, 15);
-		a3 = new AdminWorker("Jimmy", "McNulty", 13, 50);
-
-		s1 = new SalesWorker("Johnny", "Bravo", 11.75, 6);
-		s2 = new SalesWorker("Peregrin", "Took", 9.50, 12);
-		s3 = new SalesWorker("Samwell", "Tarly", 10.50, 12);
-
-		// Adding Managers to the list last so a sort isn't
-		// required (for now) when calculating wages.
-		employees.add(s1);
-		employees.add(s2);
-		employees.add(s3);
-		employees.add(a1);
-		employees.add(a2);
-		employees.add(a3);
-		employees.add(m2);
-		employees.add(m1);
-		
-		m1.getMinions().add(a1);
-		m1.getMinions().add(s1);
-
-		m2.getMinions().add(a2);
-		m2.getMinions().add(s2);
-	}
 
 	/**
 	 * Method that checks what type of employee an employee is.	 * 
