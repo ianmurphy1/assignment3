@@ -171,7 +171,8 @@ public abstract class Employee
 	public String toString() {
 		return "First Name: " + this.firstName + "\n" 
 	         + "Last Name: " + this.lastName + "\n"
-			 + "Hourly Rate: E" + this.hourlyRate + "\n";
+			 + "Hourly Rate: E" + this.hourlyRate + "\n"
+			 + "Worked " + this.numHours + " Hours Last Week.\n" ;
 	}
 	
 	/**

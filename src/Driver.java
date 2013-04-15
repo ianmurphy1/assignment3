@@ -12,7 +12,7 @@ public class Driver
 	 * 
 	 */
 	public Driver() {
-		this.employees = new ArrayList<Employee>();
+		this.employees = new ArrayList<Employee>();		
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class Driver
 	 */
 	public static void main(String[] args) {
 		Driver app = new Driver();
-		app.load();
+		app.constructObjects();
 		app.run();
 	}
 
@@ -90,14 +90,20 @@ public class Driver
 				int printOption = printMenu();
 				switch (printOption) {
 				case 1:
-					printBy(1);
+					printBy(1, 1);
 					break;
 				case 2:
-					printBy(2);
+					printBy(2, 1);
 					break;
 				case 3:
-					printBy(3);
+					printBy(3, 1);
 					break;
+				case 4:
+					printBy(4, 1);
+					break;
+				case 5:
+				    printHighestEarner();
+				    break;
 				}
 				break;
 
@@ -297,7 +303,7 @@ public class Driver
 	public void editEmployee() {
 
 		if (employees.size() > 0) {
-			listEmployees(1);
+			printBy(1, 1);			
 			StdOut.println("Choose Index of Employee to Edit: ");
 			int index = StdIn.readInt();
 			StdIn.readInt();
@@ -424,7 +430,7 @@ public class Driver
 
 		if (employees.size() > 0) {
 
-			listEmployees(1);
+			printBy(1, 1);
 			StdOut.println("Choose Index of Employee to delete: ");
 			int delChoice = StdIn.readInt();
 			StdIn.readInt();
@@ -462,7 +468,7 @@ public class Driver
 
 					employees.remove(delThis);
 					StdOut.println("New List: ");
-					listEmployees(1);
+					printBy(1, 1);
 				}
 			} else {
 				StdOut.println("Invalid Index!");
@@ -481,15 +487,17 @@ public class Driver
 		StdOut.println("------------------------");
 		StdOut.println("SORT AND PRINT MENU");
 		StdOut.println("------------------------");
-		StdOut.println();
+		StdOut.println();		
 		StdOut.println("---- Sort and Print ----");
 		StdOut.println("----  Employees In  ----");
 		StdOut.println("-- Ascending Order By --");
-		StdOut.println();
-		StdOut.println("1 - First Name");
-		StdOut.println("2 - Surname");
-		StdOut.println("3 - Hourly Rate");
-		StdOut.println("-------------------");
+		StdOut.println("1 - Index Number");		
+		StdOut.println("2 - First Name");
+		StdOut.println("3 - Surname");
+		StdOut.println("4 - Hourly Rate");
+		StdOut.println("-------------------------");
+		StdOut.println("5 - Print Highest Earner");
+		StdOut.println("--------------------------");
 		StdOut.println("0 - Exit");
 
 		int printOption = StdIn.readInt();
@@ -501,25 +509,99 @@ public class Driver
 	/**
 	 * @param printOption
 	 */
-	public void printBy(int printOption) {
+	public void printBy(int sortOption, int typeOption) {
 
 		ArrayList<Employee> temp = null;
 
-		switch (printOption) {
+		switch (sortOption) {
 		case 1:
-			temp = sort(1);
+			temp = employees;
 			break;
 		case 2:
-			temp = sort(2);
+			temp = sort(1);
 			break;
 		case 3:
+			temp = sort(2);
+			break;
+		case 4:
 			temp = sort(3);
+			break;		
 		}
+		
+		if (temp.size() > 0 ) {
+		StdOut.println("--------------");
+		switch (sortOption) {
+		case 1:
+			StdOut.println("INDEX SORTED LIST");
+			break;
+		case 2:
+			StdOut.println("FIRST NAME SORTED LIST");
+			break;
+		case 3:
+			StdOut.println("LAST NAME SORTED LIST");
+			break;
+		case 4:
+			StdOut.println("RATE SORTED LIST");
+		}
+		
+		StdOut.println("--------------");
+		StdOut.println();
+		
+	//	for(Employee emp : temp) {
+		//	StdOut.println(emp);
+		//	StdOut.println();
+	//	}
+		//} else {
+		//	noEmployeesResponse();
+		//}
+		
+		if (temp.size() > 0) {			
+			for (int index = 0; index < employees.size(); index += 1) {
 
-		for (Employee emp : temp) {
-			StdOut.println(emp);
-			StdOut.println();
+				Employee emp = employees.get(index);
+
+				int type = getType(emp);
+
+				if (typeOption == 1) {
+					StdOut.println("Index: " + index + "\n"
+							+ emp + "\n");
+				} else if ((typeOption == 2) && !(type == 1)) {
+					if (!(emp.hasManager())) {
+					StdOut.println("Index: " + index + "\n"
+							+ emp + "\n");}
+				}
+			}
+			StdOut.println("-----------");
+		} else {
+			noEmployeesResponse();
 		}
+		}
+		
+	}
+	
+	public Employee getHighestEarner() {		
+		Employee curHighest = employees.get(0);
+		
+		for (Employee emp : employees) {
+			if (emp.getSalary() > curHighest.getSalary()) {
+				curHighest = emp;
+			}
+		}
+		
+		return curHighest;			
+	}
+
+	private void printHighestEarner() {
+		Employee highestEarner = getHighestEarner();
+		
+		StdOut.println("-------------");
+		StdOut.println("HIGHEST EARNER");
+		StdOut.println("-------------");
+		StdOut.println();
+		StdOut.println("Highest Earner is: " + highestEarner.getFirstName());
+		StdOut.println("with E" + highestEarner.getSalary());
+		StdOut.println("-------------");
+		
 	}
 
 	/**
@@ -636,7 +718,7 @@ public class Driver
 	 * 
 	 */
 	public void printSalary() {
-		listEmployees(1);
+		printBy(1, 1);
 
 		StdOut.println("Enter Index of Employee whose salary "
 				+ " is to be calculated: ");
@@ -719,7 +801,7 @@ public class Driver
 					manager = (Manager) employees.get(managerIndex);
 
 					StdOut.println("Choose Employee To Add:");
-					listEmployees(2);
+					printBy(1, 2);
 					int empIndex = StdIn.readInt();
 					StdIn.readLine();
 
@@ -887,7 +969,7 @@ public class Driver
 	 * 
 	 * @param type
 	 *            Type of Employees to List, 1 = All, 2 Removes Managers
-	 */
+	 *//*
 	public void listEmployees(int option) {
 		if (employees.size() > 0) {
 			StdOut.println("--------------");
@@ -911,7 +993,7 @@ public class Driver
 		} else {
 			noEmployeesResponse();
 		}
-	}
+	}*/
 
 	/**
 	 * Method that lists all the managers inside employees if there is
@@ -985,10 +1067,8 @@ public class Driver
 	 */
 	public ArrayList<Employee> sort(int option) {
 
-		ArrayList<Employee> temp = employees;
-		for(Employee em: employees){
-			StdOut.print(em);
-		}
+		ArrayList<Employee> temp = new ArrayList<Employee>(employees);
+		
 		Employee emp = null;
 
 		for (int i = 0; i < temp.size(); i += 1) {
@@ -1072,6 +1152,45 @@ public class Driver
 			addEmployee(3);
 		}
 	}
+	
+		public void constructObjects() {
+				
+				Manager m1, m2;
+				AdminWorker a1, a2, a3;
+				SalesWorker s1, s2, s3;		
+				
+				m1 = new Manager("Paul", "Murphy", 24.50);
+				m2 = new Manager("Booker", "DeWitt", 20.00);
+		
+				a1 = new AdminWorker("Jesse", "Pinkman", 12.00, 5);
+				a2 = new AdminWorker("Elizabeth", "Comstock", 13.50, 15);
+				a3 = new AdminWorker("Jimmy", "McNulty", 13, 50);
+		
+				s1 = new SalesWorker("Johnny", "Bravo", 11.75, 6);
+				s2 = new SalesWorker("Peregrin", "Took", 9.50, 12);
+				s3 = new SalesWorker("Samwell", "Tarly", 10.50, 12);
+		
+				// Adding Managers to the list last so a sort isn't
+				// required (for now) when calculating wages.
+				employees.add(s1);
+				employees.add(s2);
+				employees.add(s3);
+				employees.add(a1);
+				employees.add(a2);
+				employees.add(a3);
+				employees.add(m2);
+				employees.add(m1);
+				
+				m1.getMinions().add(a1);
+				a1.setHasManager(true);
+				m1.getMinions().add(s1);
+				s1.setHasManager(true);
+		
+				m2.getMinions().add(a2);
+				a2.setHasManager(true);
+				m2.getMinions().add(s2);
+				s2.setHasManager(true);
+				}
 
 	/**
 	 * Method to print an automated response when the employees list is empty.
