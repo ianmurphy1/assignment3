@@ -41,7 +41,7 @@ public abstract class Employee
 	 * @return the firstName
 	 */
 	public String getFirstName() {
-		return firstName;
+		return this.firstName;
 	}
 
 	/**
@@ -56,7 +56,7 @@ public abstract class Employee
 	 * @return the lastName
 	 */
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	/**
@@ -71,7 +71,7 @@ public abstract class Employee
 	 * @return the hourlyRate
 	 */
 	public double getHourlyRate() {
-		return hourlyRate;
+		return this.hourlyRate;
 	}
 
 	/**
@@ -88,7 +88,7 @@ public abstract class Employee
 	 * @return the salary
 	 */
 	public double getSalary() {
-		return salary;
+		return this.salary;
 	}
 
 	/**
@@ -104,7 +104,7 @@ public abstract class Employee
 	 * @return the numHours
 	 */
 	public double getNumHours() {
-		return numHours;
+		return this.numHours;
 	}
 
 	/**
@@ -120,7 +120,7 @@ public abstract class Employee
 	 * @return the hasManager
 	 */
 	public boolean hasManager() {
-		return hasManager;
+		return this.hasManager;
 	}
 
 	/**
@@ -138,9 +138,9 @@ public abstract class Employee
 		
 		if (numHours >= 0) {
 			if (numHours <= NORMAL_WORKWEEK) {
-				salary = numHours * hourlyRate;
+				this.salary = numHours * this.hourlyRate;
 			} else if (numHours > NORMAL_WORKWEEK) {
-				salary = (NORMAL_WORKWEEK * hourlyRate)
+				this.salary = (NORMAL_WORKWEEK * this.hourlyRate)
 						+ calculateOvertime(numHours);
 			}
 			
@@ -151,7 +151,7 @@ public abstract class Employee
 			//double newTotal = (this.getNumHours() + numHours);
 			//this.setNumHours(newTotal);						
 		}
-		return toTwoDecimalPlaces(salary);
+		return toTwoDecimalPlaces(this.salary);
 	}
 
 	/**
@@ -160,7 +160,7 @@ public abstract class Employee
 	 */
 	private double calculateOvertime(double numHours) {
 		double overtime;
-		overtime = ((numHours - NORMAL_WORKWEEK) * (hourlyRate * 2));
+		overtime = ((numHours - NORMAL_WORKWEEK) * (this.hourlyRate * 2));
 		return toTwoDecimalPlaces(overtime);
 	}
 
@@ -169,9 +169,9 @@ public abstract class Employee
 	 */
 	@Override
 	public String toString() {
-		return "First Name: " + firstName + "\n" 
-	         + "Last Name: " + lastName + "\n"
-			 + "Hourly Rate: E" + hourlyRate + "\n";
+		return "First Name: " + this.firstName + "\n" 
+	         + "Last Name: " + this.lastName + "\n"
+			 + "Hourly Rate: E" + this.hourlyRate + "\n";
 	}
 	
 	/**

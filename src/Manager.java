@@ -23,7 +23,7 @@ public class Manager extends Employee {
 	 * @return the employees
 	 */
 	public ArrayList<Employee> getMinions() {
-		return minions;
+		return this.minions;
 	}
 
 	/**
@@ -46,7 +46,7 @@ public class Manager extends Employee {
 		
 		if (numHours > 0) {
 			
-			for (Employee minion : minions) {
+			for (Employee minion : this.minions) {
 				managerBonus += (minion.getSalary() * 0.01);			
 			}
 			
@@ -64,6 +64,6 @@ public class Manager extends Employee {
 	@Override
 	public String toString() {
 		return "Employee Type: Manager" + "\n" + super.toString() 
-			 + "Over " + (minions.size() - 1) + " Employees";
+			 + "Over " + (this.minions.size() - 1) + " Employees";
 	}
 }

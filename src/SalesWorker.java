@@ -26,7 +26,7 @@ public class SalesWorker extends Employee {
 	 * @return the perfBonus
 	 */
 	public double getPerfBonus() {
-		return perfBonus;
+		return this.perfBonus;
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class SalesWorker extends Employee {
 		double tempSal = 0;
 		
 		if (numHours > 0) {
-			tempSal = super.calculateSalary(numHours) * (1 + (perfBonus / 100));
+			tempSal = super.calculateSalary(numHours) * (1 + (this.perfBonus / 100));
 		}
 		
 		this.setSalary(tempSal);
@@ -63,7 +63,7 @@ public class SalesWorker extends Employee {
 	@Override
 	public String toString() {
 		return "Employee Type: SalesWorker" + "\n" + super.toString() 
-	         + "Performance Bonus: " + perfBonus + "%";
+	         + "Performance Bonus: " + this.perfBonus + "%";
 	}
 
 }

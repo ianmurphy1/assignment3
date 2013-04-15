@@ -29,7 +29,7 @@ public class AdminWorker extends Employee {
 	 * @return the bonus
 	 */
 	public double getBonus() {
-		return bonus;
+		return this.bonus;
 	}
 
 	/**
@@ -49,7 +49,7 @@ public class AdminWorker extends Employee {
 		double tempSal = 0;
 		
 		if (numHours > 0) {
-			tempSal = (super.calculateSalary(numHours) + bonus);			
+			tempSal = (super.calculateSalary(numHours) + this.bonus);			
 		} 
 		
         this.setSalary(tempSal);
@@ -63,6 +63,6 @@ public class AdminWorker extends Employee {
 	@Override
 	public String toString() {
 		return "Employee Type: AdminWorker" + "\n" + super.toString()  
-			 + "Bonus: E" + bonus;
+			 + "Bonus: E" + this.bonus;
 	}
 }
