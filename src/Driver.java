@@ -629,6 +629,7 @@ public class Driver
 	 */
 	public void searchBy(int searchOption) {
 		int position = 0;
+		int matches = 1;
 		boolean found = false;
 		StdOut.println("----Searching----");
 		String searchString = null;
@@ -645,8 +646,12 @@ public class Driver
 
 				if (fullName.contains(searchString)) {
 					found = true;
-					StdOut.println(employee.getFirstName() + " found.");
-					StdOut.println("Location is: " + position);
+					StdOut.println();
+					StdOut.println("------------------");
+					StdOut.println("Employee's name " + employee.getFirstName()
+							       + employee.getLastName());
+					StdOut.println("Index is: " + position);
+					StdOut.println("------------------");
 				}
 				position++;
 			}
@@ -675,8 +680,12 @@ public class Driver
 
 						if (fullName.contains(searchString)) {
 							found = true;
-							StdOut.println(emp.getFirstName() + " found.");
-							StdOut.println("Location is: " + position);
+							StdOut.println();
+							StdOut.println("------------------");
+							StdOut.println("Employee's name " + emp.getFirstName()
+									       + emp.getLastName());
+							StdOut.println("Index is: " + position);
+							StdOut.println("------------------");
 						}
 						position++;
 					}
@@ -730,15 +739,21 @@ public class Driver
 		if ((index >= 0) && (index < employees.size())) {
 
 			Employee tempEmp = employees.get(index);
-
 			StdOut.println("Enter the amount of hours the employee has worked: ");
+			
 			double hours = StdIn.readDouble();
 			StdIn.readLine();
 
 			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");
-			tempEmp.setNumHours(hours);
+			
+			double newHoursWorked = (tempEmp.getHoursWorked() + hours);
+			
+			tempEmp.setHoursWorked(newHoursWorked);
 			StdOut.print(tempEmp.calculateSalary(hours));
-			StdOut.println("After " + tempEmp.getNumHours() + " work.");
+			StdOut.println("After " + hours + " work.");
+			StdOut.println("New total amount of hours worked " 
+			              + tempEmp.getHoursWorked());
+			StdOut.println();
 
 		} else {
 			StdOut.println("Invalid Index!");

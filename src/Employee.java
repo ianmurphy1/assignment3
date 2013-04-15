@@ -10,7 +10,7 @@ public abstract class Employee
 	private String firstName;
 	private String lastName;
 	private double hourlyRate;
-	private double numHours;
+	private double hoursWorked;
 	private double salary;
 	private boolean hasManager;
 	
@@ -30,7 +30,7 @@ public abstract class Employee
 			this.hourlyRate = 0;
 		}
 		
-		this.numHours = 0;
+		this.hoursWorked = 0;
 		
 		this.salary = 0;
 		
@@ -103,16 +103,16 @@ public abstract class Employee
 	/**
 	 * @return the numHours
 	 */
-	public double getNumHours() {
-		return this.numHours;
+	public double getHoursWorked() {
+		return this.hoursWorked;
 	}
 
 	/**
 	 * @param numHours the numHours to set
 	 */
-	public void setNumHours(double numHours) {
+	public void setHoursWorked(double numHours) {
 		if (numHours >= 0) {
-			this.numHours = toTwoDecimalPlaces(numHours);
+			this.hoursWorked = toTwoDecimalPlaces(numHours);
 		}
 	}
 
@@ -145,11 +145,13 @@ public abstract class Employee
 			}
 			
 			//If changing every time calSal() is called
-			this.setNumHours(numHours);
+			
+			
+			this.setHoursWorked(numHours);
 			
 			//If a running total of all hours worked is to be done
 			//double newTotal = (this.getNumHours() + numHours);
-			//this.setNumHours(newTotal);						
+			//this.setHoursWorked(newTotal);						
 		}
 		return toTwoDecimalPlaces(this.salary);
 	}
@@ -172,7 +174,7 @@ public abstract class Employee
 		return "First Name: " + this.firstName + "\n" 
 	         + "Last Name: " + this.lastName + "\n"
 			 + "Hourly Rate: E" + this.hourlyRate + "\n"
-			 + "Worked " + this.numHours + " Hours Last Week.\n" ;
+			 + "Worked " + this.hoursWorked + " Hours Last Week.\n" ;
 	}
 	
 	/**

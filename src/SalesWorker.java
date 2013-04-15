@@ -5,7 +5,8 @@
  */
 public class SalesWorker extends Employee {
 
-	private double perfBonus;	
+	private double perfBonus;
+	private double monthlySales;
 	
 	/**
 	 * @param firstName
@@ -19,7 +20,17 @@ public class SalesWorker extends Employee {
 			this.perfBonus = perfBonus;
 		} else {
 			this.perfBonus = 0;
-		}		
+		}
+		this.monthlySales = 0;
+	}
+
+	/**
+	 * @param perfBonus the perfBonus to set
+	 */
+	public void setPerfBonus(double perfBonus) {
+		if(perfBonus >= 0 && perfBonus <= 20) {
+			this.perfBonus = perfBonus;
+		}
 	}
 
 	/**
@@ -30,12 +41,17 @@ public class SalesWorker extends Employee {
 	}
 
 	/**
-	 * @param perfBonus the perfBonus to set
+	 * @param monthlySales the monthlySales to set
 	 */
-	public void setPerfBonus(double perfBonus) {
-		if(perfBonus >= 0 && perfBonus <= 20) {
-			this.perfBonus = perfBonus;
-		}
+	public void setMonthlySales(double monthlySales) {
+		this.monthlySales = monthlySales;
+	}
+
+	/**
+	 * @return the monthlySales
+	 */
+	public double getMonthlySales() {
+		return this.monthlySales;
 	}
 
 	/**
