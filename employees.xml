@@ -57,7 +57,7 @@
       <hasManager>false</hasManager>
       <bonus>50.0</bonus>
     </AdminWorker>
-    <Manager>
+    <!-- <Manager>
       <firstName>Booker</firstName>
       <lastName>DeWitt</lastName>
       <hourlyRate>20.0</hourlyRate>
@@ -80,6 +80,6 @@
         <AdminWorker reference="../../../AdminWorker"/>
         <SalesWorker reference="../../../SalesWorker"/>
       </minions>
-    </Manager>
+    </Manager> -->
   </list>
 </object-stream>

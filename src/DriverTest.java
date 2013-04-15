@@ -113,10 +113,9 @@ public class DriverTest
 	@Test
 	public void testSortHourlyRate() {
 		
-		ArrayList<Employee> temp = employees;
+		ArrayList<Employee> temp = new ArrayList<Employee>(employees);
 		
-		for (int i = 0; i < temp.size(); i += 1) {
-			
+		for (int i = 0; i < temp.size(); i += 1) {			
 			for (int j = (i + 1); j < temp.size(); j += 1) {
 				if (temp.get(j).getHourlyRate() < temp.get(i).getHourlyRate()) {
 					

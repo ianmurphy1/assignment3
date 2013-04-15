@@ -90,13 +90,13 @@ public class Driver
 				int printOption = printMenu();
 				switch (printOption) {
 				case 1:
-					printBy(printOption);
+					printBy(1);
 					break;
 				case 2:
-					printBy(printOption);
+					printBy(2);
 					break;
 				case 3:
-					printBy(printOption);
+					printBy(3);
 					break;
 				}
 				break;
@@ -507,13 +507,13 @@ public class Driver
 
 		switch (printOption) {
 		case 1:
-			temp = sort(printOption);
+			temp = sort(1);
 			break;
 		case 2:
-			temp = sort(printOption);
+			temp = sort(2);
 			break;
 		case 3:
-			temp = sort(printOption);
+			temp = sort(3);
 		}
 
 		for (Employee emp : temp) {
@@ -860,8 +860,9 @@ public class Driver
 	 */
 	@SuppressWarnings("unchecked")
 	public void load() {
-		this.employees = (ArrayList<Employee>) StdStream
+		ArrayList<Employee> temp = (ArrayList<Employee>) StdStream
 				.readFromFile("employees.xml");
+		this.setEmployees(temp);
 	}
 
 	/**
@@ -985,6 +986,9 @@ public class Driver
 	public ArrayList<Employee> sort(int option) {
 
 		ArrayList<Employee> temp = employees;
+		for(Employee em: employees){
+			StdOut.print(em);
+		}
 		Employee emp = null;
 
 		for (int i = 0; i < temp.size(); i += 1) {
@@ -994,7 +998,6 @@ public class Driver
 				case 1:
 					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
 							.get(i).getFirstName()) < 0) {
-
 						emp = temp.get(i);
 						temp.set(i, temp.get(j));
 						temp.set(j, emp);

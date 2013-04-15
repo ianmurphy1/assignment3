@@ -64,6 +64,6 @@ public class Manager extends Employee {
 	@Override
 	public String toString() {
 		return "Employee Type: Manager" + "\n" + super.toString() 
-			 + "Over " + (this.minions.size() - 1) + " Employees";
+			 + "Over " + this.minions.size() + " Employees";
 	}
 }
