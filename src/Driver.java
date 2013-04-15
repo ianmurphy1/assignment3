@@ -42,8 +42,10 @@ public class Driver
 	 */
 	public static void main(String[] args) {
 		Driver app = new Driver();
-		app.constructObjects();
+		//app.constructObjects();
+		app.load();
 		app.run();
+		
 	}
 
 	/**
@@ -125,7 +127,7 @@ public class Driver
 				int accountOption = accountMenu();
 				switch (accountOption) {
 				case 1:
-					printSalary();
+					calcSalary();
 					break;
 				case 2:
 					printSalaries();
@@ -717,7 +719,7 @@ public class Driver
 	/**
 	 * 
 	 */
-	public void printSalary() {
+	public void calcSalary() {
 		printBy(1, 1);
 
 		StdOut.println("Enter Index of Employee whose salary "
@@ -730,16 +732,17 @@ public class Driver
 			Employee tempEmp = employees.get(index);
 
 			StdOut.println("Enter the amount of hours the employee has worked: ");
-			int hours = StdIn.readInt();
+			double hours = StdIn.readDouble();
 			StdIn.readLine();
 
 			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");
+			tempEmp.setNumHours(hours);
 			StdOut.print(tempEmp.calculateSalary(hours));
-			StdOut.println("After " + hours + " work.");
+			StdOut.println("After " + tempEmp.getNumHours() + " work.");
 
 		} else {
 			StdOut.println("Invalid Index!");
-			printSalary();
+			calcSalary();
 		}
 	}
 
@@ -942,8 +945,8 @@ public class Driver
 	 */
 	@SuppressWarnings("unchecked")
 	public void load() {
-		ArrayList<Employee> temp = (ArrayList<Employee>) StdStream
-				.readFromFile("employees.xml");
+		ArrayList<Employee> temp = ((ArrayList<Employee>) StdStream
+				.readFromFile("employees.xml"));
 		this.setEmployees(temp);
 	}
 
@@ -1153,7 +1156,7 @@ public class Driver
 		}
 	}
 	
-		public void constructObjects() {
+		/*public void constructObjects() {
 				
 				Manager m1, m2;
 				AdminWorker a1, a2, a3;
@@ -1190,7 +1193,7 @@ public class Driver
 				a2.setHasManager(true);
 				m2.getMinions().add(s2);
 				s2.setHasManager(true);
-				}
+				}*/
 
 	/**
 	 * Method to print an automated response when the employees list is empty.
