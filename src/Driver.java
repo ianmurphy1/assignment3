@@ -845,6 +845,8 @@ public class Driver
 	}
 
 	/**
+	 * Method that saves the employees list and outputs it as an xml
+	 * file which holds all the data.
 	 * 
 	 */
 	public void save() {
@@ -852,6 +854,8 @@ public class Driver
 	}
 
 	/**
+	 * Method that loads the data stored in the employees.xml
+	 * and sets the employees arraylist to be it.
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
@@ -861,7 +865,10 @@ public class Driver
 	}
 
 	/**
-	 * @param manager
+	 * Method that takes in a manager and prints the list of 
+	 * employees he has in his list.
+	 * 
+	 * @param manager Manager's whose minions is to be printed
 	 */
 	public void listMinions(Manager manager) {
 		int index = 0;
@@ -873,6 +880,10 @@ public class Driver
 	}
 
 	/**
+	 * Method that lists employees, depending on the value passed in 
+	 * it will print all the employees in the array list or it only print
+	 * those employees that aren't Managers.
+	 * 
 	 * @param type
 	 *            Type of Employees to List, 1 = All, 2 Removes Managers
 	 */
@@ -890,9 +901,7 @@ public class Driver
 				if (option == 1) {
 					StdOut.println("Index: " + index + "\n"
 							+ employees.get(index) + "\n");
-				}
-
-				else if ((option == 2) && !(type == 1)) {
+				} else if ((option == 2) && !(type == 1)) {
 					StdOut.println("Index: " + index + "\n"
 							+ employees.get(index) + "\n");
 				}
@@ -904,7 +913,8 @@ public class Driver
 	}
 
 	/**
-	 * 
+	 * Method that lists all the managers inside employees if there is
+	 * any managers in it.
 	 */
 	public void listManagers() {
 		if (employees.size() > 0) {
@@ -964,8 +974,9 @@ public class Driver
 	}
 
 	/**
-	 * Method that sorts through employees and sorts them based on the option
-	 * specified by the user from the menu system.
+	 * Method that sorts through employees based on the option
+	 * specified by the user from the menu system, and returns the
+	 * sorted list as an array.
 	 * 
 	 * @param option
 	 *            The type of sorting to happen
