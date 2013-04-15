@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 
 /**
- * @author Ian
+ * Driver class that allows interaction with all other classes
+ * 
+ * @author Ian Murphy
  * 
  */
 public class Driver
@@ -9,10 +11,11 @@ public class Driver
 	private ArrayList<Employee> employees;
 
 	/**
+	 * Constructor for objects of class Driver.
 	 * 
 	 */
 	public Driver() {
-		this.employees = new ArrayList<Employee>();		
+		this.employees = new ArrayList<Employee>();
 	}
 
 	/**
@@ -42,10 +45,10 @@ public class Driver
 	 */
 	public static void main(String[] args) {
 		Driver app = new Driver();
-		//app.constructObjects();
+		// app.constructObjects();
 		app.load();
 		app.run();
-		
+
 	}
 
 	/**
@@ -102,10 +105,7 @@ public class Driver
 					break;
 				case 4:
 					printBy(4, 1);
-					break;
-				case 5:
-				    printHighestEarner();
-				    break;
+					break;				
 				}
 				break;
 
@@ -134,6 +134,9 @@ public class Driver
 					break;
 				case 3:
 					printAverage();
+					break;
+				case 4:
+					printHighestEarner();
 					break;
 				}
 				break;
@@ -199,6 +202,9 @@ public class Driver
 	}
 
 	/**
+	 * Menu that displays the admin menu and returns the users option
+	 * so that the chosen operation to be carried out.
+	 * 
 	 * @return
 	 */
 	private int adminMenu() {
@@ -218,6 +224,9 @@ public class Driver
 	}
 
 	/**
+	 * Method that displays and returns the menu system for 
+	 * adding an employee to the employees arraylist.
+	 * 
 	 * @return
 	 */
 	private int addEmployeeMenu() {
@@ -300,12 +309,13 @@ public class Driver
 	}
 
 	/**
-	 * 
+	 * Method that allows the editing of a chosen employee from the 
+	 * employees arraylist.
 	 */
 	public void editEmployee() {
 
 		if (employees.size() > 0) {
-			printBy(1, 1);			
+			printBy(1, 1);
 			StdOut.println("Choose Index of Employee to Edit: ");
 			int index = StdIn.readInt();
 			StdIn.readInt();
@@ -426,6 +436,9 @@ public class Driver
 	}
 
 	/**
+	 * Method that allows the deletion of an employee from
+	 * the employees arraylist, also deletes it from a managers
+	 * arraylist if he/she is there.
 	 * 
 	 */
 	public void deleteEmployee() {
@@ -483,22 +496,23 @@ public class Driver
 	}
 
 	/**
-	 * @return
+	 * Menu that displays and returns the options for the Print And 
+	 * Sort menu for the system
+	 * 
+	 * @return The Users Choice
 	 */
 	private int printMenu() {
 		StdOut.println("------------------------");
 		StdOut.println("SORT AND PRINT MENU");
 		StdOut.println("------------------------");
-		StdOut.println();		
+		StdOut.println();
 		StdOut.println("---- Sort and Print ----");
 		StdOut.println("----  Employees In  ----");
 		StdOut.println("-- Ascending Order By --");
-		StdOut.println("1 - Index Number");		
+		StdOut.println("1 - Index Number");
 		StdOut.println("2 - First Name");
 		StdOut.println("3 - Surname");
 		StdOut.println("4 - Hourly Rate");
-		StdOut.println("-------------------------");
-		StdOut.println("5 - Print Highest Earner");
 		StdOut.println("--------------------------");
 		StdOut.println("0 - Exit");
 
@@ -509,7 +523,12 @@ public class Driver
 	}
 
 	/**
-	 * @param printOption
+	 * Mehtod allows the printing of an arraylist based on if that list
+	 * is to be sorted in a particular way or if there is to be some 
+	 * restrictions in the type of employees that it returns.
+	 * 
+	 * @param sortOption What to sort it as
+	 * @param typeOption Type of list to display (All or Just a group)
 	 */
 	public void printBy(int sortOption, int typeOption) {
 
@@ -527,83 +546,83 @@ public class Driver
 			break;
 		case 4:
 			temp = sort(3);
-			break;		
+			break;
 		}
-		
-		if (temp.size() > 0 ) {
-		StdOut.println("--------------");
-		switch (sortOption) {
-		case 1:
-			StdOut.println("INDEX SORTED LIST");
-			break;
-		case 2:
-			StdOut.println("FIRST NAME SORTED LIST");
-			break;
-		case 3:
-			StdOut.println("LAST NAME SORTED LIST");
-			break;
-		case 4:
-			StdOut.println("RATE SORTED LIST");
-		}
-		
-		StdOut.println("--------------");
-		StdOut.println();
-		
-	//	for(Employee emp : temp) {
-		//	StdOut.println(emp);
-		//	StdOut.println();
-	//	}
-		//} else {
-		//	noEmployeesResponse();
-		//}
-		
-		if (temp.size() > 0) {			
-			for (int index = 0; index < employees.size(); index += 1) {
 
-				Employee emp = employees.get(index);
+		if (temp.size() > 0) {
+			StdOut.println("--------------");
+			switch (sortOption) {
+			case 1:
+				StdOut.println("INDEX SORTED LIST");
+				break;
+			case 2:
+				StdOut.println("FIRST NAME SORTED LIST");
+				break;
+			case 3:
+				StdOut.println("LAST NAME SORTED LIST");
+				break;
+			case 4:
+				StdOut.println("RATE SORTED LIST");
+				break;
+			}
 
-				int type = getType(emp);
+			StdOut.println("--------------");
+			StdOut.println();		
 
-				if (typeOption == 1) {
-					StdOut.println("Index: " + index + "\n"
-							+ emp + "\n");
-				} else if ((typeOption == 2) && !(type == 1)) {
-					if (!(emp.hasManager())) {
-					StdOut.println("Index: " + index + "\n"
-							+ emp + "\n");}
+			if (temp.size() > 0) {
+				for (int index = 0; index < employees.size(); index += 1) {
+
+					Employee emp = employees.get(index);
+
+					int type = getType(emp);
+
+					if (typeOption == 1) {
+						StdOut.println("Index: " + index + "\n" + emp + "\n");
+					} else if ((typeOption == 2) && !(type == 1)) {
+						if (!(emp.hasManager())) {
+							StdOut.println("Index: " + index + "\n" + emp
+									+ "\n");
+						}
+					}
 				}
-			}
-			StdOut.println("-----------");
-		} else {
-			noEmployeesResponse();
-		}
-		}
-		
-	}
-	
-	public Employee getHighestEarner() {		
-		Employee curHighest = employees.get(0);
-		
-		for (Employee emp : employees) {
-			if (emp.getSalary() > curHighest.getSalary()) {
-				curHighest = emp;
+				StdOut.println("-----------");
+			} else {
+				noEmployeesResponse();
 			}
 		}
-		
-		return curHighest;			
 	}
 
+	/**
+	 * Method that sorts through all the employees and returns the highest
+	 * earner
+	 * 
+	 * @return The Highest Earner
+	 */
+	public Employee getHighestEarner() {
+		Employee highestEarner = employees.get(0);
+
+		for (Employee emp : employees) {
+			if (emp.getSalary() > highestEarner.getSalary()) {
+				highestEarner = emp;
+			}
+		}
+		return highestEarner;
+	}
+
+	/**
+	 * 
+	 */
 	private void printHighestEarner() {
 		Employee highestEarner = getHighestEarner();
-		
+
 		StdOut.println("-------------");
 		StdOut.println("HIGHEST EARNER");
 		StdOut.println("-------------");
 		StdOut.println();
 		StdOut.println("Highest Earner is: " + highestEarner.getFirstName());
-		StdOut.println("with E" + highestEarner.getSalary());
+		StdOut.print(" with E" + highestEarner.getSalary());
 		StdOut.println("-------------");
-		
+
 	}
 
 	/**
@@ -625,11 +644,15 @@ public class Driver
 	}
 
 	/**
-	 * @param searchOption
+	 * Method that allows the searching of an employee in the full
+	 * list of employees or of a particular manager. 
+	 * 
+	 * 
+	 * @param searchOption The type of search to be performed
 	 */
 	public void searchBy(int searchOption) {
 		int position = 0;
-		int matches = 1;
+		int matches = 0;
 		boolean found = false;
 		StdOut.println("----Searching----");
 		String searchString = null;
@@ -646,17 +669,21 @@ public class Driver
 
 				if (fullName.contains(searchString)) {
 					found = true;
+					matches += 1;
 					StdOut.println();
 					StdOut.println("------------------");
 					StdOut.println("Employee's name " + employee.getFirstName()
-							       + employee.getLastName());
+							+ employee.getLastName());
 					StdOut.println("Index is: " + position);
 					StdOut.println("------------------");
 				}
 				position++;
 			}
+			
 			if (!found) {
 				StdOut.println("No Matches Found!");
+			} else if(found) {
+				StdOut.println(matches + " Matches Found!");
 			}
 			break;
 		// Searching in a Manager
@@ -680,10 +707,11 @@ public class Driver
 
 						if (fullName.contains(searchString)) {
 							found = true;
+							matches += 1;
 							StdOut.println();
 							StdOut.println("------------------");
-							StdOut.println("Employee's name " + emp.getFirstName()
-									       + emp.getLastName());
+							StdOut.println("Employee's name "
+									+ emp.getFirstName() + emp.getLastName());
 							StdOut.println("Index is: " + position);
 							StdOut.println("------------------");
 						}
@@ -691,6 +719,8 @@ public class Driver
 					}
 					if (!found) {
 						StdOut.println("No Matches Found!");
+					} else {
+						StdOut.println(matches + " Matches Found!");
 					}
 				} else {
 					StdOut.println("Not A Manager!");
@@ -716,6 +746,7 @@ public class Driver
 		StdOut.println("1 - Calculate An Employee's Salary");
 		StdOut.println("2 - Calculate All Employee's Salaries");
 		StdOut.println("3 - Calculate Average Salary");
+		StdOut.println("4 - Get Highest Earner");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
@@ -726,7 +757,7 @@ public class Driver
 	}
 
 	/**
-	 * 
+	 * Method to chose and calculate an employee's salary.
 	 */
 	public void calcSalary() {
 		printBy(1, 1);
@@ -740,19 +771,19 @@ public class Driver
 
 			Employee tempEmp = employees.get(index);
 			StdOut.println("Enter the amount of hours the employee has worked: ");
-			
+
 			double hours = StdIn.readDouble();
 			StdIn.readLine();
 
 			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");
-			
+
 			double newHoursWorked = (tempEmp.getHoursWorked() + hours);
-			
+
 			tempEmp.setHoursWorked(newHoursWorked);
 			StdOut.print(tempEmp.calculateSalary(hours));
 			StdOut.println("After " + hours + " work.");
-			StdOut.println("New total amount of hours worked " 
-			              + tempEmp.getHoursWorked());
+			StdOut.println("New total amount of hours worked "
+					+ tempEmp.getHoursWorked());
 			StdOut.println();
 
 		} else {
@@ -762,7 +793,7 @@ public class Driver
 	}
 
 	/**
-	 * 
+	 * Prints the salaries of all employees.
 	 */
 	public void printSalaries() {
 		StdOut.println("This will only take into account the salaries that"
@@ -771,7 +802,7 @@ public class Driver
 	}
 
 	/**
-	 * 
+	 * Prints the average salary of everyone in employees.
 	 */
 	public void printAverage() {
 		StdOut.println("This will only take into account the salaries that"
@@ -781,6 +812,8 @@ public class Driver
 	}
 
 	/**
+	 * Displays a menu and returns the users option.
+	 * 
 	 * @return
 	 */
 	private int managerMenu() {
@@ -881,7 +914,8 @@ public class Driver
 	}
 
 	/**
-	 * 
+	 * Method that allows the deletion of an employee from a managers 
+	 * arraylist.
 	 */
 	public void delFromManger() {
 		if (employees.size() > 0) {
@@ -927,6 +961,9 @@ public class Driver
 	}
 
 	/**
+	 * Method that displays the save and load menu and returns 
+	 * that option.
+	 * 
 	 * @return Users operation choice
 	 */
 	private int saveLoadMenu() {
@@ -945,8 +982,8 @@ public class Driver
 	}
 
 	/**
-	 * Method that saves the employees list and outputs it as an xml
-	 * file which holds all the data.
+	 * Method that saves the employees list and outputs it as an xml file which
+	 * holds all the data.
 	 * 
 	 */
 	public void save() {
@@ -954,8 +991,8 @@ public class Driver
 	}
 
 	/**
-	 * Method that loads the data stored in the employees.xml
-	 * and sets the employees arraylist to be it.
+	 * Method that loads the data stored in the employees.xml and sets the
+	 * employees arraylist to be it.
 	 * 
 	 */
 	@SuppressWarnings("unchecked")
@@ -966,10 +1003,11 @@ public class Driver
 	}
 
 	/**
-	 * Method that takes in a manager and prints the list of 
-	 * employees he has in his list.
+	 * Method that takes in a manager and prints the list of employees he has in
+	 * his list.
 	 * 
-	 * @param manager Manager's whose minions is to be printed
+	 * @param manager
+	 *            Manager's whose minions is to be printed
 	 */
 	public void listMinions(Manager manager) {
 		int index = 0;
@@ -978,44 +1016,11 @@ public class Driver
 			StdOut.println(emp + "\nIndex at: " + index);
 			index += 1;
 		}
-	}
+	}	
 
 	/**
-	 * Method that lists employees, depending on the value passed in 
-	 * it will print all the employees in the array list or it only print
-	 * those employees that aren't Managers.
-	 * 
-	 * @param type
-	 *            Type of Employees to List, 1 = All, 2 Removes Managers
-	 *//*
-	public void listEmployees(int option) {
-		if (employees.size() > 0) {
-			StdOut.println("--------------");
-			StdOut.println("EMPLOYEE LIST");
-			StdOut.println("--------------");
-			for (int index = 0; index < employees.size(); index += 1) {
-
-				Employee emp = employees.get(index);
-
-				int type = getType(emp);
-
-				if (option == 1) {
-					StdOut.println("Index: " + index + "\n"
-							+ employees.get(index) + "\n");
-				} else if ((option == 2) && !(type == 1)) {
-					StdOut.println("Index: " + index + "\n"
-							+ employees.get(index) + "\n");
-				}
-			}
-			StdOut.println("-----------");
-		} else {
-			noEmployeesResponse();
-		}
-	}*/
-
-	/**
-	 * Method that lists all the managers inside employees if there is
-	 * any managers in it.
+	 * Method that lists all the managers inside employees if there is any
+	 * managers in it.
 	 */
 	public void listManagers() {
 		if (employees.size() > 0) {
@@ -1075,9 +1080,8 @@ public class Driver
 	}
 
 	/**
-	 * Method that sorts through employees based on the option
-	 * specified by the user from the menu system, and returns the
-	 * sorted list as an array.
+	 * Method that sorts through employees based on the option specified by the
+	 * user from the menu system, and returns the sorted list as an array.
 	 * 
 	 * @param option
 	 *            The type of sorting to happen
@@ -1086,7 +1090,7 @@ public class Driver
 	public ArrayList<Employee> sort(int option) {
 
 		ArrayList<Employee> temp = new ArrayList<Employee>(employees);
-		
+
 		Employee emp = null;
 
 		for (int i = 0; i < temp.size(); i += 1) {
@@ -1157,8 +1161,8 @@ public class Driver
 	}
 
 	/**
-	 * Prints a message to indicate that the employees list doesn't contain
-	 * any Managers and asks if the user would like to add one.
+	 * Prints a message to indicate that the employees list doesn't contain any
+	 * Managers and asks if the user would like to add one.
 	 * 
 	 */
 	private void noManagersResponse() {
@@ -1170,45 +1174,34 @@ public class Driver
 			addEmployee(3);
 		}
 	}
-	
-		/*public void constructObjects() {
-				
-				Manager m1, m2;
-				AdminWorker a1, a2, a3;
-				SalesWorker s1, s2, s3;		
-				
-				m1 = new Manager("Paul", "Murphy", 24.50);
-				m2 = new Manager("Booker", "DeWitt", 20.00);
-		
-				a1 = new AdminWorker("Jesse", "Pinkman", 12.00, 5);
-				a2 = new AdminWorker("Elizabeth", "Comstock", 13.50, 15);
-				a3 = new AdminWorker("Jimmy", "McNulty", 13, 50);
-		
-				s1 = new SalesWorker("Johnny", "Bravo", 11.75, 6);
-				s2 = new SalesWorker("Peregrin", "Took", 9.50, 12);
-				s3 = new SalesWorker("Samwell", "Tarly", 10.50, 12);
-		
-				// Adding Managers to the list last so a sort isn't
-				// required (for now) when calculating wages.
-				employees.add(s1);
-				employees.add(s2);
-				employees.add(s3);
-				employees.add(a1);
-				employees.add(a2);
-				employees.add(a3);
-				employees.add(m2);
-				employees.add(m1);
-				
-				m1.getMinions().add(a1);
-				a1.setHasManager(true);
-				m1.getMinions().add(s1);
-				s1.setHasManager(true);
-		
-				m2.getMinions().add(a2);
-				a2.setHasManager(true);
-				m2.getMinions().add(s2);
-				s2.setHasManager(true);
-				}*/
+
+	/*
+	 * public void constructObjects() {
+	 * 
+	 * Manager m1, m2; AdminWorker a1, a2, a3; SalesWorker s1, s2, s3;
+	 * 
+	 * m1 = new Manager("Paul", "Murphy", 24.50); m2 = new Manager("Booker",
+	 * "DeWitt", 20.00);
+	 * 
+	 * a1 = new AdminWorker("Jesse", "Pinkman", 12.00, 5); a2 = new
+	 * AdminWorker("Elizabeth", "Comstock", 13.50, 15); a3 = new
+	 * AdminWorker("Jimmy", "McNulty", 13, 50);
+	 * 
+	 * s1 = new SalesWorker("Johnny", "Bravo", 11.75, 6); s2 = new
+	 * SalesWorker("Peregrin", "Took", 9.50, 12); s3 = new
+	 * SalesWorker("Samwell", "Tarly", 10.50, 12);
+	 * 
+	 * // Adding Managers to the list last so a sort isn't // required (for now)
+	 * when calculating wages. employees.add(s1); employees.add(s2);
+	 * employees.add(s3); employees.add(a1); employees.add(a2);
+	 * employees.add(a3); employees.add(m2); employees.add(m1);
+	 * 
+	 * m1.getMinions().add(a1); a1.setHasManager(true); m1.getMinions().add(s1);
+	 * s1.setHasManager(true);
+	 * 
+	 * m2.getMinions().add(a2); a2.setHasManager(true); m2.getMinions().add(s2);
+	 * s2.setHasManager(true); }
+	 */
 
 	/**
 	 * Method to print an automated response when the employees list is empty.

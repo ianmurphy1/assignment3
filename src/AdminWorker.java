@@ -1,6 +1,6 @@
 
 /**
- * @author Ian
+ * @author Ian Murphy
  *
  */
 public class AdminWorker extends Employee {

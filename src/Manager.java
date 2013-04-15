@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 
 /**
- * @author Ian
+ * @author Ian Murphy
  *
  */
 public class Manager extends Employee {

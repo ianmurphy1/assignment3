@@ -1,5 +1,5 @@
 /**
- * @author Ian
+ * @author Ian Murphy
  * 
  */
 public abstract class Employee
