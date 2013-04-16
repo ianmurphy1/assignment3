@@ -34,3 +34,4 @@ Thumbs.db
  
 # jME (binaries)
 *.so
+/employees.xml
