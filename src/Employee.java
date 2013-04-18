@@ -1,5 +1,5 @@
 /**
- * The employees class represents an Employee.
+ * This class represents an Employee.
  * Information about an Employee is stored and retrieved from here.
  * This class works as a super class for other more specific employees.
  * 
@@ -9,7 +9,6 @@
 public abstract class Employee
 {
 	//Assignment Specified Fields
-
 	final static double NORMAL_WORKWEEK = 39.5;	
 	
    	private String firstName;	
@@ -18,6 +17,7 @@ public abstract class Employee
 	private double hoursWorked;	
 	
 	//My Own
+	final static double OVER_RATE = 2;
 	private double salary;
 	private boolean hasManager;
 	
@@ -196,12 +196,12 @@ public abstract class Employee
 	 */
 	private double calculateOvertime() {
 		double overtime;
-		overtime = ((hoursWorked - NORMAL_WORKWEEK) * (hourlyRate * 2));
+		overtime = ((hoursWorked - NORMAL_WORKWEEK) * (hourlyRate * OVER_RATE));
 		return toTwoDecimalPlaces(overtime);
 	}
 
 	/** 
-	 * Method that returns all infor about an Employee in String Form
+	 * Method that returns all info about an Employee in String Form
 	 */
 	@Override
 	public String toString() {

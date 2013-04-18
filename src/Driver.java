@@ -1,17 +1,37 @@
 import java.util.ArrayList;
 
 /**
- * Driver class that allows interaction with all other classes
+ * The database class provides a facility to store Employee
+ * objects.
  * 
+ * Interacting through a text-based menu system:-
+ * 
+ * Employees can be created, edited and deleted from the overall list. 
+ * A list of all Employess can be printed to the terminal in various 
+ * orders, Alphabetically by First or Second name. By the hourly rate or by 
+ * the Employees index number within the employees list.
+ * Employees can also be added to a manager's department. This list can
+ * then be added to, deleted from and also be printed.
+ * 
+ * Salaries can be computed, individually, altogether and also the highest 
+ * earner within the employees datbase can be calculated.
+ * 
+ * The current list can also be saved so that it can be loaded from at a 
+ * later date.
+ * 
+ *  
  * @author Ian Murphy
  * 
  */
 public class Driver
 {
-	//Used when printing a list
+	/**
+	 * Used when printing a list, passed in as the 2nd 
+	 * parameter of printBy();
+	 */
 	//ALL prints All users of the employees
 	private final static int ALL = 1;
-	//EMP Prints allows a list of the employees that
+	//EMP allows a list of the employees that
 	//don't have managers to be printed
 	private final static int EMP = 2;
 	
@@ -55,10 +75,12 @@ public class Driver
 	    //app.constructObjects();
 		app.load();
 		app.run();
-
 	}
 
 	/**
+	 * Displays the main menu and takes in the user's input to open
+	 * one of the available sub-menus where the various methods 
+	 * for managing the system are called.
 	 * 
 	 */
 	public void run() {
