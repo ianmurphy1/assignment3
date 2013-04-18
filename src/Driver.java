@@ -494,9 +494,9 @@ public class Driver
 			printBy(NONE, ALL);
 			StdOut.println("Choose Index of Employee to delete: ");
 			int delChoice = StdIn.readInt();
-			StdIn.readInt();
+			StdIn.readLine();
 
-			if (delChoice >= 0 && delChoice < employees.size()) {
+			if (delChoice >= 0 && (delChoice < employees.size())) {
 				StdOut.println("Are you sure you want to delete? (y/n)");
 				String response = StdIn.readString();
 				StdIn.readLine();
@@ -507,7 +507,7 @@ public class Driver
 				// If he is, removed from that too
 				if (response.equalsIgnoreCase("y")) {
 
-					if (employees.get(delChoice).hasManager()) {
+					if (delThis.hasManager()) {
 						ArrayList<Manager> managers = managerArray();
 
 						String name = (delThis.getFirstName() + delThis
@@ -569,12 +569,14 @@ public class Driver
 	}
 
 	/**
-	 * Mehtod allows the printing of an arraylist based on if that list
-	 * is to be sorted in a particular way or if there is to be some 
-	 * restrictions in the type of employees that it returns.
+	 * Method allows the printing of an arraylist based on if that list is to be
+	 * sorted in a particular way or if there is to be some restrictions in the
+	 * type of employees that it returns.
 	 * 
-	 * @param sortOption What to sort it as
-	 * @param typeOption Type of list to display (All or Just a group)
+	 * @param sortOption
+	 *            What to sort it as
+	 * @param typeOption
+	 *            Type of list to display (All or Just a group)
 	 */
 	public void printBy(int sortOption, int typeOption) {
 
@@ -585,13 +587,13 @@ public class Driver
 			temp = employees;
 			break;
 		case 2:
-			temp = sort(NONE);
+			temp = sort(FIRST_N - 1);
 			break;
 		case 3:
-			temp = sort(FIRST_N);
+			temp = sort(LAST_N - 1);
 			break;
 		case 4:
-			temp = sort(3);
+			temp = sort(HOURLY - 1);
 			break;
 		}
 
@@ -613,30 +615,29 @@ public class Driver
 			}
 
 			StdOut.println("--------------");
-			StdOut.println();		
+			StdOut.println();
 
-			if (temp.size() > 0) {
-				for (int index = 0; index < employees.size(); index += 1) {
+			for (int index = 0; index < temp.size(); index += 1) {
+								
+				Employee emp = temp.get(index);
+				int employeesIndex = employees.indexOf(emp);
 
-					Employee emp = employees.get(index);
+				int empType = getType(emp);
 
-					int empType = getType(emp);
-
-					if (typeOption == 1) {
-						StdOut.println("Index: " + index + "\n" + emp + "\n");
-					} else if ((typeOption == 2) && !(empType == 1)) {
-						if (!(emp.hasManager())) {
-							StdOut.println("Index: " + index + "\n" + emp
-									+ "\n");
-						}
+				if (typeOption == 1) {
+					StdOut.println("Index: " + employeesIndex + "\n" + emp + "\n");
+				} else if ((typeOption == 2) && !(empType == 1)) {
+					if (!(emp.hasManager())) {
+						StdOut.println("Index: " + employeesIndex + "\n" + emp + "\n");
 					}
-				}
-				StdOut.println("-----------");
-			} else {
-				noEmployeesResponse();
+				}			
 			}
+			StdOut.println("-----------");
+		} else {
+			noEmployeesResponse();
 		}
 	}
+	
 
 	/**
 	 * Method that sorts through all the employees and returns the highest
@@ -1150,6 +1151,7 @@ public class Driver
 	 */
 	public ArrayList<Employee> sort(int option) {
 
+		//Creating copy of array as order of original needs to be maintained
 		ArrayList<Employee> temp = new ArrayList<Employee>(employees);
 
 		Employee emp = null;
