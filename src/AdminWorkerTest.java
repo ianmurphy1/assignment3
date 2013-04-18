@@ -39,6 +39,10 @@ public class AdminWorkerTest
 		a1.setFirstName("Todd");
 		assertEquals("Todd", a1.getFirstName());
 		
+		assertEquals(35, a1.getHoursWorked(), DELTA);
+		a1.setHoursWorked(-5);
+		assertEquals(35, a1.getHoursWorked(), DELTA);
+		
 		a2.setBonus(-5);
 		assertEquals(15, a2.getBonus(), DELTA);
 		a2.setLastName("DeWitt");

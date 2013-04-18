@@ -18,7 +18,9 @@ public class ManagerTest
 	public void setUp() throws Exception {
 		//Testing These Mostly
 		m1 = new Manager("Paul", "Murphy", 24.50);
+		m1.setHoursWorked(10);
 		m2 = new Manager("Booker", "DeWitt", 20.00);
+		m2.setHoursWorked(-50);
 		m3 = new Manager("Zach", "Comstock", -35.41);
 		
 		//Here for testing array
@@ -45,6 +47,9 @@ public class ManagerTest
 		
 		m1.setHourlyRate(-2.50);
 		assertEquals(24.50, this.m1.getHourlyRate(), DELTA);
+		
+		assertEquals(10, m1.getHoursWorked(), DELTA);
+		assertEquals(0, m2.getHoursWorked(), DELTA);
 		
 		m3.setFirstName("Ned");
 		m3.setLastName("Stark");

@@ -39,8 +39,7 @@ public class SalesWorkerTest
 		assertEquals("Pippin", s2.getFirstName());
 				
 		s1.setHourlyRate(14.50);
-		assertEquals(14.50, s1.getHourlyRate(), DELTA);
-		
+		assertEquals(14.50, s1.getHourlyRate(), DELTA);		
 		s1.setHourlyRate(-15);
 		assertEquals(14.50, s1.getHourlyRate(), DELTA);
 		
@@ -48,6 +47,11 @@ public class SalesWorkerTest
 		assertEquals(12, s2.getPerfBonus(), DELTA);
 		s2.setPerfBonus(22);
 		assertEquals(12, s2.getPerfBonus(), DELTA);
+		
+		s1.setHoursWorked(-15);
+		assertEquals(0, s1.getHoursWorked(), DELTA);
+		s1.setHoursWorked(40);
+		assertEquals(40, s1.getHoursWorked(), DELTA);	
 	}
 	
 	@Test
