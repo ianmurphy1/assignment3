@@ -12,12 +12,11 @@ public class AdminWorker extends Employee {
 
 	/**
 	 * Constructor for objects of class AdminWorker
-	 * Is a sub-class of Employee.
-	 * 
-	 * @param firstName
-	 * @param lastName
-	 * @param hourlyRate
-	 * @param bonus
+	 *  
+	 * @param firstName Admin Worker's 1st Name
+	 * @param lastName Admin Worker's Surname
+	 * @param hourlyRate Admin Worker's Hourly Rate
+	 * @param bonus Admin Worker's Fixed Bonus
 	 */
 	public AdminWorker(String firstName, String lastName, double hourlyRate, double bonus) {
 		super(firstName, lastName, hourlyRate);	
@@ -29,14 +28,19 @@ public class AdminWorker extends Employee {
 	}
 
 	/**
-	 * @return the bonus
+	 * A method that returns the Fixed Bonus of an Admin Worker.
+	 * 
+	 * @return Admin Worker's Fixed Bonus
 	 */
 	public double getBonus() {
-		return this.bonus;
+		return bonus;
 	}
 
 	/**
-	 * @param bonus the bonus to set
+	 * Setter that allows the bonus of an admin worker to
+	 * be changed, must be above 0.
+	 * 
+	 * @param bonus Admin Worker's new fixed bonus.
 	 */
 	public void setBonus(double bonus) {
 		if (bonus >= 0) {
@@ -44,7 +48,9 @@ public class AdminWorker extends Employee {
 		}
 	}
 	
-	/** (non-Javadoc)
+	/**
+	 * Method that calculates the salary of an admin worker.
+	 * 
 	 * @see Employee#calculateSalary(double)
 	 */
 	public double calculateSalary() {
@@ -61,7 +67,10 @@ public class AdminWorker extends Employee {
 		return this.getSalary();
 	}
 
-	/** (non-Javadoc)
+	/** 
+	 * Method that returns the information specific to an employee
+	 * of type Admin Worker in string form.
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override

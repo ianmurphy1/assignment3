@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 /**
- * The database class provides a facility to store Employee
+ * The Driver class provides a facility to store Employee
  * objects.
  * 
  * Interacting through a text-based menu system:-
@@ -29,11 +29,28 @@ public class Driver
 	 * Used when printing a list, passed in as the 2nd 
 	 * parameter of printBy();
 	 */
-	//ALL prints All users of the employees
+	//ALL prints All users of the employees also used in search
 	private final static int ALL = 1;
 	//EMP allows a list of the employees that
 	//don't have managers to be printed
 	private final static int EMP = 2;
+	
+	/**
+	 * Used when sorting the employees list, passed in as the 1st 
+	 * parameter of printBy();
+	 */
+	//No sort
+	private final static int NONE = 1; 
+	//Sort By First Name
+	private final static int FIRST_N = 2;
+	//Sort By Last Name
+	private final static int LAST_N = 3;
+	//Sort By Hourly Rate
+	private final static int HOURLY = 4;
+	
+	//Used when Searching
+	private final static int MAN = 2;
+	
 	
 	private ArrayList<Employee> employees;
 
@@ -124,16 +141,16 @@ public class Driver
 				int printOption = printMenu();
 				switch (printOption) {
 				case 1:
-					printBy(1, ALL);
+					printBy(NONE, ALL);
 					break;
 				case 2:
-					printBy(2, ALL);
+					printBy(FIRST_N, ALL);
 					break;
 				case 3:
-					printBy(3, ALL);
+					printBy(LAST_N, ALL);
 					break;
 				case 4:
-					printBy(4, ALL);
+					printBy(HOURLY, ALL);
 					break;				
 				}
 				break;
@@ -143,10 +160,10 @@ public class Driver
 				int searchOption = searchMenu();
 				switch (searchOption) {
 				case 1:
-					searchBy(searchOption);
+					searchBy(ALL);
 					break;
 				case 2:
-					searchBy(searchOption);
+					searchBy(MAN);
 					break;
 				}
 				break;
@@ -344,7 +361,7 @@ public class Driver
 	public void editEmployee() {
 
 		if (employees.size() > 0) {
-			printBy(1, 1);
+			printBy(NONE, ALL);
 			StdOut.println("Choose Index of Employee to Edit: ");
 			int index = StdIn.readInt();
 			StdIn.readInt();
@@ -474,7 +491,7 @@ public class Driver
 
 		if (employees.size() > 0) {
 
-			printBy(1, 1);
+			printBy(NONE, ALL);
 			StdOut.println("Choose Index of Employee to delete: ");
 			int delChoice = StdIn.readInt();
 			StdIn.readInt();
@@ -512,7 +529,7 @@ public class Driver
 
 					employees.remove(delThis);
 					StdOut.println("New List: ");
-					printBy(1, 1);
+					printBy(NONE, ALL);
 				}
 			} else {
 				StdOut.println("Invalid Index!");
@@ -568,10 +585,10 @@ public class Driver
 			temp = employees;
 			break;
 		case 2:
-			temp = sort(1);
+			temp = sort(NONE);
 			break;
 		case 3:
-			temp = sort(2);
+			temp = sort(FIRST_N);
 			break;
 		case 4:
 			temp = sort(3);
@@ -603,11 +620,11 @@ public class Driver
 
 					Employee emp = employees.get(index);
 
-					int type = getType(emp);
+					int empType = getType(emp);
 
 					if (typeOption == 1) {
 						StdOut.println("Index: " + index + "\n" + emp + "\n");
-					} else if ((typeOption == 2) && !(type == 1)) {
+					} else if ((typeOption == 2) && !(empType == 1)) {
 						if (!(emp.hasManager())) {
 							StdOut.println("Index: " + index + "\n" + emp
 									+ "\n");
@@ -685,6 +702,8 @@ public class Driver
 		boolean found = false;
 		StdOut.println("----Searching----");
 		String searchString = null;
+		
+		if (employees.size() > 0) {
 
 		switch (searchOption) {
 		// Searching All Employees
@@ -762,10 +781,16 @@ public class Driver
 				searchBy(2);
 			}
 			break;
+		} } else {
+			noEmployeesResponse();
 		}
 	}
 
 	/**
+	 * Menu that displays the menu for carrying out calculations
+	 * on players salaries. Also used to set the number of hours an
+	 * employee has worked.
+	 * 
 	 * @return User's choice to carry out
 	 */
 	private int accountMenu() {
@@ -789,7 +814,7 @@ public class Driver
 	 * Method to chose and calculate an employee's salary.
 	 */
 	public void calcSalary() {
-		printBy(1, ALL);
+		printBy(NONE, ALL);
 
 		StdOut.println("Enter Index of Employee whose salary "
 				+ " is to be calculated: ");
@@ -820,7 +845,7 @@ public class Driver
 	}
 
 	/**
-	 * Prints the salaries of all employees.
+	 * Method that Prints the salaries of all employees.
 	 */
 	public void printSalaries() {
 		if (employees.size() > 0) {
@@ -850,7 +875,7 @@ public class Driver
 	/**
 	 * Displays a menu and returns the users option.
 	 * 
-	 * @return
+	 * @return User's Choice
 	 */
 	private int managerMenu() {
 		StdOut.println("-------------");
@@ -888,7 +913,7 @@ public class Driver
 					manager = (Manager) employees.get(managerIndex);
 
 					StdOut.println("Choose Employee To Add:");
-					printBy(1, EMP);
+					printBy(NONE, EMP);
 					int empIndex = StdIn.readInt();
 					StdIn.readLine();
 

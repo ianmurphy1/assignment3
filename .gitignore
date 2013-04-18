@@ -19,6 +19,7 @@ Thumbs.db
  
 # Java
 *.class
+/doc
 # packages 
 
 *.war

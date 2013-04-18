@@ -2,17 +2,23 @@ import java.util.ArrayList;
 
 
 /**
+ * Class that stores information that is specific to a Manager object. 
+ * This class is sub-class of the Employee super class.
+ * 
  * @author Ian Murphy
  *
  */
 public class Manager extends Employee {
 	
+	private static final double MAN_BONUS = 0.01;
+	
+	//List to contain employees that a manager is over
 	private ArrayList<Employee> minions;	
 
 	/**
-	 * @param firstName
-	 * @param lastName
-	 * @param hourlyRate
+	 * @param firstName Manager's First Name
+	 * @param lastName Manager's Last Name
+	 * @param hourlyRate Manager's Hourly Rate
 	 */
 	public Manager(String firstName, String lastName, double hourlyRate) {
 		super(firstName, lastName, hourlyRate);
@@ -20,23 +26,32 @@ public class Manager extends Employee {
 	}
 
 	/**
-	 * @return the employees
+	 * Method that returns the List of employees the manager
+	 * is over.
+	 * 
+	 * @return The List containing Employees.
 	 */
 	public ArrayList<Employee> getMinions() {
-		return this.minions;
+		return minions;
 	}
 
 	/**
-	 * @param employees the employees to set
+	 * Method that allows the changing of the Manager's list of 
+	 * employees.
+	 * 
+	 * @param employees The new list to set.
 	 */
 	public void setMinions(ArrayList<Employee> minions) {
 		this.minions = minions;
 	}
 	
 	/**
-	 * (non-Javadoc)
+	 * Method that is used to calculate the salary of an
+	 * Employee of type Manager by adding the specific bonus to
+	 * that type of Employee onto the calculateSalary() method 
+	 * contained in the Employee class.
 	 * 
-	 * @see Employee#calculateSalary(double)
+	 * @see Employee#calculateSalary()
 	 */
 	public double calculateSalary() {
 
@@ -44,26 +59,28 @@ public class Manager extends Employee {
 		double tempSal = 0.0;	
 		double tempHours = this.getHoursWorked();
 		
-		if (tempHours > 0) {
-			
-			for (Employee minion : this.minions) {
-				managerBonus += (minion.getSalary() * 0.01);			
-			}
-			
-			tempSal = (super.calculateSalary() + managerBonus);			
+		if (tempHours > 0) {			
+			for (Employee minion : minions) {
+				managerBonus += (minion.getSalary() * MAN_BONUS);			
+			}			
+			tempSal = (super.calculateSalary() + managerBonus);				
 		} 
 		
         this.setSalary(tempSal);
-		
+        
 		return this.getSalary();
 	}
 
-	/** (non-Javadoc)
+	/**
+	 * Method that returns all the information about a Manager
+	 * in String form.
+	 * 
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		return "Employee Type: Manager" + "\n" + super.toString() 
-			 + "Over " + this.minions.size() + " Employees";
+		return "Employee Type: Manager" + "\n" 
+	          + super.toString() 
+			  + "Over " + this.minions.size() + " Employees";
 	}
 }

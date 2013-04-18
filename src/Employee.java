@@ -47,7 +47,7 @@ public abstract class Employee
 	}
 
 	/**
-	 * Getter that reurns the employee's 1st name.
+	 * Getter that returns the employee's 1st name.
 	 * 
 	 * @return The Employee's First Name
 	 */
