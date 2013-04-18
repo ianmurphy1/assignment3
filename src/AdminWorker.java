@@ -1,5 +1,8 @@
 
 /**
+ * Class that represents AdminWorker objects, information specific
+ * to objects of type AdminWorker can be stored and retrieved from here.
+ * 
  * @author Ian Murphy
  *
  */
