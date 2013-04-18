@@ -60,11 +60,13 @@ public class SalesWorker extends Employee {
 	 * @see Employee#calculateSalary(double)
 	 */
 	@Override
-	public double calculateSalary(double numHours) {
-		double tempSal = 0;
+	public double calculateSalary() {
+		double tempSal = 0;	
 		
-		if (numHours > 0) {
-			tempSal = super.calculateSalary(numHours) * (1 + (this.perfBonus / 100));
+		double tempHours = this.getHoursWorked();
+		
+		if (tempHours > 0) {
+			tempSal = super.calculateSalary() * (1 + (this.perfBonus / 100));
 		}
 		
 		this.setSalary(tempSal);

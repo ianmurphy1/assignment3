@@ -8,6 +8,13 @@ import java.util.ArrayList;
  */
 public class Driver
 {
+	//Used when printing a list
+	//ALL prints All users of the employees
+	private final static int ALL = 1;
+	//EMP Prints allows a list of the employees that
+	//don't have managers to be printed
+	private final static int EMP = 2;
+	
 	private ArrayList<Employee> employees;
 
 	/**
@@ -95,16 +102,16 @@ public class Driver
 				int printOption = printMenu();
 				switch (printOption) {
 				case 1:
-					printBy(1, 1);
+					printBy(1, ALL);
 					break;
 				case 2:
-					printBy(2, 1);
+					printBy(2, ALL);
 					break;
 				case 3:
-					printBy(3, 1);
+					printBy(3, ALL);
 					break;
 				case 4:
-					printBy(4, 1);
+					printBy(4, ALL);
 					break;				
 				}
 				break;
@@ -760,7 +767,7 @@ public class Driver
 	 * Method to chose and calculate an employee's salary.
 	 */
 	public void calcSalary() {
-		printBy(1, 1);
+		printBy(1, ALL);
 
 		StdOut.println("Enter Index of Employee whose salary "
 				+ " is to be calculated: ");
@@ -774,13 +781,11 @@ public class Driver
 
 			double hours = StdIn.readDouble();
 			StdIn.readLine();
+			tempEmp.setHoursWorked(hours);
 
 			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");
-
-			double newHoursWorked = (tempEmp.getHoursWorked() + hours);
-
-			tempEmp.setHoursWorked(newHoursWorked);
-			StdOut.print(tempEmp.calculateSalary(hours));
+			
+			StdOut.print(tempEmp.calculateSalary());
 			StdOut.println("After " + hours + " work.");
 			StdOut.println("New total amount of hours worked "
 					+ tempEmp.getHoursWorked());
@@ -796,9 +801,13 @@ public class Driver
 	 * Prints the salaries of all employees.
 	 */
 	public void printSalaries() {
-		StdOut.println("This will only take into account the salaries that"
-				+ " have already been individually calculated.");
-		StdOut.println("Total Salary: E" + calcSalaries());
+		if (employees.size() > 0) {
+			StdOut.println("This will only take into account the salaries that"
+					+ " have already been individually calculated.");
+			StdOut.println("Total Salary: E" + calcSalaries());
+		} else {
+			noEmployeesResponse();
+		}
 	}
 
 	/**
@@ -807,8 +816,13 @@ public class Driver
 	public void printAverage() {
 		StdOut.println("This will only take into account the salaries that"
 				+ " have already been individually calculated.");
-		StdOut.println("Average Salary for " + employees.size() + " people: ");
-		StdOut.print(calcAverage());
+		if (calcAverage() > 0) {
+			StdOut.println("Average Salary for " + employees.size() + " people: ");
+			StdOut.print(calcAverage());
+		} else {
+			noEmployeesResponse();
+		}
+		
 	}
 
 	/**
@@ -852,7 +866,7 @@ public class Driver
 					manager = (Manager) employees.get(managerIndex);
 
 					StdOut.println("Choose Employee To Add:");
-					printBy(1, 2);
+					printBy(1, EMP);
 					int empIndex = StdIn.readInt();
 					StdIn.readLine();
 
@@ -1154,8 +1168,10 @@ public class Driver
 	 */
 	public double calcAverage() {
 		double averageSalary = 0.0;
-
-		averageSalary = calcSalaries() / employees.size();
+		
+		if (employees.size() > 0) {
+			averageSalary = calcSalaries() / employees.size();
+		}
 
 		return toTwoDecimalPlaces(averageSalary);
 	}
@@ -1235,7 +1251,6 @@ public class Driver
 		} else if (emp.getClass() == AdminWorker.class) {
 			type = 3;
 		}
-
 		return type;
 	}
 

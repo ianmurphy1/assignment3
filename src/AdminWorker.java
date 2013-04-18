@@ -44,12 +44,13 @@ public class AdminWorker extends Employee {
 	/** (non-Javadoc)
 	 * @see Employee#calculateSalary(double)
 	 */
-	public double calculateSalary(double numHours) {
+	public double calculateSalary() {
 		
 		double tempSal = 0;
+		double tempHours = this.getHoursWorked();
 		
-		if (numHours > 0) {
-			tempSal = (super.calculateSalary(numHours) + this.bonus);			
+		if (tempHours > 0) {
+			tempSal = (super.calculateSalary() + this.bonus);			
 		} 
 		
         this.setSalary(tempSal);

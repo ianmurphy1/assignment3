@@ -47,13 +47,17 @@ public class DriverTest
 
 		m2.getMinions().add(a2);
 		m2.getMinions().add(s2);
+		
+		s2.setHoursWorked(15);
+		s1.setHoursWorked(24);
+		a2.setHoursWorked(20);
+		a1.setHoursWorked(26);
+		m1.setHoursWorked(22);
+		m2.setHoursWorked(28);
 
-		s2.calculateSalary(15);
-		s1.calculateSalary(24);
-		a2.calculateSalary(20);
-		a1.calculateSalary(26);
-		m1.calculateSalary(22);
-		m2.calculateSalary(28);
+		for (Employee emp: employees) {
+			emp.calculateSalary();
+		}
 	}
 
 	@Test

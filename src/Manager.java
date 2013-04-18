@@ -38,19 +38,19 @@ public class Manager extends Employee {
 	 * 
 	 * @see Employee#calculateSalary(double)
 	 */
-	public double calculateSalary(double numHours) {
+	public double calculateSalary() {
 
-		double managerBonus = 0.0;	
+		double managerBonus = 0.0;		
+		double tempSal = 0.0;	
+		double tempHours = this.getHoursWorked();
 		
-		double tempSal = 0.0;		
-		
-		if (numHours > 0) {
+		if (tempHours > 0) {
 			
 			for (Employee minion : this.minions) {
 				managerBonus += (minion.getSalary() * 0.01);			
 			}
 			
-			tempSal = (super.calculateSalary(numHours) + managerBonus);			
+			tempSal = (super.calculateSalary() + managerBonus);			
 		} 
 		
         this.setSalary(tempSal);

@@ -134,20 +134,20 @@ public abstract class Employee
 	 * @param numHours
 	 * @return
 	 */
-	public double calculateSalary(double numHours) {
+	public double calculateSalary() {
 		
-		if (numHours >= 0) {
-			if (numHours <= NORMAL_WORKWEEK) {
-				this.salary = numHours * this.hourlyRate;
-			} else if (numHours > NORMAL_WORKWEEK) {
+		if (hoursWorked >= 0) {
+			if (hoursWorked <= NORMAL_WORKWEEK) {
+				this.salary = hoursWorked * this.hourlyRate;
+			} else if (hoursWorked > NORMAL_WORKWEEK) {
 				this.salary = (NORMAL_WORKWEEK * this.hourlyRate)
-						+ calculateOvertime(numHours);
+						+ calculateOvertime();
 			}
 			
 			//If changing every time calSal() is called
 			
 			
-			this.setHoursWorked(numHours);
+			this.setHoursWorked(hoursWorked);
 			
 			//If a running total of all hours worked is to be done
 			//double newTotal = (this.getNumHours() + numHours);
@@ -160,9 +160,9 @@ public abstract class Employee
 	 * @param numHours
 	 * @return
 	 */
-	private double calculateOvertime(double numHours) {
+	private double calculateOvertime() {
 		double overtime;
-		overtime = ((numHours - NORMAL_WORKWEEK) * (this.hourlyRate * 2));
+		overtime = ((hoursWorked - NORMAL_WORKWEEK) * (this.hourlyRate * 2));
 		return toTwoDecimalPlaces(overtime);
 	}
 
