@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 
 /**
  * The Driver class provides a facility to store Employee
@@ -241,9 +242,8 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
-		int option = StdIn.readInt();
-		StdIn.readLine();
-
+		int option = getInt();
+		
 		return option;
 	}
 
@@ -1134,9 +1134,7 @@ public class Driver
 			Employee potentMan = employees.get(index);
 
 			int type = getType(potentMan);
-
-			// TODO Find out if instanceof or .getClass() is better
-
+			
 			if (type == 1) {
 				temp.add((Manager) potentMan);
 			}
@@ -1316,6 +1314,46 @@ public class Driver
 	 */
 	private double toTwoDecimalPlaces(double num) {
 		return (int) (num * 100) / 100.0;
+	}
+	
+	private String getString() {		 	
+		try{			
+			String output = StdIn.readLine();
+			return output;
+		} catch (InputMismatchException e){
+			StdIn.readLine();
+			StdOut.println("Not a String!");
+			StdOut.println("Go again.");
+			
+		}		
+		return null;
+	}
+	
+	private double getDouble() {		
+		
+		try{
+			double output = StdIn.readDouble();	
+			return output;
+		} catch (InputMismatchException e) {
+			StdIn.readLine();
+			StdOut.println("Not a Double!");
+			StdOut.println("Go again.");			
+		}
+		
+		return -1; 
+	}
+	
+	private int getInt() {		
+		
+		try{
+			int output = StdIn.readInt();			
+			return output;
+		} catch (InputMismatchException e) {
+			StdIn.readLine();
+			StdOut.println("Not an int!");
+			StdOut.println("Go again.");			
+		}		
+		return -1;
 	}
 
 }
