@@ -673,7 +673,10 @@ public class Driver
 	}
 
 	/**
-	 * @return
+	 * Menu that display the search options to a user and returns
+	 * the option that they choose.
+	 * 
+	 * @return User's Input
 	 */
 	private int searchMenu() {
 		StdOut.println("-------------");
@@ -760,7 +763,7 @@ public class Driver
 							StdOut.println();
 							StdOut.println("------------------");
 							StdOut.println("Employee's name "
-									+ emp.getFirstName() + emp.getLastName());
+									+ emp.getFirstName() + " " + emp.getLastName());
 							StdOut.println("Index is: " + position);
 							StdOut.println("------------------");
 						}

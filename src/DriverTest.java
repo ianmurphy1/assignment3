@@ -248,7 +248,6 @@ public class DriverTest
 					}
 				}
 			}
-
 			employees.remove(delThis);
 			assertEquals(6, employees.size());
 			assertEquals(1, delFromThis.getMinions().size());
