@@ -496,7 +496,7 @@ public class Driver
 			int delChoice = StdIn.readInt();
 			StdIn.readInt();
 
-			if (delChoice >= 0 && delChoice >= employees.size()) {
+			if (delChoice >= 0 && delChoice < employees.size()) {
 				StdOut.println("Are you sure you want to delete? (y/n)");
 				String response = StdIn.readString();
 				StdIn.readLine();
