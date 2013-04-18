@@ -1338,8 +1338,7 @@ public class Driver
 			StdIn.readLine();
 			StdOut.println("Not a Double!");
 			StdOut.println("Go again.");			
-		}
-		
+		}		
 		return -1; 
 	}
 	
