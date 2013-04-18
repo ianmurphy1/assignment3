@@ -817,7 +817,7 @@ public class Driver
 		printBy(NONE, ALL);
 
 		StdOut.println("Enter Index of Employee whose salary "
-				+ " is to be calculated: ");
+				     + " is to be calculated: ");
 		int index = StdIn.readInt();
 		StdIn.readLine();
 
@@ -828,9 +828,10 @@ public class Driver
 
 			double hours = StdIn.readDouble();
 			StdIn.readLine();
+			
 			tempEmp.setHoursWorked(hours);
 
-			StdOut.println(tempEmp.getFirstName() + "'s Salary is: €");
+			StdOut.println(tempEmp.getFirstName() + "'s Salary is: E");
 			
 			StdOut.print(tempEmp.calculateSalary());
 			StdOut.println("After " + hours + " work.");
@@ -868,8 +869,7 @@ public class Driver
 			StdOut.print(calcAverage());
 		} else {
 			noEmployeesResponse();
-		}
-		
+		}		
 	}
 
 	/**
