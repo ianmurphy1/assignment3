@@ -1,6 +1,7 @@
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -252,5 +253,62 @@ public class DriverTest
 			assertEquals(6, employees.size());
 			assertEquals(1, delFromThis.getMinions().size());
 		}
+	}
+	
+	@Test
+	public void mergeSortTest() {
+		int halfWay = (employees.size() / 2);
+
+		ArrayList<Employee> start = new ArrayList<Employee>(employees);
+
+		List<Employee> left = start.subList(0, (halfWay));
+		List<Employee> right = start.subList(halfWay, (employees.size()));
+
+		for (int i = 0; i < left.size() - 1; i += 1) {
+
+			if (left.get(i).getHourlyRate() > left.get((i + 1)).getHourlyRate()) {
+
+				Employee emp = left.get(i);
+				left.set(i, left.get(i + 1));
+				left.set((i + 1), emp);
+			}
+		}
+
+		for (int i = 0; i < right.size() - 1; i += 1) {
+
+			if (right.get(i).getHourlyRate() > right.get((i + 1))
+					.getHourlyRate()) {
+
+				Employee emp = right.get(i);
+				right.set(i, right.get(i + 1));
+				right.set((i + 1), emp);
+			}
+		}
+
+		ArrayList<Employee> finish = new ArrayList<Employee>();
+
+		int i = 0;
+		int j = 0;
+
+		for (int counter = 0; counter < employees.size(); counter += 1) {
+			if (i < left.size() && j < right.size()) {
+				if (left.get(i).getHourlyRate() < right.get(j).getHourlyRate()) {
+					finish.add(left.get(i));
+					i += 1;
+				} else if (right.get(j).getHourlyRate() < left.get(i)
+						.getHourlyRate()) {
+					finish.add(right.get(j));
+					j += 1;
+				}
+			} else if (!(i < left.size())) {
+				finish.add(right.get(j));
+				j += 1;
+			} else if (!(j < right.size())) {
+				finish.add(left.get(i));
+				i += 1;
+			}
+		}
+		assertEquals("Samwell", finish.get(1).getFirstName());
+		assertEquals("Booker", finish.get(5).getFirstName());
 	}
 }
