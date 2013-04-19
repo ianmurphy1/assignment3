@@ -263,8 +263,7 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
-		int adminOption = StdIn.readInt();
-		StdIn.readLine();
+		int adminOption = getInt();
 
 		return adminOption;
 	}
@@ -286,8 +285,7 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
-		int addMenuOption = StdIn.readInt();
-		StdIn.readLine();
+		int addMenuOption = getInt();
 
 		return addMenuOption;
 
@@ -303,9 +301,9 @@ public class Driver
 	 */
 	public void addEmployee(int choice) {
 		StdOut.println("Enter Employee's First Name: ");
-		String firstName = StdIn.readLine();
+		String firstName = getString();
 		StdOut.println("Enter Employee's Surname: ");
-		String lastName = StdIn.readLine();
+		String lastName = getString();
 
 		// Checks if both names are equal, if they are employee can't be
 		// created
@@ -319,14 +317,12 @@ public class Driver
 			}
 		}
 		StdOut.println("Enter Hourly Rate: ");
-		double hourlyRate = StdIn.readDouble();
-		StdIn.readLine();
+		double hourlyRate = getDouble();
 
 		switch (choice) {
 		case 1:
 			StdOut.println("Enter fixed bonus amount: ");
-			double fixedBonus = StdIn.readDouble();
-			StdIn.readLine();
+			double fixedBonus = getDouble();
 			AdminWorker admin = new AdminWorker(firstName, lastName,
 					hourlyRate, fixedBonus);
 			employees.add(admin);
@@ -334,14 +330,12 @@ public class Driver
 		case 2:
 			StdOut.println("Enter bonus Percentage: ");
 			StdOut.println("Must be between 0 and 20 inclusive.");
-			double perfBonus = StdIn.readDouble();
-			StdIn.readLine();
+			double perfBonus = getDouble();
 			if (!(perfBonus > 0 && perfBonus <= 20)) {
 				StdOut.println("Not a Valid Range.");
 				StdOut.println("Must be between 0 and 20.");
 				StdOut.println("Enter new bonus percentage: ");
-				perfBonus = StdIn.readDouble();
-				StdIn.readLine();
+				perfBonus = getDouble();
 			}
 			SalesWorker sales = new SalesWorker(firstName, lastName,
 					hourlyRate, perfBonus);
@@ -363,8 +357,7 @@ public class Driver
 		if (employees.size() > 0) {
 			printBy(NONE, ALL);
 			StdOut.println("Choose Index of Employee to Edit: ");
-			int index = StdIn.readInt();
-			StdIn.readInt();
+			int index = getInt();
 			if ((index >= 0) && (index >= employees.size())) {
 				Employee emp = employees.get(index);
 				String firstName = null;
@@ -372,19 +365,17 @@ public class Driver
 				int type = getType(emp);
 
 				StdOut.println("Do you want to edit 1st name (Y/N)?");
-				String firstResponse = StdIn.readString();
-				StdIn.readLine();
+				String firstResponse = getString();
 				if (firstResponse.equalsIgnoreCase("Y")) {
 					StdOut.println("Enter new First Name: ");
-					firstName = StdIn.readLine();
+					firstName = getString();
 				}
 
 				StdOut.println("Do you want to edit last name (Y/N)?");
-				String secondResponse = StdIn.readString();
-				StdIn.readLine();
+				String secondResponse = getString();
 				if (secondResponse.equalsIgnoreCase("Y")) {
 					StdOut.println("Enter new Last Name: ");
-					lastName = StdIn.readLine();
+					lastName = getString();
 				}
 
 				String testNew = (firstName + lastName);
@@ -404,19 +395,16 @@ public class Driver
 				}
 
 				StdOut.println("Do you want to edit hourly rate (Y/N)?");
-				String rateResponse = StdIn.readString();
-				StdIn.readLine();
+				String rateResponse = getString();
 				if (rateResponse.equalsIgnoreCase("Y")) {
 					StdOut.println("Enter New Hourly Rate: ");
-					double hourlyRate = StdIn.readDouble();
-					StdIn.readLine();
+					double hourlyRate = getDouble();
 					if (hourlyRate >= 0) {
 						emp.setHourlyRate(hourlyRate);
 					} else {
 						StdOut.println("Number needs to greater than 0!");
 						StdOut.println("Enter New Value: ");
-						hourlyRate = StdIn.readDouble();
-						StdIn.readLine();
+						hourlyRate = getDouble();
 						emp.setHourlyRate(hourlyRate);
 					}
 				}
@@ -432,18 +420,16 @@ public class Driver
 				case 2:
 					SalesWorker salesEmp = (SalesWorker) emp;
 					StdOut.println("Do you want to edit performance bonus (Y/N)?");
-					String salesResponse = StdIn.readString();
-					StdIn.readLine();
+					String salesResponse = getString();
 					if (salesResponse.equalsIgnoreCase("Y")) {
-						double perfBonus = StdIn.readDouble();
+						double perfBonus = getDouble();
 						if ((perfBonus >= 0) && (perfBonus <= 20)) {
 							salesEmp.setPerfBonus(perfBonus);
 						} else {
 							StdOut.println("Number needs to greater than 0 ");
 							StdOut.print("and less than or equal to 20!");
 							StdOut.println("Enter New Value: ");
-							perfBonus = StdIn.readDouble();
-							StdIn.readLine();
+							perfBonus = getDouble();
 							salesEmp.setHourlyRate(perfBonus);
 						}
 					}
@@ -453,17 +439,15 @@ public class Driver
 				case 3:
 					AdminWorker adminEmp = (AdminWorker) emp;
 					StdOut.println("Do you want to edit fixed bonus (Y/N)?");
-					String adminResponse = StdIn.readString();
-					StdIn.readLine();
+					String adminResponse = getString();
 					if (adminResponse.equalsIgnoreCase("Y")) {
-						double bonus = StdIn.readDouble();
+						double bonus = getDouble();
 						if (bonus >= 0) {
 							adminEmp.setBonus(bonus);
 						} else {
 							StdOut.println("Number needs to greater than 0!");
 							StdOut.println("Enter New Value: ");
-							bonus = StdIn.readDouble();
-							StdIn.readLine();
+							bonus = getDouble();
 							adminEmp.setHourlyRate(bonus);
 						}
 						StdOut.println("---Employee's New Info---");
@@ -493,13 +477,11 @@ public class Driver
 
 			printBy(NONE, ALL);
 			StdOut.println("Choose Index of Employee to delete: ");
-			int delChoice = StdIn.readInt();
-			StdIn.readLine();
+			int delChoice = getInt();
 
 			if (delChoice >= 0 && (delChoice < employees.size())) {
 				StdOut.println("Are you sure you want to delete? (y/n)");
-				String response = StdIn.readString();
-				StdIn.readLine();
+				String response = getString();
 
 				Employee delThis = employees.get(delChoice);
 
@@ -562,8 +544,7 @@ public class Driver
 		StdOut.println("--------------------------");
 		StdOut.println("0 - Exit");
 
-		int printOption = StdIn.readInt();
-		StdIn.readLine();
+		int printOption = getInt();
 
 		return printOption;
 	}
@@ -687,8 +668,7 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
-		int searchOption = StdIn.readInt();
-		StdIn.readLine();
+		int searchOption = getInt();
 
 		return searchOption;
 	}
@@ -713,7 +693,7 @@ public class Driver
 		// Searching All Employees
 		case 1:
 			StdOut.println("Enter Search Term:");
-			searchString = (StdIn.readLine()).toLowerCase();
+			searchString = (getString()).toLowerCase();
 
 			for (Employee employee : employees) {
 				String fullName = (employee.getFirstName() + employee
@@ -742,8 +722,7 @@ public class Driver
 		case 2:
 			listManagers();
 			StdOut.println("Choose Index of Manager to Search: ");
-			int index = StdIn.readInt();
-			StdIn.readLine();
+			int index = getInt();
 			if ((index >= 0) && (index < employees.size())) {
 
 				int type = getType(employees.get(index));
@@ -751,7 +730,7 @@ public class Driver
 				if (type == 1) {
 					Manager manager = (Manager) employees.get(index);
 					StdOut.println("Enter Search Term: ");
-					searchString = (StdIn.readLine()).toLowerCase();
+					searchString = (getString()).toLowerCase();
 
 					for (Employee emp : manager.getMinions()) {
 						String fullName = (emp.getFirstName() + emp
@@ -808,8 +787,7 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
-		int accountOption = StdIn.readInt();
-		StdIn.readLine();
+		int accountOption = getInt();
 
 		return accountOption;
 	}
@@ -822,16 +800,14 @@ public class Driver
 
 		StdOut.println("Enter Index of Employee whose salary "
 				     + " is to be calculated: ");
-		int index = StdIn.readInt();
-		StdIn.readLine();
+		int index = getInt();
 
 		if ((index >= 0) && (index < employees.size())) {
 
 			Employee tempEmp = employees.get(index);
 			StdOut.println("Enter the amount of hours the employee has worked: ");
 
-			double hours = StdIn.readDouble();
-			StdIn.readLine();
+			double hours = getDouble();
 			
 			tempEmp.setHoursWorked(hours);
 
@@ -891,8 +867,7 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
-		int manMenuOption = StdIn.readInt();
-		StdIn.readLine();
+		int manMenuOption = getInt();
 
 		return manMenuOption;
 	}
@@ -908,8 +883,7 @@ public class Driver
 
 			listManagers();
 			StdOut.println("Choose Manager to add employees to: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
+			int managerIndex = getInt();
 
 			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
 
@@ -918,8 +892,7 @@ public class Driver
 
 					StdOut.println("Choose Employee To Add:");
 					printBy(NONE, EMP);
-					int empIndex = StdIn.readInt();
-					StdIn.readLine();
+					int empIndex = getInt();
 
 					Employee toAdd = employees.get(empIndex);
 
@@ -954,8 +927,7 @@ public class Driver
 
 			listManagers();
 			StdOut.println("Choose Manager to Print Employees: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
+			int managerIndex = getInt();
 
 			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
 
@@ -988,8 +960,7 @@ public class Driver
 
 			listManagers();
 			StdOut.println("Choose Manager to delete employee from: ");
-			int managerIndex = StdIn.readInt();
-			StdIn.readLine();
+			int managerIndex = getInt();
 
 			if ((managerIndex >= 0) && (managerIndex < employees.size())) {
 
@@ -1000,8 +971,7 @@ public class Driver
 
 					StdOut.println("Choose Index of Employee To Remove:");
 					listMinions(manager);
-					int empIndex = StdIn.readInt();
-					StdIn.readLine();
+					int empIndex = getInt();
 
 					Employee delThis = manager.getMinions().get(empIndex);
 
@@ -1040,8 +1010,7 @@ public class Driver
 		StdOut.println("-------------------");
 		StdOut.println("0 - Exit");
 
-		int saveLoadOption = StdIn.readInt();
-		StdIn.readLine();
+		int saveLoadOption = getInt();
 
 		return saveLoadOption;
 	}
@@ -1219,6 +1188,7 @@ public class Driver
 	public double calcAverage() {
 		double averageSalary = 0.0;
 		
+		//To prevent division by 0
 		if (employees.size() > 0) {
 			averageSalary = calcSalaries() / employees.size();
 		}
@@ -1234,8 +1204,7 @@ public class Driver
 	private void noManagersResponse() {
 		StdOut.println("There are no Managers.");
 		StdOut.println("Add Manager now (Y/N)?");
-		String response = StdIn.readString();
-		StdIn.readLine();
+		String response = getString();
 		if (response.equalsIgnoreCase("Y")) {
 			addEmployee(3);
 		}
@@ -1278,8 +1247,7 @@ public class Driver
 	private void noEmployeesResponse() {
 		StdOut.println("No Employees in System!");
 		StdOut.println("Add Employees now (y/n)?");
-		String response = StdIn.readString();
-		StdIn.readLine();
+		String response = getString();
 		if (response.equals("y")) {
 			int option = addEmployeeMenu();
 			addEmployee(option);
@@ -1316,7 +1284,15 @@ public class Driver
 		return (int) (num * 100) / 100.0;
 	}
 	
-	private String getString() {		 	
+	/**
+	 * Method to take a users input and then return it.
+	 * If a mismatch exception is encountered then it's 
+	 * caught and the user may try again.
+	 * 
+	 * @return The String That a user has entered
+	 * @throws InputMismatchException
+	 */
+	private String getString() throws InputMismatchException {		 	
 		try{			
 			String output = StdIn.readLine();
 			return output;
@@ -1329,7 +1305,16 @@ public class Driver
 		return null;
 	}
 	
-	private double getDouble() {		
+	/**
+	 * Method that is used to take the input of a user
+	 * and returns it. If an exception is thrown then it's 
+	 * caught and the user gets another chance to enter in a
+	 * number.
+	 * 
+	 * @return Returns the Double that a user enters
+	 * @throws InputMismatchException
+	 */
+	private double getDouble() throws InputMismatchException {		
 		
 		try{
 			double output = StdIn.readDouble();	
@@ -1340,9 +1325,18 @@ public class Driver
 			StdOut.println("Go again.");			
 		}		
 		return -1; 
-	}
+	}	
 	
-	private int getInt() {		
+	/**
+	 * Method that is used to take the input of a user
+	 * and return it. If an error is encountered then it's 
+	 * caught and the user gets another chance to enter in a
+	 * number.
+	 * 
+	 * @return The integer that the user enters
+	 * @throws InputMismatchException
+	 */
+	private int getInt() throws InputMismatchException {		
 		
 		try{
 			int output = StdIn.readInt();			
