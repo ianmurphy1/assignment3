@@ -50,7 +50,7 @@ public class AdminWorkerTest
 	}
 	
 	@Test
-	public void testCalculateSalaryse() {		
+	public void testCalculateSalaries() {		
 		assertEquals(425, a1.calculateSalary(), DELTA);
 		//Overtime
 		assertEquals(723.75, a2.calculateSalary(), DELTA);
