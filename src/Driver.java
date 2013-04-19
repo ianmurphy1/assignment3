@@ -358,7 +358,7 @@ public class Driver
 			printBy(NONE, ALL);
 			StdOut.println("Choose Index of Employee to Edit: ");
 			int index = getInt();
-			if ((index >= 0) && (index >= employees.size())) {
+			if ((index >= 0) && (index < employees.size())) {
 				Employee emp = employees.get(index);
 				String firstName = null;
 				String lastName = null;
@@ -479,7 +479,7 @@ public class Driver
 			StdOut.println("Choose Index of Employee to delete: ");
 			int delChoice = getInt();
 
-			if (delChoice >= 0 && (delChoice < employees.size())) {
+			if ((delChoice >= 0) && (delChoice < employees.size())) {
 				StdOut.println("Are you sure you want to delete? (y/n)");
 				String response = getString();
 
@@ -568,13 +568,13 @@ public class Driver
 			temp = employees;
 			break;
 		case 2:
-			temp = sort(FIRST_N - 1);
+			temp = sort(FIRST_N);
 			break;
 		case 3:
-			temp = sort(LAST_N - 1);
+			temp = sort(LAST_N);
 			break;
 		case 4:
-			temp = sort(HOURLY - 1);
+			temp = sort(HOURLY);
 			break;
 		}
 
@@ -638,6 +638,8 @@ public class Driver
 	}
 
 	/**
+	 * Method that prints the highest Earner once it's been returned
+	 * by the getHighestEarner() method.
 	 * 
 	 */
 	private void printHighestEarner() {
@@ -650,7 +652,7 @@ public class Driver
 		StdOut.println("Highest Earner is: " + highestEarner.getFirstName());
 		StdOut.print(" with E" + highestEarner.getSalary());
 		StdOut.println("-------------");
-
+		StdOut.println();
 	}
 
 	/**
@@ -674,11 +676,12 @@ public class Driver
 	}
 
 	/**
-	 * Method that allows the searching of an employee in the full
-	 * list of employees or of a particular manager. 
+	 * Method that allows the searching of an employee in the full list of
+	 * employees or of a particular manager.
 	 * 
 	 * 
-	 * @param searchOption The type of search to be performed
+	 * @param searchOption
+	 *            The type of search to be performed
 	 */
 	public void searchBy(int searchOption) {
 		int position = 0;
@@ -686,85 +689,88 @@ public class Driver
 		boolean found = false;
 		StdOut.println("----Searching----");
 		String searchString = null;
-		
+
 		if (employees.size() > 0) {
 
-		switch (searchOption) {
-		// Searching All Employees
-		case 1:
-			StdOut.println("Enter Search Term:");
-			searchString = (getString()).toLowerCase();
+			switch (searchOption) {
+			// Searching All Employees
+			case 1:
+				StdOut.println("Enter Search Term:");
+				searchString = (getString()).toLowerCase();
 
-			for (Employee employee : employees) {
-				String fullName = (employee.getFirstName() + employee
-						.getLastName()).toLowerCase();
+				for (Employee employee : employees) {
+					String fullName = (employee.getFirstName() + employee
+							.getLastName()).toLowerCase();
 
-				if (fullName.contains(searchString)) {
-					found = true;
-					matches += 1;
-					StdOut.println();
-					StdOut.println("------------------");
-					StdOut.println("Employee's name " + employee.getFirstName()
-							+ employee.getLastName());
-					StdOut.println("Index is: " + position);
-					StdOut.println("------------------");
-				}
-				position++;
-			}
-			
-			if (!found) {
-				StdOut.println("No Matches Found!");
-			} else if(found) {
-				StdOut.println(matches + " Matches Found!");
-			}
-			break;
-		// Searching in a Manager
-		case 2:
-			listManagers();
-			StdOut.println("Choose Index of Manager to Search: ");
-			int index = getInt();
-			if ((index >= 0) && (index < employees.size())) {
-
-				int type = getType(employees.get(index));
-
-				if (type == 1) {
-					Manager manager = (Manager) employees.get(index);
-					StdOut.println("Enter Search Term: ");
-					searchString = (getString()).toLowerCase();
-
-					for (Employee emp : manager.getMinions()) {
-						String fullName = (emp.getFirstName() + emp
-								.getLastName()).toLowerCase();
-
-						if (fullName.contains(searchString)) {
-							found = true;
-							matches += 1;
-							StdOut.println();
-							StdOut.println("------------------");
-							StdOut.println("Employee's name "
-									+ emp.getFirstName() + " " + emp.getLastName());
-							StdOut.println("Index is: " + position);
-							StdOut.println("------------------");
-						}
-						position++;
+					if (fullName.contains(searchString)) {
+						found = true;
+						matches += 1;
+						StdOut.println();
+						StdOut.println("------------------");
+						StdOut.println("Employee's name "
+								+ employee.getFirstName()
+								+ employee.getLastName());
+						StdOut.println("Index is: " + position);
+						StdOut.println("------------------");
 					}
-					if (!found) {
-						StdOut.println("No Matches Found!");
+					position++;
+				}
+
+				if (!found) {
+					StdOut.println("No Matches Found!");
+				} else if (found) {
+					StdOut.println(matches + " Matches Found!");
+				}
+				break;
+			// Searching in a Manager
+			case 2:
+				listManagers();
+				StdOut.println("Choose Index of Manager to Search: ");
+				int index = getInt();
+				if ((index >= 0) && (index < employees.size())) {
+
+					int type = getType(employees.get(index));
+
+					if (type == 1) {
+						Manager manager = (Manager) employees.get(index);
+						StdOut.println("Enter Search Term: ");
+						searchString = (getString()).toLowerCase();
+
+						for (Employee emp : manager.getMinions()) {
+							String fullName = (emp.getFirstName() + emp
+									.getLastName()).toLowerCase();
+
+							if (fullName.contains(searchString)) {
+								found = true;
+								matches += 1;
+								StdOut.println();
+								StdOut.println("------------------");
+								StdOut.println("Employee's name "
+										+ emp.getFirstName() + " "
+										+ emp.getLastName());
+								StdOut.println("Index is: " + position);
+								StdOut.println("------------------");
+							}
+							position++;
+						}
+						if (!found) {
+							StdOut.println("No Matches Found!");
+						} else {
+							StdOut.println(matches + " Matches Found!");
+						}
 					} else {
-						StdOut.println(matches + " Matches Found!");
+						StdOut.println("Not A Manager!");
+						StdOut.println("Choose the index of a valid one!");
+						searchBy(2);
 					}
 				} else {
-					StdOut.println("Not A Manager!");
+					StdOut.println("Not A Valid Index!");
 					StdOut.println("Choose the index of a valid one!");
 					searchBy(2);
 				}
-			} else {
-				StdOut.println("Not A Valid Index!");
-				StdOut.println("Choose the index of a valid one!");
-				searchBy(2);
+				break;
 			}
-			break;
-		} } else {
+		} else {
 			noEmployeesResponse();
 		}
 	}
@@ -1050,7 +1056,7 @@ public class Driver
 			StdOut.println(emp + "\nIndex at: " + index);
 			index += 1;
 		}
-	}	
+	}
 
 	/**
 	 * Method that lists all the managers inside employees if there is any
@@ -1130,7 +1136,7 @@ public class Driver
 			for (int j = (i + 1); j < temp.size(); j += 1) {
 				switch (option) {
 				// Sorting by First Name
-				case 1:
+				case FIRST_N:
 					if ((temp.get(j).getFirstName()).compareToIgnoreCase(temp
 							.get(i).getFirstName()) < 0) {
 						emp = temp.get(i);
@@ -1139,7 +1145,7 @@ public class Driver
 					}
 					break;
 				// Sorting By Surname
-				case 2:
+				case LAST_N:
 					if ((temp.get(j).getLastName()).compareToIgnoreCase(temp
 							.get(i).getLastName()) < 0) {
 
@@ -1149,7 +1155,7 @@ public class Driver
 					}
 					break;
 				// Sorting by Hourly Rate
-				case 3:
+				case HOURLY:
 					if (temp.get(j).getHourlyRate() < temp.get(i)
 							.getHourlyRate()) {
 
@@ -1210,7 +1216,7 @@ public class Driver
 		}
 	}
 
-	
+	//TODO Leaving Here incase employees.xml breaks
 	  /*public void constructObjects() {
 	 
 	  Manager m1, m2; AdminWorker a1, a2, a3; SalesWorker s1, s2, s3;
@@ -1237,6 +1243,7 @@ public class Driver
 	  
 	  m2.getMinions().add(a2); a2.setHasManager(true); m2.getMinions().add(s2);
 	  s2.setHasManager(true); }*/
+	//TODO
 	 
 
 	/**
@@ -1293,7 +1300,7 @@ public class Driver
 	 * @throws InputMismatchException
 	 */
 	private String getString() throws InputMismatchException {		 	
-		try{			
+		try {			
 			String output = StdIn.readLine();
 			return output;
 		} catch (InputMismatchException e){
@@ -1316,7 +1323,7 @@ public class Driver
 	 */
 	private double getDouble() throws InputMismatchException {		
 		
-		try{
+		try {
 			double output = StdIn.readDouble();	
 			return output;
 		} catch (InputMismatchException e) {
@@ -1338,7 +1345,7 @@ public class Driver
 	 */
 	private int getInt() throws InputMismatchException {		
 		
-		try{
+		try {
 			int output = StdIn.readInt();			
 			return output;
 		} catch (InputMismatchException e) {
