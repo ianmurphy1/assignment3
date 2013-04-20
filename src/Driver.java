@@ -792,8 +792,8 @@ public class Driver
 		StdOut.println("ACCOUNTS MENU");
 		StdOut.println("-------------------");
 		StdOut.println("1 - Calculate An Employee's Salary");
-		StdOut.println("2 - Calculate All Employee's Salaries");
-		StdOut.println("3 - Calculate Average Salary");
+		StdOut.println("2 - Calculate All Employees' Salaries");
+		StdOut.println("3 - Calculate Average Salary Of All Employees");
 		StdOut.println("4 - Get Highest Earner");
 		StdOut.println("-------------------");
 		StdOut.println("0 - Back To Main Menu");
@@ -818,16 +818,12 @@ public class Driver
 			Employee tempEmp = employees.get(index);
 			StdOut.println("Enter the amount of hours the employee has worked: ");
 
-			double hours = getDouble();
-			
+			double hours = getDouble();			
 			tempEmp.setHoursWorked(hours);
-
-			StdOut.println(tempEmp.getFirstName() + "'s Salary is: E");
 			
+			StdOut.println(tempEmp.getFirstName() + "'s Salary is: E");			
 			StdOut.print(tempEmp.calculateSalary());
-			StdOut.println("After " + hours + " work.");
-			StdOut.println("New total amount of hours worked "
-					+ tempEmp.getHoursWorked());
+			StdOut.println("After " + hours + " work.");			
 			StdOut.println();
 
 		} else {
@@ -1181,7 +1177,7 @@ public class Driver
 	
 	/**
 	 * 1st part of the merge/sort, this part takes in the list
-	 * to be sorted and splits into 2 parts recursively. Then it calls 
+	 * to be sorted and splits it into 2 parts recursively. Then it calls 
 	 * the merge part of the system to sort and stitch all the lists together 
 	 * and returns it as a sorted list based on the type that was passed
 	 * into it at the start.
@@ -1193,11 +1189,18 @@ public class Driver
 	public List<Employee> sort(List<Employee> emps, int sortType) {		
 		
 		if (emps.size() > 1) {
+			//Getting half way point index on where to split List
 			int half = (emps.size() / 2);
 			
+			//Splitting the list passed in in 2.
+			//Second parameter is exclusive in the subList() method
+			//so it can be set half in the 1st while being the 1st index
+			//of the right hand list.
 			List<Employee> left = emps.subList(0, half);
 			List<Employee> right = emps.subList(half, emps.size());
-								
+			
+			
+			//Recursively splits each array thats passed in.
 			return mergeSort(sort(left, sortType), sort(right, sortType), sortType);
 		} else {
 			return emps;
@@ -1206,8 +1209,8 @@ public class Driver
 	
 	/**
 	 * Merging and sorting part of the sort that takes the split lists from
-	 * the newSort() method, sorts them and then returns the completed list
-	 * back to the newSort().
+	 * the sort() method, sorts them and then returns the completed list
+	 * back to the sort().
 	 * 
 	 * @param left The left hand side of the List
 	 * @param right Right Hand side of List
@@ -1223,10 +1226,14 @@ public class Driver
 		String thisOne = "";
 		String thatOne = "";
 		
+		//Setting up doubles as casting to String and sorting using 
+		//string method returns inaccurate lists. i.e 9.5 > 11.0
 		double tryThisOne = 0;
 		double tryThatOne = 0;
 		
+		//i will keep track of the index through the left list
 		int i = 0;
+		//j will take care of the right list
 		int j = 0;
 		
 		for (int counter = 0; counter < sizeCount; counter += 1) {
@@ -1257,6 +1264,9 @@ public class Driver
 				break;		
 			}			
 			
+			//When the list is split and sent back then the lowest will
+			//be located on the left of each list. So it's just a case of 
+			//comparing and swapping.
 			if ((i < left.size()) && (j < right.size()) && (sortType != HOURLY)) {
 				if (thisOne.compareToIgnoreCase(thatOne) < 0) {
 					finish.add(left.get(i));
@@ -1265,8 +1275,7 @@ public class Driver
 					finish.add(right.get(j));
 					j += 1;
 				}
-			} else if ((i < left.size()) && (j < right.size()) && (sortType == HOURLY)) {
-				
+			} else if ((i < left.size()) && (j < right.size()) && (sortType == HOURLY)) {				
 				if (tryThisOne < tryThatOne) {
 					finish.add(left.get(i));
 					i += 1;
@@ -1274,6 +1283,8 @@ public class Driver
 					finish.add(right.get(j));
 					j += 1;
 				}
+			//Once all comparisons and swaps are done these will add 				
+			//whatever remains to the list.	
 			} else if (!(i < left.size())) {
 				finish.add(right.get(j));
 				j += 1;
@@ -1386,7 +1397,7 @@ public class Driver
 	 */
 	public String getString() throws InputMismatchException {		 	
 		try {			
-			String output = StdIn.readLine();
+			String output = StdIn.readString();					
 			return output;
 		} catch (InputMismatchException e){
 			StdIn.readLine();
