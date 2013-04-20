@@ -1,6 +1,15 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
+
+/**
+ * Class created to test the printing of a list that has
+ * been sorted by a merge sort.
+ * 
+ * @author Ian Murphy
+ *
+ */
 public class MergeSort {
 	ArrayList<Employee> employees;
 	List<Employee> merged;

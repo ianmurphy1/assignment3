@@ -1221,8 +1221,10 @@ public class Driver
 		
 		String thisOne = "";
 		String thatOne = "";
+		
 		double tryThisOne = 0;
 		double tryThatOne = 0;
+		
 		int i = 0;
 		int j = 0;
 		
