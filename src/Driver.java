@@ -262,7 +262,7 @@ public class Driver
 		StdOut.println("2 - Edit an Employee");
 		StdOut.println("3 - Delete an Employee");
 		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
+		StdOut.println("0 - Back To Main Menu");
 
 		int adminOption = getInt();
 
@@ -284,7 +284,7 @@ public class Driver
 		StdOut.println("2 - Add Sales Worker");
 		StdOut.println("3 - Add Manager");
 		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
+		StdOut.println("0 - Back A Menu");
 
 		int addMenuOption = getInt();
 
@@ -543,7 +543,7 @@ public class Driver
 		StdOut.println("3 - Surname");
 		StdOut.println("4 - Hourly Rate");
 		StdOut.println("--------------------------");
-		StdOut.println("0 - Exit");
+		StdOut.println("0 - Back To Main Menu");
 
 		int printOption = getInt();
 
@@ -562,27 +562,27 @@ public class Driver
 	 */
 	public void printBy(int sortOption, int typeOption) {
 
-		ArrayList<Employee> temp = null;
+		ArrayList<Employee> temps = null;
 
 		switch (sortOption) {
 		case 1:
-			temp = employees;
+			temps = employees;
 			break;
 		case 2:
-			//temp = sort(FIRST_N);
-			temp = new ArrayList<Employee>(sort(employees, FIRST_N));
+			//temps = sort(FIRST_N);
+			temps = new ArrayList<Employee>(sort(employees, FIRST_N));
 			break;
 		case 3:
-			//temp = sort(LAST_N);
-			temp = new ArrayList<Employee>(sort(employees, LAST_N));
+			//temps = sort(LAST_N);
+			temps = new ArrayList<Employee>(sort(employees, LAST_N));
 			break;
 		case 4:
-			//temp = sort(HOURLY);
-			temp = new ArrayList<Employee>(sort(employees, HOURLY));
+			//temps = sort(HOURLY);
+			temps = new ArrayList<Employee>(sort(employees, HOURLY));
 			break;
 		}
 
-		if (temp.size() > 0) {
+		if (temps.size() > 0) {
 			StdOut.println("--------------");
 			switch (sortOption) {
 			case 1:
@@ -602,9 +602,9 @@ public class Driver
 			StdOut.println("--------------");
 			StdOut.println();
 
-			for (int index = 0; index < temp.size(); index += 1) {
+			for (int index = 0; index < temps.size(); index += 1) {
 								
-				Employee emp = temp.get(index);
+				Employee emp = temps.get(index);
 				int employeesIndex = employees.indexOf(emp);
 
 				int empType = getType(emp);
@@ -643,10 +643,11 @@ public class Driver
 
 	/**
 	 * Method that prints the highest Earner once it's been returned
-	 * by the getHighestEarner() method.
+	 * by the getHighestEarner() method. Keeping print separate from
+	 * the get so the method may be reused later.
 	 * 
 	 */
-	private void printHighestEarner() {
+	public void printHighestEarner() {
 		Employee highestEarner = getHighestEarner();
 
 		StdOut.println("-------------");
@@ -672,7 +673,7 @@ public class Driver
 		StdOut.println("1 - Search Company");
 		StdOut.println("2 - Search a Manager");
 		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
+		StdOut.println("0 - Back To Main Menu");
 
 		int searchOption = getInt();
 
@@ -795,7 +796,7 @@ public class Driver
 		StdOut.println("3 - Calculate Average Salary");
 		StdOut.println("4 - Get Highest Earner");
 		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
+		StdOut.println("0 - Back To Main Menu");
 
 		int accountOption = getInt();
 
@@ -875,7 +876,7 @@ public class Driver
 		StdOut.println("2 - Delete Employee from Manager");
 		StdOut.println("3 - List Employees in a Manager");
 		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
+		StdOut.println("0 - Back To Main Menu");
 
 		int manMenuOption = getInt();
 
@@ -1018,7 +1019,7 @@ public class Driver
 		StdOut.println("1 - Save Employees");
 		StdOut.println("2 - Load Previous Save");
 		StdOut.println("-------------------");
-		StdOut.println("0 - Exit");
+		StdOut.println("0 - Back To Main Menu");
 
 		int saveLoadOption = getInt();
 
@@ -1321,7 +1322,7 @@ public class Driver
 	 * Managers and asks if the user would like to add one.
 	 * 
 	 */
-	private void noManagersResponse() {
+	public void noManagersResponse() {
 		StdOut.println("There are no Managers.");
 		StdOut.println("Add Manager now (Y/N)?");
 		String response = getString();
@@ -1365,7 +1366,7 @@ public class Driver
 	 * If the response is "y" then the user can add an employee.
 	 * 
 	 */
-	private void noEmployeesResponse() {
+	public void noEmployeesResponse() {
 		StdOut.println("No Employees in System!");
 		StdOut.println("Add Employees now (y/n)?");
 		String response = getString();
@@ -1376,11 +1377,75 @@ public class Driver
 	}
 
 	/**
+	 * Method to take a users input and then return it.
+	 * If a mismatch exception is encountered then it's 
+	 * caught and the user may try again.
+	 * 
+	 * @return The String That a user has entered
+	 * @throws InputMismatchException
+	 */
+	public String getString() throws InputMismatchException {		 	
+		try {			
+			String output = StdIn.readLine();
+			return output;
+		} catch (InputMismatchException e){
+			StdIn.readLine();
+			StdOut.println("Not a String!");
+			StdOut.println("Go again.");			
+		}		
+		return null;
+	}
+
+	/**
+	 * Method that is used to take the input of a user
+	 * and returns it. If an exception is thrown then it's 
+	 * caught and the user gets another chance to enter in a
+	 * number.
+	 * 
+	 * @return Returns the Double that a user enters
+	 * @throws InputMismatchException
+	 */
+	public double getDouble() throws InputMismatchException {		
+		
+		try {
+			double output = StdIn.readDouble();	
+			return output;
+		} catch (InputMismatchException e) {
+			StdIn.readLine();
+			StdOut.println("Not a Double!");
+			StdOut.println("Go again.");			
+		}		
+		return -1; 
+	}
+
+	/**
+	 * Method that is used to take the input of a user
+	 * and return it. If an error is encountered then it's 
+	 * caught and the user gets another chance to enter in a
+	 * number.
+	 * 
+	 * @return The integer that the user enters
+	 * @throws InputMismatchException
+	 */
+	public int getInt() throws InputMismatchException {		
+		
+		try {
+			int output = StdIn.readInt();			
+			return output;
+		} catch (InputMismatchException e) {
+			StdIn.readLine();
+			StdOut.println("Not an int!");
+			StdOut.println("Go again.");			
+		}		
+		return -1;
+	}
+
+	/**
 	 * Method that checks what type of employee an employee is. *
 	 * 
 	 * @return The type an employee is
 	 */
-	private int getType(Employee emp) {
+	public int getType(Employee emp) {
 		int type = 0;
 
 		if (emp.getClass() == Manager.class) {
@@ -1403,70 +1468,6 @@ public class Driver
 	 */
 	private double toTwoDecimalPlaces(double num) {
 		return (int) (num * 100) / 100.0;
-	}
-	
-	/**
-	 * Method to take a users input and then return it.
-	 * If a mismatch exception is encountered then it's 
-	 * caught and the user may try again.
-	 * 
-	 * @return The String That a user has entered
-	 * @throws InputMismatchException
-	 */
-	private String getString() throws InputMismatchException {		 	
-		try {			
-			String output = StdIn.readLine();
-			return output;
-		} catch (InputMismatchException e){
-			StdIn.readLine();
-			StdOut.println("Not a String!");
-			StdOut.println("Go again.");			
-		}		
-		return null;
-	}
-	
-	/**
-	 * Method that is used to take the input of a user
-	 * and returns it. If an exception is thrown then it's 
-	 * caught and the user gets another chance to enter in a
-	 * number.
-	 * 
-	 * @return Returns the Double that a user enters
-	 * @throws InputMismatchException
-	 */
-	private double getDouble() throws InputMismatchException {		
-		
-		try {
-			double output = StdIn.readDouble();	
-			return output;
-		} catch (InputMismatchException e) {
-			StdIn.readLine();
-			StdOut.println("Not a Double!");
-			StdOut.println("Go again.");			
-		}		
-		return -1; 
-	}	
-	
-	/**
-	 * Method that is used to take the input of a user
-	 * and return it. If an error is encountered then it's 
-	 * caught and the user gets another chance to enter in a
-	 * number.
-	 * 
-	 * @return The integer that the user enters
-	 * @throws InputMismatchException
-	 */
-	private int getInt() throws InputMismatchException {		
-		
-		try {
-			int output = StdIn.readInt();			
-			return output;
-		} catch (InputMismatchException e) {
-			StdIn.readLine();
-			StdOut.println("Not an int!");
-			StdOut.println("Go again.");			
-		}		
-		return -1;
 	}
 
 }
