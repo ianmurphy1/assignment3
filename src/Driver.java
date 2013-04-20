@@ -1132,6 +1132,7 @@ public class Driver
 	 * @return A sorted ArrayList of the type specified
 	 * @deprecated Use {@link #newSort()} instead
 	 */
+	@Deprecated
 	public ArrayList<Employee> sort(int option) {
 
 		//Creating copy of array as order of original needs to be maintained
