@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.List;
 
 /**
  * The Driver class provides a facility to store Employee
@@ -568,13 +569,16 @@ public class Driver
 			temp = employees;
 			break;
 		case 2:
-			temp = sort(FIRST_N);
+			//temp = sort(FIRST_N);
+			temp = new ArrayList<Employee>(sort(employees, FIRST_N));
 			break;
 		case 3:
-			temp = sort(LAST_N);
+			//temp = sort(LAST_N);
+			temp = new ArrayList<Employee>(sort(employees, LAST_N));
 			break;
 		case 4:
-			temp = sort(HOURLY);
+			//temp = sort(HOURLY);
+			temp = new ArrayList<Employee>(sort(employees, HOURLY));
 			break;
 		}
 
@@ -1081,8 +1085,10 @@ public class Driver
 					// Go through employees and grabs its index in
 					// employees list
 					if (type == 1) {
-						StdOut.println("Index: " + index + "\n" + potentMan
-								+ "\n");
+						StdOut.println("Index: " + index + "\n" + potentMan);
+						if (index != employees.size()) {
+							StdOut.println();
+						}		
 					}
 				}
 				StdOut.println("-----------");
@@ -1124,6 +1130,7 @@ public class Driver
 	 * @param option
 	 *            The type of sorting to happen
 	 * @return A sorted ArrayList of the type specified
+	 * @deprecated Use {@link #newSort()} instead
 	 */
 	public ArrayList<Employee> sort(int option) {
 
@@ -1168,6 +1175,110 @@ public class Driver
 			}
 		}
 		return temp;
+	}	
+	
+	/**
+	 * 1st part of the merge/sort, this part takes in the list
+	 * to be sorted and splits into 2 parts recursively. Then it calls 
+	 * the merge part of the system to sort and stitch all the lists together 
+	 * and returns it as a sorted list based on the type that was passed
+	 * into it at the start.
+	 * 
+	 * @param emps List of Employees To Sort
+	 * @param sortType Type of sort to be carried out
+	 * @return List of Sorted Employees
+	 */
+	public List<Employee> sort(List<Employee> emps, int sortType) {		
+		
+		if (emps.size() > 1) {
+			int half = (emps.size() / 2);
+			
+			List<Employee> left = emps.subList(0, half);
+			List<Employee> right = emps.subList(half, emps.size());
+								
+			return mergeSort(sort(left, sortType), sort(right, sortType), sortType);
+		} else {
+			return emps;
+		}	
+	}	
+	
+	/**
+	 * Merging and sorting part of the sort that takes the split lists from
+	 * the newSort() method, sorts them and then returns the completed list
+	 * back to the newSort().
+	 * 
+	 * @param left The left hand side of the List
+	 * @param right Right Hand side of List
+	 * @param sortType The type of sorting to do
+	 * @return The merged list.
+	 */
+	public List<Employee> mergeSort(List<Employee> left, List<Employee> right, int sortType) {
+		
+		ArrayList<Employee> finish = new ArrayList<Employee>();
+		
+		int sizeCount = (left.size() + right.size());		
+		
+		String thisOne = "";
+		String thatOne = "";
+		double tryThisOne = 0;
+		double tryThatOne = 0;
+		int i = 0;
+		int j = 0;
+		
+		for (int counter = 0; counter < sizeCount; counter += 1) {
+			switch (sortType) {
+			case FIRST_N:
+				if (i < left.size()) {
+					thisOne = left.get(i).getFirstName();
+				}
+				if (j < right.size()) {
+					thatOne = right.get(j).getFirstName();
+				}				
+				break;
+			case LAST_N:
+				if (i < left.size()) {
+					thisOne = left.get(i).getLastName();
+				}
+				if (j < right.size()) {
+					thatOne = right.get(j).getLastName();
+				}				
+				break;
+			case HOURLY:				
+				if (i < left.size()) {
+					tryThisOne = left.get(i).getHourlyRate();
+				}
+				if (j < right.size()) {
+					tryThatOne = right.get(j).getHourlyRate();
+				}
+				break;		
+			}			
+			
+			if ((i < left.size()) && (j < right.size()) && (sortType != HOURLY)) {
+				if (thisOne.compareToIgnoreCase(thatOne) < 0) {
+					finish.add(left.get(i));
+					i += 1;
+				} else if (thatOne.compareToIgnoreCase(thisOne) < 0) {
+					finish.add(right.get(j));
+					j += 1;
+				}
+			} else if ((i < left.size()) && (j < right.size()) && (sortType == HOURLY)) {
+				
+				if (tryThisOne < tryThatOne) {
+					finish.add(left.get(i));
+					i += 1;
+				} else if (tryThatOne < tryThisOne) {
+					finish.add(right.get(j));
+					j += 1;
+				}
+			} else if (!(i < left.size())) {
+				finish.add(right.get(j));
+				j += 1;
+			} else if (!(j < right.size())) {
+				finish.add(left.get(i));
+				i += 1;
+			}
+		}		
+		return finish;
 	}
 
 	/**
@@ -1244,8 +1355,8 @@ public class Driver
 	  m2.getMinions().add(a2); a2.setHasManager(true); m2.getMinions().add(s2);
 	  s2.setHasManager(true); }*/
 	//TODO
-	 
-
+	
+	
 	/**
 	 * Method to print an automated response when the employees list is empty.
 	 * If the response is "y" then the user can add an employee.
@@ -1306,8 +1417,7 @@ public class Driver
 		} catch (InputMismatchException e){
 			StdIn.readLine();
 			StdOut.println("Not a String!");
-			StdOut.println("Go again.");
-			
+			StdOut.println("Go again.");			
 		}		
 		return null;
 	}
