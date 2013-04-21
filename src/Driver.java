@@ -324,6 +324,11 @@ public class Driver
 		case 1:
 			StdOut.println("Enter fixed bonus amount: ");
 			double fixedBonus = getDouble();
+			if (!(fixedBonus >= 0)) {
+				StdOut.println("Not a Valid Number.");
+				StdOut.println("Must be greater than 0.");				
+				fixedBonus = getDouble();
+			}
 			AdminWorker admin = new AdminWorker(firstName, lastName,
 					hourlyRate, fixedBonus);
 			employees.add(admin);
@@ -1127,7 +1132,7 @@ public class Driver
 	 * @param option
 	 *            The type of sorting to happen
 	 * @return A sorted ArrayList of the type specified
-	 * @deprecated Use {@link #newSort()} instead
+	 * @deprecated Use {@link #sort(List, int)} instead
 	 */
 	@Deprecated
 	public ArrayList<Employee> sort(int option) {
