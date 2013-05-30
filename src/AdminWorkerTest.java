@@ -1,8 +1,6 @@
 import static org.junit.Assert.*;
-
 import org.junit.Before;
 import org.junit.Test;
-
 
 public class AdminWorkerTest
 {
@@ -15,12 +13,12 @@ public class AdminWorkerTest
 
 	@Before
 	public void setUp() throws Exception {
-		a1 = new AdminWorker("Jesse", "Pinkman", 12.00, 5);
-		a1.setHoursWorked(35);
-		a2 = new AdminWorker("Elizabeth", "Comstock", 13.50, 15);
-		a2.setHoursWorked(46);
-		a3 = new AdminWorker("Gordon", "Freeman", -10.75, -40);
-		a3.setHoursWorked(20);
+            a1 = new AdminWorker("Jesse", "Pinkman", 12.00, 5);
+            a1.setHoursWorked(35);
+            a2 = new AdminWorker("Elizabeth", "Comstock", 13.50, 15);
+            a2.setHoursWorked(46);
+            a3 = new AdminWorker("Gordon", "Freeman", -10.75, -40);
+            a3.setHoursWorked(20);
 	}
 
 	@Test

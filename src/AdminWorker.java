@@ -50,10 +50,10 @@ public class AdminWorker extends Employee {
 	
 	/**
 	 * Method that calculates the salary of an admin worker.
-	 * 
-	 * @see Employee#calculateSalary(double)
-	 */
-	public double calculateSalary() {
+	 *
+     */
+	@Override
+    public double calculateSalary() {
 		
 		double tempSal = 0;
 		double tempHours = this.getHoursWorked();

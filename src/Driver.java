@@ -1044,7 +1044,7 @@ public class Driver
 	@SuppressWarnings("unchecked")
 	public void load() {
 		ArrayList<Employee> temp = ((ArrayList<Employee>) StdStream
-				.readFromFile("employees.xml"));
+				                   .readFromFile("employees.xml"));
 		this.setEmployees(temp);
 	}
 
@@ -1180,37 +1180,6 @@ public class Driver
 		return temp;
 	}	
 	
-	/**
-	 * 1st part of the merge/sort, this part takes in the list
-	 * to be sorted and splits it into 2 parts recursively. Then it calls 
-	 * the merge part of the system to sort and stitch all the lists together 
-	 * and returns it as a sorted list based on the type that was passed
-	 * into it at the start.
-	 * 
-	 * @param emps List of Employees To Sort
-	 * @param sortType Type of sort to be carried out
-	 * @return List of Sorted Employees
-	 */
-	public List<Employee> sort(List<Employee> emps, int sortType) {		
-		
-		if (emps.size() > 1) {
-			//Getting half way point index on where to split List
-			int half = (emps.size() / 2);
-			
-			//Splitting the list passed in in 2.
-			//Second parameter is exclusive in the subList() method
-			//so it can be set half in the 1st while being the 1st index
-			//of the right hand list.
-			List<Employee> left = emps.subList(0, half);
-			List<Employee> right = emps.subList(half, emps.size());
-			
-			
-			//Recursively splits each array thats passed in.
-			return mergeSort(sort(left, sortType), sort(right, sortType), sortType);
-		} else {
-			return emps;
-		}	
-	}
 
 	/**
 	 * 1st part of the merge/sort, this part takes in the list
